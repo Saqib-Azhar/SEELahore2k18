@@ -149,6 +149,23 @@ namespace SEELahore2k18.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult UpdateStatus(int? id, int? Status)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            StallRequest stallRequest = db.StallRequests.Find(id);
+            if (stallRequest == null)
+            {
+                return HttpNotFound();
+            }
+            stallRequest.RequestStatusId = Status;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

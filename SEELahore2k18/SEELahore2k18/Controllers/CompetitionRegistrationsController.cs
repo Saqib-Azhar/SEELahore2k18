@@ -53,6 +53,7 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                competitionRegistration.CreatedAt = DateTime.Now;
                 db.CompetitionRegistrations.Add(competitionRegistration);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,6 +90,7 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                competitionRegistration.CreatedAt = DateTime.Now;
                 db.Entry(competitionRegistration).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -121,6 +123,23 @@ namespace SEELahore2k18.Controllers
             CompetitionRegistration competitionRegistration = db.CompetitionRegistrations.Find(id);
             db.CompetitionRegistrations.Remove(competitionRegistration);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult UpdateStatus(int? id, int? Status)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CompetitionRegistration competitionRegistration = db.CompetitionRegistrations.Find(id);
+            if (competitionRegistration == null)
+            {
+                return HttpNotFound();
+            }
+            competitionRegistration.RequestStatusId = Status;
+            db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

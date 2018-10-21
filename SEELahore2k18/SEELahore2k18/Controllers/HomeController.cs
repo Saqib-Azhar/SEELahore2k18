@@ -26,5 +26,11 @@ namespace SEELahore2k18.Controllers
 
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult AdminPanel()
+        {
+            return View();
+        }
     }
 }

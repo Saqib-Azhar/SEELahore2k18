@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="Model.SEELahoreTeam" Width="1.5" PointX="5.25" PointY="38.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.StallCategory" Width="1.5" PointX="5.25" PointY="41.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.StallRequest" Width="1.5" PointX="7.5" PointY="30.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.VolunteersAndAmbassador" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_Announcement_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
@@ -44,10 +43,19 @@
         <AssociationConnector Association="Model.FK_CompetitionRegistration_RequestStatus" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_EventSegments_EventDates" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_StallRequest_RequestStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_VolunteersAndAmbassadors_RequestStatus" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_StallRequest_StallCategory" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_SeasonGallery_Seasons" />
+        <EntityTypeShape EntityType="Model.AmbassadorCategory" Width="1.5" PointX="8.25" PointY="36" />
+        <EntityTypeShape EntityType="Model.Ambassador" Width="1.5" PointX="10.5" PointY="21.875" />
+        <EntityTypeShape EntityType="Model.VolunteerCategory" Width="1.5" PointX="11.25" PointY="19" />
+        <EntityTypeShape EntityType="Model.Volunteer" Width="1.5" PointX="13.5" PointY="21.875" />
+        <AssociationConnector Association="Model.FK_AmbassadorCategories_ToAspNetUsers" />
+        <AssociationConnector Association="Model.FK_Ambassadors_ToAmbassadorCategories" />
+        <AssociationConnector Association="Model.FK_Ambassadors_RequestStatus" />
+        <AssociationConnector Association="Model.FK_VolunteerCategories_ToAspNetUsers" />
+        <AssociationConnector Association="Model.FK_Volunteers_RequestStatus" />
+        <AssociationConnector Association="Model.FK_Volunteers_ToVolunteerCategories" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -31,6 +31,8 @@ namespace SEELahore2k18.Models
             this.StallRequests = new HashSet<StallRequest>();
             this.StallCategories = new HashSet<StallCategory>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.AmbassadorCategories = new HashSet<AmbassadorCategory>();
+            this.VolunteerCategories = new HashSet<VolunteerCategory>();
         }
     
         public string Id { get; set; }
@@ -74,5 +76,9 @@ namespace SEELahore2k18.Models
         public virtual ICollection<StallCategory> StallCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AmbassadorCategory> AmbassadorCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VolunteerCategory> VolunteerCategories { get; set; }
     }
 }

@@ -170,6 +170,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AmbassadorCategoriesController.cs" />
+    <Compile Include="Controllers\AmbassadorsController.cs" />
     <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\CompetitionCoordinatorsController.cs" />
     <Compile Include="Controllers\CompetitionRegistrationsController.cs" />
@@ -187,11 +189,19 @@
     <Compile Include="Controllers\SEELahoreTeamsController.cs" />
     <Compile Include="Controllers\StallCategoriesController.cs" />
     <Compile Include="Controllers\StallRequestsController.cs" />
+    <Compile Include="Controllers\VolunteerCategoriesController.cs" />
     <Compile Include="Controllers\VolunteersAndAmbassadorsController.cs" />
+    <Compile Include="Controllers\VolunteersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Ambassador.cs">
+      <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AmbassadorCategory.cs">
+      <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Announcement.cs">
       <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
     </Compile>
@@ -269,7 +279,10 @@
     <Compile Include="Models\StallRequest.cs">
       <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VolunteersAndAmbassador.cs">
+    <Compile Include="Models\Volunteer.cs">
+      <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VolunteerCategory.cs">
       <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -627,6 +640,27 @@
     <Content Include="Views\SeasonGalleries\Details.cshtml" />
     <Content Include="Views\SeasonGalleries\Edit.cshtml" />
     <Content Include="Views\SeasonGalleries\Index.cshtml" />
+    <Content Include="Views\VolunteerCategories\Create.cshtml" />
+    <Content Include="Views\VolunteerCategories\Delete.cshtml" />
+    <Content Include="Views\VolunteerCategories\Details.cshtml" />
+    <Content Include="Views\VolunteerCategories\Edit.cshtml" />
+    <Content Include="Views\VolunteerCategories\Index.cshtml" />
+    <Content Include="Views\Volunteers\Create.cshtml" />
+    <Content Include="Views\Volunteers\Delete.cshtml" />
+    <Content Include="Views\Volunteers\Details.cshtml" />
+    <Content Include="Views\Volunteers\Edit.cshtml" />
+    <Content Include="Views\Volunteers\Index.cshtml" />
+    <Content Include="Views\Ambassadors\Create.cshtml" />
+    <Content Include="Views\Ambassadors\Delete.cshtml" />
+    <Content Include="Views\Ambassadors\Details.cshtml" />
+    <Content Include="Views\Ambassadors\Edit.cshtml" />
+    <Content Include="Views\Ambassadors\Index.cshtml" />
+    <Content Include="Views\AmbassadorCategories\Create.cshtml" />
+    <Content Include="Views\AmbassadorCategories\Delete.cshtml" />
+    <Content Include="Views\AmbassadorCategories\Details.cshtml" />
+    <Content Include="Views\AmbassadorCategories\Edit.cshtml" />
+    <Content Include="Views\AmbassadorCategories\Index.cshtml" />
+    <Content Include="Views\Home\AdminPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

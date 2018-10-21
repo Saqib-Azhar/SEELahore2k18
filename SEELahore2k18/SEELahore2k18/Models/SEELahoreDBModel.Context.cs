@@ -45,6 +45,9 @@ namespace SEELahore2k18.Models
         public virtual DbSet<SEELahoreTeam> SEELahoreTeams { get; set; }
         public virtual DbSet<StallCategory> StallCategories { get; set; }
         public virtual DbSet<StallRequest> StallRequests { get; set; }
-        public virtual DbSet<VolunteersAndAmbassador> VolunteersAndAmbassadors { get; set; }
+        public virtual DbSet<AmbassadorCategory> AmbassadorCategories { get; set; }
+        public virtual DbSet<Ambassador> Ambassadors { get; set; }
+        public virtual DbSet<VolunteerCategory> VolunteerCategories { get; set; }
+        public virtual DbSet<Volunteer> Volunteers { get; set; }
     }
 }
