@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -49,10 +51,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,From,To,SegmentName,SegmentDescription,Image,EventDayId,CreatedBy,CreatedAt")] EventSegment eventSegment)
+        public ActionResult Create([Bind(Include = "Id,From,To,SegmentName,SegmentDescription,Image,EventDayId,CreatedBy,CreatedAt")] EventSegment eventSegment, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
+                if (Image != null && Image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Image.SaveAs(path);
+                    eventSegment.Image = fileName;
+                }
+                eventSegment.CreatedAt = DateTime.Now;
+                eventSegment.CreatedBy = User.Identity.GetUserId();
                 db.EventSegments.Add(eventSegment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,10 +96,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,From,To,SegmentName,SegmentDescription,Image,EventDayId,CreatedBy,CreatedAt")] EventSegment eventSegment)
+        public ActionResult Edit([Bind(Include = "Id,From,To,SegmentName,SegmentDescription,Image,EventDayId,CreatedBy,CreatedAt")] EventSegment eventSegment, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
+                if (Image != null && Image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Image.SaveAs(path);
+                    eventSegment.Image = fileName;
+                }
+                eventSegment.CreatedAt = DateTime.Now;
+                eventSegment.CreatedBy = User.Identity.GetUserId();
                 db.Entry(eventSegment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

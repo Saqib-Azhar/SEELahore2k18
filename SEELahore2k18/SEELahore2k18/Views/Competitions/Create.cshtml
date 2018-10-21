@@ -6,8 +6,8 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
-{
+@using (Html.BeginForm("Create", "Competitions", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
@@ -30,53 +30,39 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="">
             @Html.LabelFor(model => model.Image1, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" name="Image1" id="Image1" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Image1, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="">
             @Html.LabelFor(model => model.Image2, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Image2, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" name="Image2" id="Image2" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Image2, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="">
             @Html.LabelFor(model => model.Image3, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Image3, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" name="Image3" id="Image3" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Image3, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="">
             @Html.LabelFor(model => model.Image4, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Image4, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" name="Image4" id="Image4" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Image4, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatedBy, "CreatedBy", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CreatedBy", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
+       
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

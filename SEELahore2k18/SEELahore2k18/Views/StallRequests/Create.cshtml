@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "StallRequests", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -30,21 +30,21 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div>
             @Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Logo, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" name="Logo" id="Logo" class="form-control"/>
                 @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.RequestStatusId, "RequestStatusId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("RequestStatusId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.RequestStatusId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.CreatedBy, "CreatedBy", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CreatedBy", null, htmlAttributes: new { @class = "form-control" })
@@ -68,8 +68,12 @@
                 @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
             </div>
-        </div>
-
+        </div>*@
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />
         <div class="form-group">
             @Html.LabelFor(model => model.OwnerName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

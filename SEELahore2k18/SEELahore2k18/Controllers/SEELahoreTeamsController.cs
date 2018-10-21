@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -48,10 +50,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreatedBy,CreatedAt,Name,Designation,Photo")] SEELahoreTeam sEELahoreTeam)
+        public ActionResult Create([Bind(Include = "Id,CreatedBy,CreatedAt,Name,Designation,Photo")] SEELahoreTeam sEELahoreTeam, HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
+                if (Photo != null && Photo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Photo.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Photo.SaveAs(path);
+                    sEELahoreTeam.Photo = fileName;
+                }
+                sEELahoreTeam.CreatedAt = DateTime.Now;
+                sEELahoreTeam.CreatedBy = User.Identity.GetUserId();
                 db.SEELahoreTeams.Add(sEELahoreTeam);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,10 +93,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreatedBy,CreatedAt,Name,Designation,Photo")] SEELahoreTeam sEELahoreTeam)
+        public ActionResult Edit([Bind(Include = "Id,CreatedBy,CreatedAt,Name,Designation,Photo")] SEELahoreTeam sEELahoreTeam, HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
+                if (Photo != null && Photo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Photo.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Photo.SaveAs(path);
+                    sEELahoreTeam.Photo = fileName;
+                }
+                sEELahoreTeam.CreatedAt = DateTime.Now;
+                sEELahoreTeam.CreatedBy = User.Identity.GetUserId();
                 db.Entry(sEELahoreTeam).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

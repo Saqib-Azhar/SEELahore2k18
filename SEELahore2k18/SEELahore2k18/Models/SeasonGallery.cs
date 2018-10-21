@@ -18,7 +18,9 @@ namespace SEELahore2k18.Models
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public string Image { get; set; }
+        public Nullable<int> SeasonId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Season Season { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -193,6 +193,7 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="SeasonId" Type="int" />
         </EntityType>
         <EntityType Name="Seasons">
           <Key>
@@ -450,6 +451,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SeasonGallery_Seasons">
+          <End Role="Seasons" Type="Self.Seasons" Multiplicity="0..1" />
+          <End Role="SeasonGallery" Type="Self.SeasonGallery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeasonGallery">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Seasons_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Seasons" Type="Self.Seasons" Multiplicity="*" />
@@ -617,6 +630,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="SeasonGallery" EntitySet="SeasonGallery" />
           </AssociationSet>
+          <AssociationSet Name="FK_SeasonGallery_Seasons" Association="Self.FK_SeasonGallery_Seasons">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="SeasonGallery" EntitySet="SeasonGallery" />
+          </AssociationSet>
           <AssociationSet Name="FK_Seasons_AspNetUsers" Association="Self.FK_Seasons_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Seasons" EntitySet="Seasons" />
@@ -646,8 +663,7 @@
             <End Role="VolunteersAndAmbassadors" EntitySet="VolunteersAndAmbassadors" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -865,6 +881,8 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_SeasonGallery_AspNetUsers" FromRole="SeasonGallery" ToRole="AspNetUsers" />
+          <Property Name="SeasonId" Type="Int32" />
+          <NavigationProperty Name="Season" Relationship="Model.FK_SeasonGallery_Seasons" FromRole="SeasonGallery" ToRole="Season" />
         </EntityType>
         <EntityType Name="Season">
           <Key>
@@ -878,6 +896,7 @@
           <Property Name="From" Type="DateTime" Precision="0" />
           <Property Name="To" Type="DateTime" Precision="0" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Seasons_AspNetUsers" FromRole="Seasons" ToRole="AspNetUsers" />
+          <NavigationProperty Name="SeasonGalleries" Relationship="Model.FK_SeasonGallery_Seasons" FromRole="Season" ToRole="SeasonGallery" />
         </EntityType>
         <EntityType Name="SEELahoreTeam">
           <Key>
@@ -1296,7 +1315,23 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_SeasonGallery_Seasons" Association="Model.FK_SeasonGallery_Seasons">
+            <End Role="Season" EntitySet="Seasons" />
+            <End Role="SeasonGallery" EntitySet="SeasonGalleries" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_SeasonGallery_Seasons">
+          <End Type="Model.Season" Role="Season" Multiplicity="0..1" />
+          <End Type="Model.SeasonGallery" Role="SeasonGallery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Season">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeasonGallery">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1490,6 +1525,7 @@
           <EntitySetMapping Name="SeasonGalleries">
             <EntityTypeMapping TypeName="Model.SeasonGallery">
               <MappingFragment StoreEntitySet="SeasonGallery">
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />

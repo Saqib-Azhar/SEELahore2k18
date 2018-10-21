@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -48,10 +50,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreatedBy,CreatedAt,Announcement1,Description,Image,IsActive")] Announcement announcement)
+        public ActionResult Create([Bind(Include = "Id,CreatedBy,CreatedAt,Announcement1,Description,Image,IsActive")] Announcement announcement,HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
+                if (image != null && image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    image.SaveAs(path);
+                    announcement.Image = fileName;
+                }
+                announcement.CreatedAt = DateTime.Now;
+                announcement.CreatedBy = User.Identity.GetUserId();
                 db.Announcements.Add(announcement);
                 db.SaveChanges();
                 return RedirectToAction("Index");

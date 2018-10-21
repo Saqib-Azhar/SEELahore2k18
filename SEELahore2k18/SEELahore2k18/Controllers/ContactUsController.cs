@@ -32,6 +32,11 @@ namespace SEELahore2k18.Controllers
             {
                 return HttpNotFound();
             }
+            else
+            {
+                contactU.Opened = true;
+                db.SaveChanges();
+            }
             return View(contactU);
         }
 
@@ -50,6 +55,8 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                contactU.CreatedAt = DateTime.Now;
+                contactU.Opened = false;
                 db.ContactUs.Add(contactU);
                 db.SaveChanges();
                 return RedirectToAction("Index");

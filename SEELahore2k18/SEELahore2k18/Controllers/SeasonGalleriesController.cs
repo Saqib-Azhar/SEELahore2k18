@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -17,7 +19,7 @@ namespace SEELahore2k18.Controllers
         // GET: SeasonGalleries
         public ActionResult Index()
         {
-            var seasonGalleries = db.SeasonGalleries.Include(s => s.AspNetUser);
+            var seasonGalleries = db.SeasonGalleries.Include(s => s.AspNetUser).Include(s => s.Season);
             return View(seasonGalleries.ToList());
         }
 
@@ -40,6 +42,7 @@ namespace SEELahore2k18.Controllers
         public ActionResult Create()
         {
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email");
+            ViewBag.SeasonId = new SelectList(db.Seasons, "Id", "Name");
             return View();
         }
 
@@ -48,16 +51,26 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreatedBy,CreatedAt,Image")] SeasonGallery seasonGallery)
+        public ActionResult Create([Bind(Include = "Id,CreatedBy,CreatedAt,Image,SeasonId")] SeasonGallery seasonGallery, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
+                if (Image != null && Image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Image.SaveAs(path);
+                    seasonGallery.Image = fileName;
+                }
+                seasonGallery.CreatedAt = DateTime.Now;
+                seasonGallery.CreatedBy = User.Identity.GetUserId();
                 db.SeasonGalleries.Add(seasonGallery);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", seasonGallery.CreatedBy);
+            ViewBag.SeasonId = new SelectList(db.Seasons, "Id", "Name", seasonGallery.SeasonId);
             return View(seasonGallery);
         }
 
@@ -74,6 +87,7 @@ namespace SEELahore2k18.Controllers
                 return HttpNotFound();
             }
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", seasonGallery.CreatedBy);
+            ViewBag.SeasonId = new SelectList(db.Seasons, "Id", "Name", seasonGallery.SeasonId);
             return View(seasonGallery);
         }
 
@@ -82,15 +96,25 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreatedBy,CreatedAt,Image")] SeasonGallery seasonGallery)
+        public ActionResult Edit([Bind(Include = "Id,CreatedBy,CreatedAt,Image,SeasonId")] SeasonGallery seasonGallery ,HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
+                if (Image != null && Image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Image.SaveAs(path);
+                    seasonGallery.Image = fileName;
+                }
+                seasonGallery.CreatedAt = DateTime.Now;
+                seasonGallery.CreatedBy = User.Identity.GetUserId();
                 db.Entry(seasonGallery).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", seasonGallery.CreatedBy);
+            ViewBag.SeasonId = new SelectList(db.Seasons, "Id", "Name", seasonGallery.SeasonId);
             return View(seasonGallery);
         }
 

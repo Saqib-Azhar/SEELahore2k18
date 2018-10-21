@@ -14,6 +14,12 @@ namespace SEELahore2k18.Models
     
     public partial class Season
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Season()
+        {
+            this.SeasonGalleries = new HashSet<SeasonGallery>();
+        }
+    
         public int Id { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
@@ -23,5 +29,7 @@ namespace SEELahore2k18.Models
         public Nullable<System.DateTime> To { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SeasonGallery> SeasonGalleries { get; set; }
     }
 }

@@ -6,8 +6,8 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm("Edit", "CompetitionCoordinators", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
@@ -24,10 +24,10 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="">
             @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Photo, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" name="Photo" id="Photo" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
@@ -70,7 +70,7 @@
                 @Html.DropDownList("CreatedBy", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

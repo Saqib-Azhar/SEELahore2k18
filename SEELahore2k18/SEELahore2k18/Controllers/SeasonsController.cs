@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -52,6 +53,8 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                season.CreatedAt = DateTime.Now;
+                season.CreatedBy = User.Identity.GetUserId();
                 db.Seasons.Add(season);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,6 +89,8 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                season.CreatedAt = DateTime.Now;
+                season.CreatedBy = User.Identity.GetUserId();
                 db.Entry(season).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

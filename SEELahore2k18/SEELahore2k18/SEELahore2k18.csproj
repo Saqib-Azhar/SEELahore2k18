@@ -602,11 +602,6 @@
     <Content Include="Views\Seasons\Details.cshtml" />
     <Content Include="Views\Seasons\Edit.cshtml" />
     <Content Include="Views\Seasons\Index.cshtml" />
-    <Content Include="Views\SeasonGalleries\Create.cshtml" />
-    <Content Include="Views\SeasonGalleries\Delete.cshtml" />
-    <Content Include="Views\SeasonGalleries\Details.cshtml" />
-    <Content Include="Views\SeasonGalleries\Edit.cshtml" />
-    <Content Include="Views\SeasonGalleries\Index.cshtml" />
     <Content Include="Views\SEELahoreTeams\Create.cshtml" />
     <Content Include="Views\SEELahoreTeams\Delete.cshtml" />
     <Content Include="Views\SEELahoreTeams\Details.cshtml" />
@@ -627,6 +622,11 @@
     <Content Include="Views\VolunteersAndAmbassadors\Details.cshtml" />
     <Content Include="Views\VolunteersAndAmbassadors\Edit.cshtml" />
     <Content Include="Views\VolunteersAndAmbassadors\Index.cshtml" />
+    <Content Include="Views\SeasonGalleries\Create.cshtml" />
+    <Content Include="Views\SeasonGalleries\Delete.cshtml" />
+    <Content Include="Views\SeasonGalleries\Details.cshtml" />
+    <Content Include="Views\SeasonGalleries\Edit.cshtml" />
+    <Content Include="Views\SeasonGalleries\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -49,10 +51,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CoordinatorName,Photo,Contact,Email,CompetitionId,CreatedAt,CreatedBy")] CompetitionCoordinator competitionCoordinator)
+        public ActionResult Create([Bind(Include = "Id,CoordinatorName,Photo,Contact,Email,CompetitionId,CreatedAt,CreatedBy")] CompetitionCoordinator competitionCoordinator, HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
+                if (Photo != null && Photo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Photo.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Photo.SaveAs(path);
+                    competitionCoordinator.Photo = fileName;
+                }
+                competitionCoordinator.CreatedAt = DateTime.Now;
+                competitionCoordinator.CreatedBy = User.Identity.GetUserId();
                 db.CompetitionCoordinators.Add(competitionCoordinator);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,10 +96,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CoordinatorName,Photo,Contact,Email,CompetitionId,CreatedAt,CreatedBy")] CompetitionCoordinator competitionCoordinator)
+        public ActionResult Edit([Bind(Include = "Id,CoordinatorName,Photo,Contact,Email,CompetitionId,CreatedAt,CreatedBy")] CompetitionCoordinator competitionCoordinator, HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
+                if (Photo != null && Photo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Photo.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Photo.SaveAs(path);
+                    competitionCoordinator.Photo = fileName;
+                }
+                competitionCoordinator.CreatedAt = DateTime.Now;
+                competitionCoordinator.CreatedBy = User.Identity.GetUserId();
                 db.Entry(competitionCoordinator).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

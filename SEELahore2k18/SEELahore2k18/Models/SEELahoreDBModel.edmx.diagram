@@ -47,6 +47,7 @@
         <AssociationConnector Association="Model.FK_VolunteersAndAmbassadors_RequestStatus" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_StallRequest_StallCategory" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SeasonGallery_Seasons" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

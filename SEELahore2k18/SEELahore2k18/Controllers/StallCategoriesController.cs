@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -52,6 +53,8 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                stallCategory.CreatedAt = DateTime.Now;
+                stallCategory.CreatedBy = User.Identity.GetUserId();
                 db.StallCategories.Add(stallCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,6 +89,8 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                stallCategory.CreatedAt = DateTime.Now;
+                stallCategory.CreatedBy = User.Identity.GetUserId();
                 db.Entry(stallCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

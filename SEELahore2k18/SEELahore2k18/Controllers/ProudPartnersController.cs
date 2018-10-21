@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -48,10 +50,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreatedBy,CreatedAt,PartnerName,Description,Logo")] ProudPartner proudPartner)
+        public ActionResult Create([Bind(Include = "Id,CreatedBy,CreatedAt,PartnerName,Description,Logo")] ProudPartner proudPartner, HttpPostedFileBase Logo)
         {
             if (ModelState.IsValid)
             {
+                if (Logo != null && Logo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Logo.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Logo.SaveAs(path);
+                    proudPartner.Logo = fileName;
+                }
+                proudPartner.CreatedAt = DateTime.Now;
+                proudPartner.CreatedBy = User.Identity.GetUserId();
                 db.ProudPartners.Add(proudPartner);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,10 +93,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreatedBy,CreatedAt,PartnerName,Description,Logo")] ProudPartner proudPartner)
+        public ActionResult Edit([Bind(Include = "Id,CreatedBy,CreatedAt,PartnerName,Description,Logo")] ProudPartner proudPartner, HttpPostedFileBase Logo)
         {
             if (ModelState.IsValid)
             {
+                if (Logo != null && Logo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Logo.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Logo.SaveAs(path);
+                    proudPartner.Logo = fileName;
+                }
+                proudPartner.CreatedAt = DateTime.Now;
+                proudPartner.CreatedBy = User.Identity.GetUserId();
                 db.Entry(proudPartner).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

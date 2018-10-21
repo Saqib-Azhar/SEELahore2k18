@@ -7,9 +7,10 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+
+<table class="table table-striped" style="text-align:center;border:double" border="1">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.StallName)
@@ -32,7 +33,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
@@ -46,7 +47,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.RequestStatu.Status)
         </th>
@@ -65,7 +66,7 @@
             @Html.DisplayFor(modelItem => item.StallDetails)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Logo)
+           <img src="/UploadedImages/@item.Logo" style="height:50px;width:70px" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -79,7 +80,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
@@ -93,7 +94,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.RequestStatu.Status)
         </td>
@@ -101,9 +102,9 @@
             @Html.DisplayFor(modelItem => item.StallCategory.StallType)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, htmlAttributes: new { @class="btn btn-sm btn-primary"}) <br />
+            @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
         </td>
     </tr>
 }

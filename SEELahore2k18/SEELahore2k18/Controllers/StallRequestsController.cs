@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
@@ -50,10 +52,20 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StallName,StallDetails,Logo,RequestStatusId,CategoryId,CreatedBy,CreatedAt,OwnerName,ContactNo,Email,Address,City,Profession,Institute")] StallRequest stallRequest)
+        public ActionResult Create([Bind(Include = "Id,StallName,StallDetails,Logo,RequestStatusId,CategoryId,CreatedBy,CreatedAt,OwnerName,ContactNo,Email,Address,City,Profession,Institute")] StallRequest stallRequest, HttpPostedFileBase Logo)
         {
             if (ModelState.IsValid)
             {
+                if (Logo != null && Logo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Logo.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Logo.SaveAs(path);
+                    stallRequest.Logo = fileName;
+                }
+                stallRequest.RequestStatusId = 1;
+                stallRequest.CreatedAt = DateTime.Now;
+                stallRequest.CreatedBy = User.Identity.GetUserId();
                 db.StallRequests.Add(stallRequest);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -88,10 +100,19 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StallName,StallDetails,Logo,RequestStatusId,CategoryId,CreatedBy,CreatedAt,OwnerName,ContactNo,Email,Address,City,Profession,Institute")] StallRequest stallRequest)
+        public ActionResult Edit([Bind(Include = "Id,StallName,StallDetails,Logo,RequestStatusId,CategoryId,CreatedBy,CreatedAt,OwnerName,ContactNo,Email,Address,City,Profession,Institute")] StallRequest stallRequest, HttpPostedFileBase Logo)
         {
             if (ModelState.IsValid)
             {
+                if (Logo != null && Logo.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(Logo.FileName);
+                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                    Logo.SaveAs(path);
+                    stallRequest.Logo = fileName;
+                }
+                stallRequest.CreatedAt = DateTime.Now;
+                stallRequest.CreatedBy = User.Identity.GetUserId();
                 db.Entry(stallRequest).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
