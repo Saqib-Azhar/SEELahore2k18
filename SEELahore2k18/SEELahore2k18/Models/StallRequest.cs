@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class StallRequest
+    using System.ComponentModel; public partial class StallRequest
     {
         public int Id { get; set; }
         public string StallName { get; set; }
@@ -20,8 +20,9 @@ namespace SEELahore2k18.Models
         public string Logo { get; set; }
         public Nullable<int> RequestStatusId { get; set; }
         public Nullable<int> CategoryId { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        [DisplayName("Created By")] public string CreatedBy { get; set; }
+        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
+        [DisplayName("Owner Name")]
         public string OwnerName { get; set; }
         public string ContactNo { get; set; }
         public string Email { get; set; }

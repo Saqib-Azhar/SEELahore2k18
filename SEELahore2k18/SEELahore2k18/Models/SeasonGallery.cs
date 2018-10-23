@@ -12,11 +12,11 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SeasonGallery
+    using System.ComponentModel; public partial class SeasonGallery
     {
         public int Id { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        [DisplayName("Created By")] public string CreatedBy { get; set; }
+        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
         public string Image { get; set; }
         public Nullable<int> SeasonId { get; set; }
     

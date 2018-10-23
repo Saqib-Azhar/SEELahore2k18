@@ -10,6 +10,7 @@ using SEELahore2k18.Models;
 
 namespace SEELahore2k18.Controllers
 {
+    [Authorize]
     public class EventDatesController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();

@@ -13,7 +13,7 @@ namespace SEELahore2k18.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SEELahoreEntities : DbContext
+    using System.ComponentModel; public partial class SEELahoreEntities : DbContext
     {
         public SEELahoreEntities()
             : base("name=SEELahoreEntities")

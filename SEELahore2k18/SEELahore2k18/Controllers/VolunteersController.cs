@@ -10,15 +10,24 @@ using SEELahore2k18.Models;
 
 namespace SEELahore2k18.Controllers
 {
+    [Authorize]
     public class VolunteersController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();
 
         // GET: Volunteers
-        public ActionResult Index()
+        public ActionResult Index(int? type = 0)
         {
-            var volunteers = db.Volunteers.Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
-            return View(volunteers.ToList());
+            if (type != 0)
+            {
+                var volunteers = db.Volunteers.Where(s=>s.StatusId == type).Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
+                return View(volunteers.ToList());
+            }
+            else
+            {
+                var volunteers = db.Volunteers.Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
+                return View(volunteers.ToList());
+            }
         }
 
         // GET: Volunteers/Details/5
@@ -35,7 +44,7 @@ namespace SEELahore2k18.Controllers
             }
             return View(volunteer);
         }
-
+        [AllowAnonymous]
         // GET: Volunteers/Create
         public ActionResult Create()
         {
@@ -43,7 +52,7 @@ namespace SEELahore2k18.Controllers
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category");
             return View();
         }
-
+        [AllowAnonymous]
         // POST: Volunteers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -56,7 +65,7 @@ namespace SEELahore2k18.Controllers
                 volunteer.CreatedAt = DateTime.Now;
                 db.Volunteers.Add(volunteer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View();
             }
 
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);

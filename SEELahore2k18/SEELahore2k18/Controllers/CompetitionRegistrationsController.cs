@@ -10,15 +10,24 @@ using SEELahore2k18.Models;
 
 namespace SEELahore2k18.Controllers
 {
+    [Authorize]
     public class CompetitionRegistrationsController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();
 
         // GET: CompetitionRegistrations
-        public ActionResult Index()
+        public ActionResult Index(int? type = 0)
         {
-            var competitionRegistrations = db.CompetitionRegistrations.Include(c => c.Competition).Include(c => c.RequestStatu);
-            return View(competitionRegistrations.ToList());
+            if (type != 0)
+            {
+                var competitionRegistrations = db.CompetitionRegistrations.Where(s => s.RequestStatusId == type).Include(c => c.Competition).Include(c => c.RequestStatu);
+                return View(competitionRegistrations.ToList());
+            }
+            else
+            {
+                var competitionRegistrations = db.CompetitionRegistrations.Include(c => c.Competition).Include(c => c.RequestStatu);
+                return View(competitionRegistrations.ToList());
+            }
         }
 
         // GET: CompetitionRegistrations/Details/5
@@ -35,15 +44,24 @@ namespace SEELahore2k18.Controllers
             }
             return View(competitionRegistration);
         }
-
+        [AllowAnonymous]
         // GET: CompetitionRegistrations/Create
-        public ActionResult Create()
+        public ActionResult Create(int? val = 0)
         {
+            if (val == 1)
+            {
+                ViewBag.isTalentGala = 1;
+            }
+            else
+            {
+                ViewBag.isTalentGala = 0;
+
+            }
             ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status");
             return View();
         }
-
+        [AllowAnonymous]
         // POST: CompetitionRegistrations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -53,10 +71,12 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                var a = ViewBag.isTalentGala;
+                competitionRegistration.RequestStatusId = 1;
                 competitionRegistration.CreatedAt = DateTime.Now;
                 db.CompetitionRegistrations.Add(competitionRegistration);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View();
             }
 
             ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName", competitionRegistration.CompetitionId);

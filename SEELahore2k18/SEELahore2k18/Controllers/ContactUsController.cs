@@ -10,6 +10,7 @@ using SEELahore2k18.Models;
 
 namespace SEELahore2k18.Controllers
 {
+    [Authorize]
     public class ContactUsController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();
@@ -50,19 +51,23 @@ namespace SEELahore2k18.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ContactNo,Email,Subject,Description,CreatedAt,Opened")] ContactU contactU)
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public JsonResult Create(FormCollection fc)
         {
-            if (ModelState.IsValid)
-            {
-                contactU.CreatedAt = DateTime.Now;
-                contactU.Opened = false;
-                db.ContactUs.Add(contactU);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            ContactU contactU = new ContactU();
 
-            return View(contactU);
+            contactU.Name = fc["name"];
+            contactU.Subject = fc["subject"];
+            contactU.Description = fc["message"];
+            contactU.Email = fc["email"];
+            contactU.ContactNo = "";
+            contactU.CreatedAt = DateTime.Now;
+            
+            contactU.Opened = false;
+            db.ContactUs.Add(contactU);
+            db.SaveChanges();
+            return Json("Successfully Submitted",JsonRequestBehavior.AllowGet);
         }
 
         // GET: ContactUs/Edit/5

@@ -12,15 +12,24 @@ using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
+    [Authorize]
     public class StallRequestsController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();
 
         // GET: StallRequests
-        public ActionResult Index()
+        public ActionResult Index(int? type = 0)
         {
-            var stallRequests = db.StallRequests.Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
-            return View(stallRequests.ToList());
+            if (type != 0)
+            {
+                var stallRequests = db.StallRequests.Where(s => s.RequestStatusId == type).Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
+                return View(stallRequests.ToList());
+            }
+            else
+            {
+                var stallRequests = db.StallRequests.Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
+                return View(stallRequests.ToList());
+            }
         }
 
         // GET: StallRequests/Details/5

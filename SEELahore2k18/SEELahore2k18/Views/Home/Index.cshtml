@@ -1,31 +1,651 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@{ 
+    Layout = null;
+    var Guests = ViewBag.Guests as IEnumerable<SEELahore2k18.Models.Guest>;
+    var SEELahoreTeams = ViewBag.SEELahoreTeams as IEnumerable<SEELahore2k18.Models.SEELahoreTeam>; 
+    var ProudPartners = ViewBag.ProudPartners as IEnumerable<SEELahore2k18.Models.ProudPartner>; 
+var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.EventSegment>;
+    var Announcements = ViewBag.Announcements as IEnumerable<SEELahore2k18.Models.Announcement>;
 }
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!-- Mirrored from mvcsoftonline.com/html/ict/index-four.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:25:04 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/FrontEndDesign/images/logo/logo.png">
+    <link rel="shortcut icon" type="image/png" href="/FrontEndDesign/images/logo/logo.png">
+    <title>SEE Lahore</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/FrontEndDesign/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/FrontEndDesign/css/style.css">
+    <!-- Responsive stylesheet  -->
+    <link rel="stylesheet" type="text/css" href="/FrontEndDesign/css/responsive.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="/FrontEndDesign/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="/FrontEndDesign/https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status"></div>
+    </div>
+    <!-- Banner Start -->
+    <section class="main-banner">
+        <div id="particles-js">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="header-banner header-banner-content">
+                            <h1>SEE <span>Lahore 2018</span></h1>
+                            <h3>28 - 29 November 2018</h3>
+                            <h4>Expo Center Lahore</h4>
+                            <div class='countdown' data-date="2018-11-28"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <header class="main-header">
+        <!-- Navigation Start -->
+        <div class="main-nav nav-bottom">
+            <nav class="navbar navbar-default" id="navbar-main">
+                <div class="container" style="width:1350px!important">
+                    <div class="navbar-header page-scroll">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand page-scroll" style="margin-left:-40px!important" href="#page-top"><img class="main-logo" src="/FrontEndDesign/images/logo/logo.png" style="height:60px;width:72px" alt=""> </a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse" style="margin-left:15px!important">
+                        <ul class="nav navbar-nav navbar-right" style="margin-left:-90px!important">
+                            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                            <li> <a class="page-scroll" href="#page-top">Home</a> </li>
+                            <li> <a class="page-scroll" href="#about">About</a> </li>
+                            <li> <a class="page-scroll" href="#speakers">Speakers</a> </li>
+                            <li> <a class="page-scroll" href="#schedules">Schedules</a> </li>
+                            <li> <a class="page-scroll" href="#venue">Venue</a> </li>
+                            <li> <a class="page-scroll" href="#blog">Team SEE Lahore</a> </li>
+                            <li> <a class="page-scroll" href="#sponsors">Sponsors</a> </li>
+                            <li> <a class="page-scroll" href="/Volunteers/Create">Volunteer</a> </li>
+                            <li> <a class="page-scroll" href="/Ambassadors/Create">Ambassador</a> </li>
+                            <li> <a class="page-scroll" href="/CompetitionRegistrations/Create?val=1">Talentgala</a> </li>
+                            <li> <a class="page-scroll" href="/CompetitionRegistrations/Create">Competitions</a> </li>
+                            <li> <a class="page-scroll" href="/StallRequests/Create">Book a Stall</a></li>
+                            <li> <a class="page-scroll" href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container -->
+            </nav>
+        </div>
+    </header>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    <!-- About Start -->
+    <section class="about-area" id="about">
+        <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
+        <img class="right-img" src="/FrontEndDesign/images/right-img.png" alt="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="about-col">
+                        <h3>Few words about <span>SEE Lahore</span></h3>
+                        <p>They say desperate times call for desperate measures and what does not kill you makes you stronger.
+The millennium 2000 started out with much fan fare but somewhere along the way that joy and excitement lost its place to darkness and hopelessness. Since the beginning of this new millennium, Pakistani nation has been sorely tested. Youth and elders of this country have almost given up on the idea of Pakistan.
+But when the tides of gloom and despondency are high somebody needs to step up and light the beacons of hope. To this end, Study Aid Foundation for Excellence (SAFE) has been arranging a series of mega events called ‘Talent Expos’ in all major metropolitans of Pakistan. For instance at Lahore International Expo Centre, SAFE arranged SEE Lahore (Students Education Expo) Season 1and 2 in 2016 and Season 3 in 2017. These mega events were a huge success and were attended by more than Two Lac Lahorites and received exdia coverage.</p>
+                    </div>
+                </div>
+                @*<div class="col-md-6">
+                    <div class="about-col">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            how can i be a freelancer?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            What Is web design?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            what is web development?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingFour">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                            what is domain and hosting?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                    <div class="panel-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingFive">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                            what is web server?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                    <div class="panel-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </section>
+    <!-- Speakers Start -->
+    <section class="speakers-area parallax" id="speakers">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="section-title">
+                        <h2>Our honorable <span>Speakers</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @{  foreach (var item in Guests)
+                    {
+                        <div class="col-md-3 col-sm-6 col-xs-6 fw-600">
+                            <div class="speaker-col wow fadeInLeft animated" data-wow-duration=".5s" data-wow-delay="0s">
+                                <div class="speaker-box">
+                                    <div class="pic">
+                                        <img src="/UploadedImages/@item.Image" alt="">
+                                        @*<ul class="social">
+                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        </ul>*@
+                                    </div>
+                                </div>
+                                <div class="speaker-info">
+                                    <h4>@item.GuestName</h4>
+                                    <span>@item.GuestDescription</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+               
+
+                
+            </div>
+        </div>
+    </section>
+    <!-- Organizer Start -->
+    @*<section class="organizer-area" id="organizer">
+        <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
+        <img class="right-img" src="/FrontEndDesign/images/right-img.png" alt="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="organizer-col">
+                        <h3>Organized <br><span>By</span></h3>
+                        <h2>S.E.T Team</h2>
+                        <h4>please feel free to contact us</h4>
+                        <p><i class="fa fa-phone" aria-hidden="true"></i> +0123 123 456 789</p>
+                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i> organized@gmail.com</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="organizer-col">
+                        <img src="/FrontEndDesign/images/organizer.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+    <!-- Ticket Start -->
+    @*<section class="ticket-area parallax">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="ticket-col">
+                        <h2>last date of collecting ticket</h2>
+                        <h3>November 28<sub>th</sub>, 2018</h3>
+                        <p>Consectetur adipisicing elit. A doloribus molestiae, veniam facere laboriosam autem nam voluptate, in beatae at eaque earum nostrum iste rerum.</p>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="ticket-col">
+                        <h2>Get a ticket now</h2>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Full Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" placeholder="Your Email Address">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Number">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="my-select">
+                                        <option>Select Gender</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn btn-default my-btn btn-color" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+    <!-- Schedules Start -->
+    <section class="schedule-area" id="schedules">
+        <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
+        <img class="right-img" src="/FrontEndDesign/images/right-img.png" alt="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="section-title">
+                        <h2>Event <span>Schedules</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="table-responsive schedule-table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Event Day</th>
+                                <th>Session</th>
+                                <th>Details</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            @{ foreach (var item in EventSegments)
+                                {
+
+                                    <tr>
+                                        <td>@item.EventDayId</td>
+                                        <td>@item.SegmentName</td>
+                                        <td>@item.SegmentDescription</td>
+                                        <td>@item.From - @item.To</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Venue Start -->
+    <section class="venue-area" id="venue">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="section-title">
+                        <h2><span>venue</span> information</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="venue-col">
+                        <div class="info-box">
+                            <i class="flaticon-placeholder"></i>
+                            <p>International Expo Center, Lahore, Pakistan</p>
+                        </div>
+                        <div class="info-box">
+                            <i class="flaticon-mail"></i>
+                            <p>info@seelahore.com<br>contact@seelahore.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="venue-col">
+                        <img src="/FrontEndDesign/images/venue/ExpoCenterLahore.jpg"style="width: 555px;height: 275px;" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="venue-col">
+                        <div class="info-box">
+                            <i class="flaticon-phone-call"></i>
+                            <p>+92 0441 0114 012 <br> +0123 044 011 012</p>
+                        </div>
+                        <div class="info-box">
+                            <h4>Social Link</h4>
+                            <ul>
+                                <li><a href="#"><i class="flaticon-facebook-logo-button"></i></a></li>
+                                <li><a href="#"><i class="flaticon-twitter-logo-button"></i></a></li>
+                                <li><a href="#"><i class="flaticon-linkedin-button"></i></a></li>
+                                <li><a href="#"><i class="flaticon-dribble-logo-button"></i></a></li>
+                                <li><a href="#"><i class="flaticon-google-plus-logo-button"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Start -->
+    <section class="blog-area" id="blog">
+        <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
+        <img class="right-img" src="/FrontEndDesign/images/right-img.png" alt="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="section-title">
+                        <h2>team <span>see lahore</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-center">
+                    @{
+                        foreach (var item in SEELahoreTeams)
+                        {
+                            <div class="col-md-4 col-sm-6 col-xs-6 fw-600">
+                                <div class="blog-col wow fadeInLeft animated" data-wow-duration=".5s" data-wow-delay="0s">
+                                    <div class="blog-img">
+                                        <img src="/UploadedImages/@item.Photo" style="height:252px;width:360px" alt="">
+                                        <div class="blog-date">
+                                            <h3>@item.Designation</h3>
+                                        </div>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h4><a href="blog-single.html">@item.Name</a></h4>
+                                        <p></p>
+                                        @*<a class="btn btn-default my-btn btn-color" href="blog-single.html" role="button">Read more</a>*@
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Counter Start -->
+    <section class="counter-area parallax">
+        <div class="container">
+            <div class="rowe">
+                <div class="col-md-3 col-sm-6 col-xs-6 fw-600">
+                    <div class="counter-col">
+                        <div class="counter">
+                            <div class="count">@Guests.Count()</div>
+                            <img src="/FrontEndDesign/images/icon/1.png" alt="">
+                        </div>
+                        <p>Speakers</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6 fw-600">
+                    <div class="counter-col">
+                        <div class="counter">
+                            <div class="count">@EventSegments.Count()</div>
+                            <img src="/FrontEndDesign/images/icon/2.png" alt="">
+                        </div>
+                        <p>Segments</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6 fw-600">
+                    <div class="counter-col">
+                        <div class="counter">
+                            <div class="count">@ViewBag.AmbassadorsCount</div>
+                            <img src="/FrontEndDesign/images/icon/3.png" alt="">
+                        </div>
+                        <p>ambassadors</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6 fw-600">
+                    <div class="counter-col">
+                        <div class="counter">
+                            <div class="count">@ViewBag.VolunteersCount</div>
+                            <img src="/FrontEndDesign/images/icon/4.png" alt="">
+                        </div>
+                        <p>Volunteer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Sponsors Start -->
+    @if (ProudPartners != null && ProudPartners.Count() > 0)
+    {
+        <section class="sponsor-area" id="sponsors">
+            <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
+            <img class="right-img" src="/FrontEndDesign/images/right-img.png" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="section-title">
+                            <h2>Our Event <span>Sponsors</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @{
+                        foreach (var item in ProudPartners)
+                        {
+                            <div class="col-md-2 col-sm-3 col-xs-3">
+                                <div class="sponsor-col">
+                                    <a href="#"><img src="/UploadedImages/@item.Logo" alt="@item.PartnerName" title="@item.PartnerName"></a>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </section>
+                        }
+    
+    <!-- Google map -->
+    <div id="map" class="theme-color" style="height: 400px; width: 100%;"></div>
+    <!-- Contact Start -->
+    <section class="contact-area" id="contact">
+        <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
+        <img class="right-img" src="/FrontEndDesign/images/right-img.png" alt="">
+        <div class="container">
+            <div class="row">
+                <div class="">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="contact-col contact-infobox">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            <p>info@seelahore.com</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="contact-col contact-infobox">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <p>+0123 275 254 2458</p>
+                            <p>+0123 012 001 5488</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="contact-col contact-infobox">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <p>International Expo Center Lahore Pakistan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row contact-form-row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <div class="contact-col">
+                            <form id="ajax-contact" method="post" action="/ContactUs/Create">
+                                <div class="col-md-6">
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" name="subject" class="form-control" placeholder="Subject" id="subject" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="contact-textarea">
+                                        <textarea class="form-control" rows="6" placeholder="Wright Message" id="message" name="message" required></textarea>
+                                        <button class="btn btn-default my-btn btn-color text-center" type="submit" value="Submit Form">Send Message</button>
+                                    </div>
+                                </div>
+                                <div id="form-messages"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Start -->
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-center">
+                    <div class="col-md-6 col-sm-8">
+                        <div class="newsletter-col">
+                            <h4>Join our mailing list and never miss an update!</h4>
+                            <form>
+                                <div class="input-group">
+                                    <input placeholder="Email Address" class="form-control" name="search-field" type="text">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn">Subscribe</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="footer-col hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4b">
+                        <a href="#set-4" class="hi-icon">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
+                        <a href="#set-4" class="hi-icon">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a href="#set-4" class="hi-icon">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </a>
+                        <a href="#set-4" class="hi-icon">
+                            <i class="fa fa-dribbble" aria-hidden="true"></i>
+                        </a>
+                        <a href="#set-4" class="hi-icon">
+                            <i class="fa fa-google-plus" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <section class="footer-copy-right text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>©2018. Designed by <a href="http://teqways.com" target="_blank">Teqways.</a> All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Style Background ten End -->
+    <!-- jQuery -->
+    <script src="/FrontEndDesign/js/jquery.min.js"></script>
+    <!-- Bootstrap Min js -->
+    <script src="/FrontEndDesign/js/bootstrap.min.js"></script>
+    <!-- scrolling-nav JS -->
+    <script src="/FrontEndDesign/js/scrolling-nav.js"></script>
+    <!-- jquery easing JS -->
+    <script src="/FrontEndDesign/js/jquery.easing.min.js"></script>
+    <!-- counterup -->
+    <script src="/FrontEndDesign/js/jquery.counterup.min.js"></script>
+    <!-- waypoints -->
+    <script src="/FrontEndDesign/js/jquery.waypoints.min.js"></script>
+    <!-- carousel -->
+    <script src="/FrontEndDesign/js/owl.carousel.min.js"></script>
+    <!-- wow js -->
+    <script src="/FrontEndDesign/js/wow.min.js"></script>
+    <!-- particles js -->
+    <script src="/FrontEndDesign/js/particles.min.js"></script>
+    <!-- app js -->
+    <script src="/FrontEndDesign/js/app.js"></script>
+    <!-- countdown JS -->
+    <script src="/FrontEndDesign/js/countdown.js"></script>
+    <!-- jquery.plate JS -->
+    <script src="/FrontEndDesign/js/jquery.plate.js"></script>
+    <!-- jarallax JS -->
+    <script src="/FrontEndDesign/js/jarallax.min.js"></script>
+    <!-- jquery scrollUp  JS -->
+    <script src="/FrontEndDesign/js/jquery.scrollUp.min.js"></script>
+
+    <!-- Map API Key -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPyH6cdvHbPfyzC-ygZydj_KOBc6MoDhg&amp;callback=initMap"
+            type="text/javascript"></script>
+    <script src="/FrontEndDesign/js/map.js"></script>
+    <!-- Main Custom JS -->
+    <script src="/FrontEndDesign/js/custom.js"></script>
+</body>
+
+<!-- Mirrored from mvcsoftonline.com/html/ict/index-four.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:26:51 GMT -->
+</html>

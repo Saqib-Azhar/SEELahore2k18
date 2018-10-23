@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C__MigrationHistory
+    using System.ComponentModel; public partial class C__MigrationHistory
     {
         public string MigrationId { get; set; }
         public string ContextKey { get; set; }

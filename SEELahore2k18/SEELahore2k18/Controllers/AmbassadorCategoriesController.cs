@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
+    [Authorize]
     public class AmbassadorCategoriesController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();

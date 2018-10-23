@@ -10,15 +10,24 @@ using SEELahore2k18.Models;
 
 namespace SEELahore2k18.Controllers
 {
+    [Authorize]
     public class AmbassadorsController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();
 
         // GET: Ambassadors
-        public ActionResult Index()
+        public ActionResult Index(int? type = 0)
         {
-            var ambassadors = db.Ambassadors.Include(a => a.AmbassadorCategory).Include(a => a.RequestStatu);
-            return View(ambassadors.ToList());
+            if (type != 0)
+            {
+                var ambassadors = db.Ambassadors.Where(s=>s.StatusId == type).Include(a => a.AmbassadorCategory).Include(a => a.RequestStatu);
+                return View(ambassadors.ToList());
+            }
+            else
+            {
+                var ambassadors = db.Ambassadors.Include(a => a.AmbassadorCategory).Include(a => a.RequestStatu);
+                return View(ambassadors.ToList());
+            }
         }
 
 
@@ -52,7 +61,7 @@ namespace SEELahore2k18.Controllers
             }
             return View(ambassador);
         }
-
+        [AllowAnonymous]
         // GET: Ambassadors/Create
         public ActionResult Create()
         {
@@ -66,6 +75,7 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Create([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,Institute,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,AmbassadorCategoryId,Hostelite")] Ambassador ambassador)
         {
             if (ModelState.IsValid)
@@ -73,7 +83,7 @@ namespace SEELahore2k18.Controllers
                 ambassador.CreatedAt = DateTime.Now;
                 db.Ambassadors.Add(ambassador);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View();
             }
 
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);

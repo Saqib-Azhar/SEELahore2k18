@@ -12,7 +12,8 @@ using Microsoft.AspNet.Identity;
 
 namespace SEELahore2k18.Controllers
 {
-    public class EventSegmentsController : Controller
+    [Authorize]
+    public class EvesntSegmentsController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();
 

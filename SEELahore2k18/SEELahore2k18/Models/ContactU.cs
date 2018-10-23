@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ContactU
+    using System.ComponentModel; public partial class ContactU
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,7 +20,8 @@ namespace SEELahore2k18.Models
         public string Email { get; set; }
         public string Subject { get; set; }
         public string Description { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        [DisplayName("Created At")]
+        public Nullable<System.DateTime> CreatedAt { get; set; } 
         public Nullable<bool> Opened { get; set; }
     }
 }
