@@ -77,7 +77,7 @@ namespace SEELahore2k18.Controllers
                 stallRequest.CreatedBy = User.Identity.GetUserId();
                 db.StallRequests.Add(stallRequest);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);

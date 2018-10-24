@@ -21,8 +21,8 @@ namespace SEELahore2k18.Models
         }
     
         public int Id { get; set; }
-        [DisplayName("Created By")] public string CreatedBy { get; set; }
-        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> From { get; set; }

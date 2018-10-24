@@ -11,30 +11,22 @@ namespace SEELahore2k18.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     using System.ComponentModel; public partial class Ambassador
     {
         public int Id { get; set; }
-        [DisplayName("Name")]
         public string Name { get; set; }
-        [DisplayName("Contact No.")]
-        public string ContactNo { get; set; }
-        [DisplayName("Facebook Id")]
+        [DisplayName("Contact No.")] public string ContactNo { get; set; }
         public string FacebookId { get; set; }
-        [DisplayName("Email Id")]
         public string EmailId { get; set; }
         public string CNIC { get; set; }
         public string Institute { get; set; }
         public Nullable<int> StatusId { get; set; }
-        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public string Address { get; set; }
-        [DisplayName("City of Residence")]
         public string CityOfResidence { get; set; }
         public string Degree { get; set; }
-        [DisplayName("Previous Experiance")]
         public string PreviousExperiance { get; set; }
-        [DisplayName("Category")]
         public Nullable<int> AmbassadorCategoryId { get; set; }
         public Nullable<bool> Hostelite { get; set; }
     

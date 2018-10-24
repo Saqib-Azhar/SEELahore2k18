@@ -11,8 +11,7 @@ namespace SEELahore2k18.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     using System.ComponentModel; public partial class AmbassadorCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,8 +22,8 @@ namespace SEELahore2k18.Models
     
         public int Id { get; set; }
         public string Category { get; set; }
-        [DisplayName("Created By")]  public string CreatedBy { get; set; }
-        [DisplayName("Created At")]  public string CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedAt { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -21,6 +21,7 @@ namespace SEELahore2k18.Models
             this.StallRequests = new HashSet<StallRequest>();
             this.Ambassadors = new HashSet<Ambassador>();
             this.Volunteers = new HashSet<Volunteer>();
+            this.TalentGalas = new HashSet<TalentGala>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,7 @@ namespace SEELahore2k18.Models
         public virtual ICollection<Ambassador> Ambassadors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Volunteer> Volunteers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TalentGala> TalentGalas { get; set; }
     }
 }

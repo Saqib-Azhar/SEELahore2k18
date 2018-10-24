@@ -49,5 +49,6 @@ namespace SEELahore2k18.Models
         public virtual DbSet<Ambassador> Ambassadors { get; set; }
         public virtual DbSet<VolunteerCategory> VolunteerCategories { get; set; }
         public virtual DbSet<Volunteer> Volunteers { get; set; }
+        public virtual DbSet<TalentGala> TalentGalas { get; set; }
     }
 }
