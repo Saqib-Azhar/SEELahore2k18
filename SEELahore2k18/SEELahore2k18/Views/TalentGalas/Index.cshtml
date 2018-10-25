@@ -1,0 +1,91 @@
+﻿@model IEnumerable<SEELahore2k18.Models.TalentGala>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>TALENT GALA REQUESTS</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Institute)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Degree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CGPA_Numbers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalNumbers)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CNIC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactNo_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentSemester_Year)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.RequestStatu.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Institute)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Degree)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CGPA_Numbers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalNumbers)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.CNIC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactNo_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentSemester_Year)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestStatu.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary" }) 
+            @Html.ActionLink("Approve", "UpdateStatus", new { id = item.Id, status = 2 }, htmlAttributes: new { @class = "btn btn-sm btn-primary" }) <br />
+            @Html.ActionLink("Decline", "UpdateStatus", new { id = item.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

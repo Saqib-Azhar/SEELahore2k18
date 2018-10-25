@@ -56,6 +56,8 @@
         <AssociationConnector Association="Model.FK_VolunteerCategories_ToAspNetUsers" />
         <AssociationConnector Association="Model.FK_Volunteers_RequestStatus" />
         <AssociationConnector Association="Model.FK_Volunteers_ToVolunteerCategories" />
+        <EntityTypeShape EntityType="Model.TalentGala" Width="1.5" PointX="7.5" PointY="12.25" />
+        <AssociationConnector Association="Model.FK_TalentGala_ToRequestStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -83,7 +83,7 @@ namespace SEELahore2k18.Controllers
                 ambassador.CreatedAt = DateTime.Now;
                 db.Ambassadors.Add(ambassador);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("Create");
             }
 
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);

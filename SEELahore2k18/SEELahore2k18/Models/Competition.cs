@@ -22,16 +22,14 @@ namespace SEELahore2k18.Models
         }
     
         public int Id { get; set; }
-        [DisplayName("Competition Name")]
         public string CompetitionName { get; set; }
-        [DisplayName("Description")]
         public string CompetitionDescription { get; set; }
         public string Image1 { get; set; }
         public string Image2 { get; set; }
         public string Image3 { get; set; }
         public string Image4 { get; set; }
-        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
-        [DisplayName("Created By")] public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

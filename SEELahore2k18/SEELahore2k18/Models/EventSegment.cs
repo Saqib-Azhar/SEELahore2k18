@@ -17,14 +17,12 @@ namespace SEELahore2k18.Models
         public int Id { get; set; }
         public Nullable<System.TimeSpan> From { get; set; }
         public Nullable<System.TimeSpan> To { get; set; }
-        [DisplayName("Segment Name")]
         public string SegmentName { get; set; }
-        [DisplayName("Description")]
         public string SegmentDescription { get; set; }
         public string Image { get; set; }
         public Nullable<int> EventDayId { get; set; }
-        [DisplayName("Created By")] public string CreatedBy { get; set; }
-        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual EventDate EventDate { get; set; }

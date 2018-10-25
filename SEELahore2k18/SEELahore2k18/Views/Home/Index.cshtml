@@ -46,7 +46,7 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                 <div class="row">
                     <div class="col-md-12">
                         <div class="header-banner header-banner-content">
-                            <h1>SEE <span>Lahore 2018</span></h1>
+                            <h1>SEE <span>Lahore 2018</span>  <a href="#down" class="page-scroll"  style=""><span class="fa fa-arrow-down"></span></a></h1>
                             <h3>28 - 29 November 2018</h3>
                             <h4>Expo Center Lahore</h4>
                             <div class='countdown' data-date="2018-11-28"></div>
@@ -58,7 +58,7 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
     </section>
     <header class="main-header">
         <!-- Navigation Start -->
-        <div class="main-nav nav-bottom">
+        <div class="main-nav nav-bottom" id="down">
             <nav class="navbar navbar-default" id="navbar-main">
                 <div class="container" style="width:1350px!important">
                     <div class="navbar-header page-scroll">
@@ -83,7 +83,7 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                             <li> <a class="page-scroll" href="#sponsors">Sponsors</a> </li>
                             <li> <a class="page-scroll" href="/Volunteers/Create">Volunteer</a> </li>
                             <li> <a class="page-scroll" href="/Ambassadors/Create">Ambassador</a> </li>
-                            <li> <a class="page-scroll" href="/CompetitionRegistrations/Create?val=1">Talentgala</a> </li>
+                            <li> <a class="page-scroll" href="/TalentGalas/Create">Talentgala</a> </li>
                             <li> <a class="page-scroll" href="/CompetitionRegistrations/Create">Competitions</a> </li>
                             <li> <a class="page-scroll" href="/StallRequests/Create">Book a Stall</a></li>
                             <li> <a class="page-scroll" href="#contact">Contact</a></li>
@@ -205,8 +205,8 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                         <div class="col-md-3 col-sm-6 col-xs-6 fw-600">
                             <div class="speaker-col wow fadeInLeft animated" data-wow-duration=".5s" data-wow-delay="0s">
                                 <div class="speaker-box">
-                                    <div class="pic">
-                                        <img src="/UploadedImages/@item.Image" alt="">
+                                    <div class="pic" style="width:223px;height:223px">
+                                        <img src="/UploadedImages/@item.Image" alt="" style="width:223px;height:223px">
                                         @*<ul class="social">
                                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -413,7 +413,7 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                                     </div>
                                     <div class="blog-content">
                                         <h4><a href="blog-single.html">@item.Name</a></h4>
-                                        <p></p>
+                                        <p>@item.ContactNo <br /> @item.Email</p>
                                         @*<a class="btn btn-default my-btn btn-color" href="blog-single.html" role="button">Read more</a>*@
                                     </div>
                                 </div>

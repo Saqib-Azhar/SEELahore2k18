@@ -65,7 +65,7 @@ namespace SEELahore2k18.Controllers
                 volunteer.CreatedAt = DateTime.Now;
                 db.Volunteers.Add(volunteer);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("Create");
             }
 
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);

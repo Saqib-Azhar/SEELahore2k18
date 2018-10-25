@@ -15,11 +15,9 @@ namespace SEELahore2k18.Models
     using System.ComponentModel; public partial class Guest
     {
         public int Id { get; set; }
-        [DisplayName("Created By")] public string CreatedBy { get; set; }
-        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
-        [DisplayName("Guest Name")]
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public string GuestName { get; set; }
-        [DisplayName("Guest Description")]
         public string GuestDescription { get; set; }
         public string Image { get; set; }
     

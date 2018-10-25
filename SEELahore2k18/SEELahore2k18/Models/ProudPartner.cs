@@ -15,9 +15,8 @@ namespace SEELahore2k18.Models
     using System.ComponentModel; public partial class ProudPartner
     {
         public int Id { get; set; }
-        [DisplayName("Created By")] public string CreatedBy { get; set; }
-        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
-        [DisplayName("Partner Name")]
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public string PartnerName { get; set; }
         public string Description { get; set; }
         public string Logo { get; set; }

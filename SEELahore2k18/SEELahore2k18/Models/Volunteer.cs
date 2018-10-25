@@ -16,18 +16,14 @@ namespace SEELahore2k18.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        [DisplayName("Contact No.")]
-        public string ContactNo { get; set; }
-        [DisplayName("Facebook Id")]
+        [DisplayName("Contact No.")] public string ContactNo { get; set; }
         public string FacebookId { get; set; }
-        [DisplayName("Email Id")]
         public string EmailId { get; set; }
         public string CNIC { get; set; }
         public string Institute { get; set; }
         public Nullable<int> StatusId { get; set; }
-        [DisplayName("Created At")]        public Nullable<System.DateTime> CreatedAt { get; set; } 
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public string Address { get; set; }
-        [DisplayName("City of Residance")]
         public string CityOfResidence { get; set; }
         public string Degree { get; set; }
         public string PreviousExperiance { get; set; }

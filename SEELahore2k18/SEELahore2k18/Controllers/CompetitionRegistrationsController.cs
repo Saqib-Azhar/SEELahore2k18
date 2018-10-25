@@ -76,7 +76,7 @@ namespace SEELahore2k18.Controllers
                 competitionRegistration.CreatedAt = DateTime.Now;
                 db.CompetitionRegistrations.Add(competitionRegistration);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("Create");
             }
 
             ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName", competitionRegistration.CompetitionId);
