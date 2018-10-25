@@ -22,11 +22,13 @@ namespace SEELahore2k18.Controllers
         {
             if (type != 0)
             {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
                 var stallRequests = db.StallRequests.Where(s => s.RequestStatusId == type).Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
                 return View(stallRequests.ToList());
             }
             else
             {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
                 var stallRequests = db.StallRequests.Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
                 return View(stallRequests.ToList());
             }
@@ -53,6 +55,7 @@ namespace SEELahore2k18.Controllers
         {
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status");
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType");
             return View();
         }
@@ -80,10 +83,13 @@ namespace SEELahore2k18.Controllers
                 stallRequest.CreatedBy = User.Identity.GetUserId();
                 db.StallRequests.Add(stallRequest);
                 db.SaveChanges();
-                return RedirectToAction("Create");
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
             }
 
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
             ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
             return View(stallRequest);
@@ -102,6 +108,7 @@ namespace SEELahore2k18.Controllers
                 return HttpNotFound();
             }
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
             ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
             return View(stallRequest);
@@ -130,6 +137,7 @@ namespace SEELahore2k18.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
             ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
             return View(stallRequest);

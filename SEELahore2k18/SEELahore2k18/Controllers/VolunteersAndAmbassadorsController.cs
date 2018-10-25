@@ -12,7 +12,7 @@ namespace SEELahore2k18.Controllers
 {
 //    public class VolunteersAndAmbassadorsController : Controller
 //    {
-//        private SEELahoreEntities db = new SEELahoreEntities();
+//        private DefaultConnection db = new DefaultConnection();
 
 //        // GET: VolunteersAndAmbassadors
 //        public ActionResult Index()

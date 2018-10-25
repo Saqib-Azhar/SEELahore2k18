@@ -13,7 +13,7 @@ namespace SEELahore2k18.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    using System.ComponentModel; public partial class SEELahoreEntities : DbContext
+    public partial class SEELahoreEntities : DbContext
     {
         public SEELahoreEntities()
             : base("name=SEELahoreEntities")
@@ -26,6 +26,8 @@ namespace SEELahore2k18.Models
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AmbassadorCategory> AmbassadorCategories { get; set; }
+        public virtual DbSet<Ambassador> Ambassadors { get; set; }
         public virtual DbSet<Announcement> Announcements { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
@@ -38,6 +40,7 @@ namespace SEELahore2k18.Models
         public virtual DbSet<EventDate> EventDates { get; set; }
         public virtual DbSet<EventSegment> EventSegments { get; set; }
         public virtual DbSet<Guest> Guests { get; set; }
+        public virtual DbSet<Institute> Institutes { get; set; }
         public virtual DbSet<ProudPartner> ProudPartners { get; set; }
         public virtual DbSet<RequestStatu> RequestStatus { get; set; }
         public virtual DbSet<SeasonGallery> SeasonGalleries { get; set; }
@@ -45,10 +48,8 @@ namespace SEELahore2k18.Models
         public virtual DbSet<SEELahoreTeam> SEELahoreTeams { get; set; }
         public virtual DbSet<StallCategory> StallCategories { get; set; }
         public virtual DbSet<StallRequest> StallRequests { get; set; }
-        public virtual DbSet<AmbassadorCategory> AmbassadorCategories { get; set; }
-        public virtual DbSet<Ambassador> Ambassadors { get; set; }
+        public virtual DbSet<TalentGala> TalentGalas { get; set; }
         public virtual DbSet<VolunteerCategory> VolunteerCategories { get; set; }
         public virtual DbSet<Volunteer> Volunteers { get; set; }
-        public virtual DbSet<TalentGala> TalentGalas { get; set; }
     }
 }

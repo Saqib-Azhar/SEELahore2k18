@@ -20,11 +20,13 @@ namespace SEELahore2k18.Controllers
         {
             if (type != 0)
             {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
                 var competitionRegistrations = db.CompetitionRegistrations.Where(s => s.RequestStatusId == type).Include(c => c.Competition).Include(c => c.RequestStatu);
                 return View(competitionRegistrations.ToList());
             }
             else
             {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
                 var competitionRegistrations = db.CompetitionRegistrations.Include(c => c.Competition).Include(c => c.RequestStatu);
                 return View(competitionRegistrations.ToList());
             }
@@ -58,6 +60,7 @@ namespace SEELahore2k18.Controllers
 
             }
             ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName");
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status");
             return View();
         }
@@ -76,10 +79,13 @@ namespace SEELahore2k18.Controllers
                 competitionRegistration.CreatedAt = DateTime.Now;
                 db.CompetitionRegistrations.Add(competitionRegistration);
                 db.SaveChanges();
-                return RedirectToAction("Create");
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
             }
 
             ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName", competitionRegistration.CompetitionId);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", competitionRegistration.RequestStatusId);
             return View(competitionRegistration);
         }
@@ -96,6 +102,7 @@ namespace SEELahore2k18.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName", competitionRegistration.CompetitionId);
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", competitionRegistration.RequestStatusId);
             return View(competitionRegistration);
@@ -115,6 +122,7 @@ namespace SEELahore2k18.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName", competitionRegistration.CompetitionId);
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", competitionRegistration.RequestStatusId);
             return View(competitionRegistration);

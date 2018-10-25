@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel; public partial class VolunteerCategory
+    public partial class VolunteerCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public VolunteerCategory()

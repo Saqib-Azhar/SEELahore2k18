@@ -29,5 +29,19 @@ namespace SEELahore2k18.Controllers
         {
             return View();
         }
+
+        public ActionResult SubmissionResponce(string status, string url)
+        {
+            ViewBag.Message = status;
+            ViewBag.Url = url;
+
+            return View();
+        }
+        
+        public ActionResult NewSubmission(string url)
+        {
+            var a = url.Split('/');
+            return RedirectToAction(a[1], a[0]);
+        }
     }
 }

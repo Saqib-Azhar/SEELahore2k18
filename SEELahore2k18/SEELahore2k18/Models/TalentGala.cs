@@ -12,11 +12,11 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel; public partial class TalentGala
+    public partial class TalentGala
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Institute { get; set; }
+        public Nullable<int> InstituteId { get; set; }
         public string Degree { get; set; }
         public string CGPA_Numbers { get; set; }
         public string TotalNumbers { get; set; }
@@ -27,6 +27,7 @@ namespace SEELahore2k18.Models
         public Nullable<int> CurrentSemester_Year { get; set; }
         public Nullable<int> RequestStatusId { get; set; }
     
+        public virtual Institute Institute { get; set; }
         public virtual RequestStatu RequestStatu { get; set; }
     }
 }

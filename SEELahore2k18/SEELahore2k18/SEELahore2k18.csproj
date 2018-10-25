@@ -279,6 +279,9 @@
       <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Institute.cs">
+      <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProudPartner.cs">
       <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
@@ -456,13 +459,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\SEELahoreDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SEELahoreDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\SEELahoreDBModel.edmx.diagram">
-      <DependentUpon>SEELahoreDBModel.edmx</DependentUpon>
-    </Content>
     <Content Include=".DS_Store" />
     <Content Include="CHANGELOG.md" />
     <Content Include="package.json" />
@@ -644,6 +640,13 @@
     <Content Include="FrontEndDesign\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="FrontEndDesign\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="FrontEndDesign\fonts\glyphicons-halflings-regulard41d.eot" />
+    <EntityDeploy Include="Models\SEELahoreDBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SEELahoreDBModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SEELahoreDBModel.edmx.diagram">
+      <DependentUpon>SEELahoreDBModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -761,11 +764,6 @@
     <Content Include="Views\StallRequests\Details.cshtml" />
     <Content Include="Views\StallRequests\Edit.cshtml" />
     <Content Include="Views\StallRequests\Index.cshtml" />
-    <Content Include="Views\VolunteersAndAmbassadors\Create.cshtml" />
-    <Content Include="Views\VolunteersAndAmbassadors\Delete.cshtml" />
-    <Content Include="Views\VolunteersAndAmbassadors\Details.cshtml" />
-    <Content Include="Views\VolunteersAndAmbassadors\Edit.cshtml" />
-    <Content Include="Views\VolunteersAndAmbassadors\Index.cshtml" />
     <Content Include="Views\SeasonGalleries\Create.cshtml" />
     <Content Include="Views\SeasonGalleries\Delete.cshtml" />
     <Content Include="Views\SeasonGalleries\Details.cshtml" />
@@ -798,6 +796,7 @@
     <Content Include="Views\TalentGalas\Details.cshtml" />
     <Content Include="Views\TalentGalas\Edit.cshtml" />
     <Content Include="Views\TalentGalas\Index.cshtml" />
+    <Content Include="Views\Home\SubmissionResponce.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

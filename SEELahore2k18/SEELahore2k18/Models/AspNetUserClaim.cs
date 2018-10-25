@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel; public partial class AspNetUserClaim
+    public partial class AspNetUserClaim
     {
         public int Id { get; set; }
         public string UserId { get; set; }

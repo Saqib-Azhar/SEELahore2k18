@@ -8,7 +8,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>TalentGala</h4>
+        <h4>Talent Gala</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -20,9 +20,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Institute, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Institute, "InstitutesList", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Institute, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("InstitutesList", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Institute, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel; public partial class Guest
+    public partial class Guest
     {
         public int Id { get; set; }
         public string CreatedBy { get; set; }

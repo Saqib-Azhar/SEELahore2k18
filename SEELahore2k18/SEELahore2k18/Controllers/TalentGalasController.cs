@@ -18,6 +18,7 @@ namespace SEELahore2k18.Controllers
         // GET: TalentGalas
         public ActionResult Index()
         {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             var talentGalas = db.TalentGalas.Include(t => t.RequestStatu);
             return View(talentGalas.ToList());
         }
@@ -41,6 +42,7 @@ namespace SEELahore2k18.Controllers
         // GET: TalentGalas/Create
         public ActionResult Create()
         {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status");
             return View();
         }
@@ -59,9 +61,12 @@ namespace SEELahore2k18.Controllers
                 talentGala.CreatedAt = DateTime.Now;
                 db.TalentGalas.Add(talentGala);
                 db.SaveChanges();
-                return RedirectToAction("Create");
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
             }
 
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
             return View(talentGala);
         }
@@ -78,6 +83,7 @@ namespace SEELahore2k18.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
             return View(talentGala);
         }
@@ -95,6 +101,7 @@ namespace SEELahore2k18.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
             return View(talentGala);
         }

@@ -20,11 +20,13 @@ namespace SEELahore2k18.Controllers
         {
             if (type != 0)
             {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
                 var volunteers = db.Volunteers.Where(s=>s.StatusId == type).Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
                 return View(volunteers.ToList());
             }
             else
             {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
                 var volunteers = db.Volunteers.Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
                 return View(volunteers.ToList());
             }
@@ -49,6 +51,7 @@ namespace SEELahore2k18.Controllers
         public ActionResult Create()
         {
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status");
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category");
             return View();
         }
@@ -65,10 +68,13 @@ namespace SEELahore2k18.Controllers
                 volunteer.CreatedAt = DateTime.Now;
                 db.Volunteers.Add(volunteer);
                 db.SaveChanges();
-                return RedirectToAction("Create");
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
             }
 
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
             return View(volunteer);
         }
@@ -86,6 +92,7 @@ namespace SEELahore2k18.Controllers
                 return HttpNotFound();
             }
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
             return View(volunteer);
         }
@@ -105,6 +112,7 @@ namespace SEELahore2k18.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
             return View(volunteer);
         }

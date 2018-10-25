@@ -12,11 +12,12 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel; public partial class AspNetUser
+    public partial class AspNetUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetUser()
         {
+            this.AmbassadorCategories = new HashSet<AmbassadorCategory>();
             this.Announcements = new HashSet<Announcement>();
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
@@ -30,9 +31,8 @@ namespace SEELahore2k18.Models
             this.SEELahoreTeams = new HashSet<SEELahoreTeam>();
             this.StallRequests = new HashSet<StallRequest>();
             this.StallCategories = new HashSet<StallCategory>();
-            this.AspNetRoles = new HashSet<AspNetRole>();
-            this.AmbassadorCategories = new HashSet<AmbassadorCategory>();
             this.VolunteerCategories = new HashSet<VolunteerCategory>();
+            this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
         public string Id { get; set; }
@@ -48,6 +48,8 @@ namespace SEELahore2k18.Models
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AmbassadorCategory> AmbassadorCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Announcement> Announcements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -75,10 +77,8 @@ namespace SEELahore2k18.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StallCategory> StallCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AmbassadorCategory> AmbassadorCategories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VolunteerCategory> VolunteerCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }
 }

@@ -20,11 +20,13 @@ namespace SEELahore2k18.Controllers
         {
             if (type != 0)
             {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
                 var ambassadors = db.Ambassadors.Where(s=>s.StatusId == type).Include(a => a.AmbassadorCategory).Include(a => a.RequestStatu);
                 return View(ambassadors.ToList());
             }
             else
             {
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
                 var ambassadors = db.Ambassadors.Include(a => a.AmbassadorCategory).Include(a => a.RequestStatu);
                 return View(ambassadors.ToList());
             }
@@ -67,6 +69,8 @@ namespace SEELahore2k18.Controllers
         {
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category");
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status");
+            var instituteslist = db.Institutes.ToList();
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             return View();
         }
 
@@ -83,14 +87,18 @@ namespace SEELahore2k18.Controllers
                 ambassador.CreatedAt = DateTime.Now;
                 db.Ambassadors.Add(ambassador);
                 db.SaveChanges();
-                return RedirectToAction("Create");
+                string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
             }
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
 
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", ambassador.StatusId);
             return View(ambassador);
         }
 
+        
         // GET: Ambassadors/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -104,6 +112,7 @@ namespace SEELahore2k18.Controllers
                 return HttpNotFound();
             }
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", ambassador.StatusId);
             return View(ambassador);
         }
@@ -123,6 +132,7 @@ namespace SEELahore2k18.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);
+            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", ambassador.StatusId);
             return View(ambassador);
         }

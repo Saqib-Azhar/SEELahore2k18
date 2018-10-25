@@ -12,30 +12,30 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel; public partial class RequestStatu
+    public partial class RequestStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RequestStatu()
         {
+            this.Ambassadors = new HashSet<Ambassador>();
             this.CompetitionRegistrations = new HashSet<CompetitionRegistration>();
             this.StallRequests = new HashSet<StallRequest>();
-            this.Ambassadors = new HashSet<Ambassador>();
-            this.Volunteers = new HashSet<Volunteer>();
             this.TalentGalas = new HashSet<TalentGala>();
+            this.Volunteers = new HashSet<Volunteer>();
         }
     
         public int Id { get; set; }
         public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ambassador> Ambassadors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompetitionRegistration> CompetitionRegistrations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StallRequest> StallRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ambassador> Ambassadors { get; set; }
+        public virtual ICollection<TalentGala> TalentGalas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Volunteer> Volunteers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TalentGala> TalentGalas { get; set; }
     }
 }

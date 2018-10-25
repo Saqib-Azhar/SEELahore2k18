@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -34,7 +34,7 @@
           <Property Name="FacebookId" Type="nvarchar(max)" />
           <Property Name="EmailId" Type="nvarchar(max)" />
           <Property Name="CNIC" Type="nvarchar" MaxLength="13" />
-          <Property Name="Institute" Type="nvarchar(max)" />
+          <Property Name="InstituteId" Type="int" />
           <Property Name="StatusId" Type="int" />
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="Address" Type="nvarchar(max)" />
@@ -141,10 +141,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="ContactNo" Type="nvarchar(max)" />
-          <Property Name="Designation" Type="nvarchar(max)" />
           <Property Name="EmailId" Type="nvarchar(max)" />
           <Property Name="CNIC" Type="nvarchar" MaxLength="13" />
-          <Property Name="Institute" Type="nvarchar(max)" />
+          <Property Name="InstituteId" Type="int" />
           <Property Name="RequestStatusId" Type="int" />
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="Address" Type="nvarchar(max)" />
@@ -195,6 +194,13 @@
           <Property Name="GuestName" Type="nvarchar(max)" />
           <Property Name="GuestDescription" Type="nvarchar(max)" />
           <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Institutes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Institute" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ProudPartners">
           <Key>
@@ -284,7 +290,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
-          <Property Name="Institute" Type="nvarchar(max)" />
+          <Property Name="InstituteId" Type="int" />
           <Property Name="Degree" Type="nvarchar(max)" />
           <Property Name="CGPA/Numbers" Type="nvarchar(max)" />
           <Property Name="TotalNumbers" Type="nvarchar(max)" />
@@ -314,7 +320,7 @@
           <Property Name="FacebookId" Type="nvarchar(max)" />
           <Property Name="EmailId" Type="nvarchar(max)" />
           <Property Name="CNIC" Type="nvarchar" MaxLength="13" />
-          <Property Name="Institute" Type="nvarchar(max)" />
+          <Property Name="InstituteId" Type="int" />
           <Property Name="StatusId" Type="int" />
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="Address" Type="nvarchar(max)" />
@@ -333,6 +339,18 @@
             </Principal>
             <Dependent Role="AmbassadorCategories">
               <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ambassadors_Institutes">
+          <End Role="Institutes" Type="Self.Institutes" Multiplicity="0..1" />
+          <End Role="Ambassadors" Type="Self.Ambassadors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institutes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambassadors">
+              <PropertyRef Name="InstituteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -417,6 +435,18 @@
             </Principal>
             <Dependent Role="CompetitionRegistration">
               <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionRegistration_Institutes">
+          <End Role="Institutes" Type="Self.Institutes" Multiplicity="0..1" />
+          <End Role="CompetitionRegistration" Type="Self.CompetitionRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institutes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompetitionRegistration">
+              <PropertyRef Name="InstituteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -632,6 +662,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TalentGala_ToInstitutes">
+          <End Role="Institutes" Type="Self.Institutes" Multiplicity="0..1" />
+          <End Role="TalentGala" Type="Self.TalentGala" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institutes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentGala">
+              <PropertyRef Name="InstituteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TalentGala_ToRequestStatus">
           <End Role="RequestStatus" Type="Self.RequestStatus" Multiplicity="0..1" />
           <End Role="TalentGala" Type="Self.TalentGala" Multiplicity="*" />
@@ -653,6 +695,18 @@
             </Principal>
             <Dependent Role="VolunteerCategories">
               <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Volunteers_Institutes">
+          <End Role="Institutes" Type="Self.Institutes" Multiplicity="0..1" />
+          <End Role="Volunteers" Type="Self.Volunteers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institutes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Volunteers">
+              <PropertyRef Name="InstituteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -697,6 +751,7 @@
           <EntitySet Name="EventDates" EntityType="Self.EventDates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventSegments" EntityType="Self.EventSegments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Guests" EntityType="Self.Guests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Institutes" EntityType="Self.Institutes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProudPartners" EntityType="Self.ProudPartners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestStatus" EntityType="Self.RequestStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeasonGallery" EntityType="Self.SeasonGallery" Schema="dbo" store:Type="Tables" />
@@ -710,6 +765,10 @@
           <AssociationSet Name="FK_AmbassadorCategories_ToAspNetUsers" Association="Self.FK_AmbassadorCategories_ToAspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AmbassadorCategories" EntitySet="AmbassadorCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ambassadors_Institutes" Association="Self.FK_Ambassadors_Institutes">
+            <End Role="Institutes" EntitySet="Institutes" />
+            <End Role="Ambassadors" EntitySet="Ambassadors" />
           </AssociationSet>
           <AssociationSet Name="FK_Ambassadors_RequestStatus" Association="Self.FK_Ambassadors_RequestStatus">
             <End Role="RequestStatus" EntitySet="RequestStatus" />
@@ -737,6 +796,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_CompetitionRegistration_Competition" Association="Self.FK_CompetitionRegistration_Competition">
             <End Role="Competition" EntitySet="Competition" />
+            <End Role="CompetitionRegistration" EntitySet="CompetitionRegistration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionRegistration_Institutes" Association="Self.FK_CompetitionRegistration_Institutes">
+            <End Role="Institutes" EntitySet="Institutes" />
             <End Role="CompetitionRegistration" EntitySet="CompetitionRegistration" />
           </AssociationSet>
           <AssociationSet Name="FK_CompetitionRegistration_RequestStatus" Association="Self.FK_CompetitionRegistration_RequestStatus">
@@ -807,6 +870,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="StallCategory" EntitySet="StallCategory" />
           </AssociationSet>
+          <AssociationSet Name="FK_TalentGala_ToInstitutes" Association="Self.FK_TalentGala_ToInstitutes">
+            <End Role="Institutes" EntitySet="Institutes" />
+            <End Role="TalentGala" EntitySet="TalentGala" />
+          </AssociationSet>
           <AssociationSet Name="FK_TalentGala_ToRequestStatus" Association="Self.FK_TalentGala_ToRequestStatus">
             <End Role="RequestStatus" EntitySet="RequestStatus" />
             <End Role="TalentGala" EntitySet="TalentGala" />
@@ -814,6 +881,10 @@
           <AssociationSet Name="FK_VolunteerCategories_ToAspNetUsers" Association="Self.FK_VolunteerCategories_ToAspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="VolunteerCategories" EntitySet="VolunteerCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Volunteers_Institutes" Association="Self.FK_Volunteers_Institutes">
+            <End Role="Institutes" EntitySet="Institutes" />
+            <End Role="Volunteers" EntitySet="Volunteers" />
           </AssociationSet>
           <AssociationSet Name="FK_Volunteers_RequestStatus" Association="Self.FK_Volunteers_RequestStatus">
             <End Role="RequestStatus" EntitySet="RequestStatus" />
@@ -824,7 +895,8 @@
             <End Role="Volunteers" EntitySet="Volunteers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -837,6 +909,40 @@
           <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AmbassadorCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AmbassadorCategories_ToAspNetUsers" FromRole="AmbassadorCategories" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Ambassadors" Relationship="Self.FK_Ambassadors_ToAmbassadorCategories" FromRole="AmbassadorCategories" ToRole="Ambassadors" />
+        </EntityType>
+        <EntityType Name="Ambassador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FacebookId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CNIC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="InstituteId" Type="Int32" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CityOfResidence" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PreviousExperiance" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AmbassadorCategoryId" Type="Int32" />
+          <Property Name="Hostelite" Type="Boolean" />
+          <NavigationProperty Name="AmbassadorCategory" Relationship="Self.FK_Ambassadors_ToAmbassadorCategories" FromRole="Ambassadors" ToRole="AmbassadorCategories" />
+          <NavigationProperty Name="Institute" Relationship="Self.FK_Ambassadors_Institutes" FromRole="Ambassadors" ToRole="Institutes" />
+          <NavigationProperty Name="RequestStatu" Relationship="Self.FK_Ambassadors_RequestStatus" FromRole="Ambassadors" ToRole="RequestStatus" />
         </EntityType>
         <EntityType Name="Announcement">
           <Key>
@@ -896,6 +1002,7 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AmbassadorCategories" Relationship="Self.FK_AmbassadorCategories_ToAspNetUsers" FromRole="AspNetUsers" ToRole="AmbassadorCategories" />
           <NavigationProperty Name="Announcements" Relationship="Self.FK_Announcement_AspNetUsers" FromRole="AspNetUsers" ToRole="Announcement" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
@@ -909,9 +1016,8 @@
           <NavigationProperty Name="SEELahoreTeams" Relationship="Self.FK_SEELahoreTeam_AspNetUsers" FromRole="AspNetUsers" ToRole="SEELahoreTeam" />
           <NavigationProperty Name="StallRequests" Relationship="Self.FK_StallRequest_AspNetUsers" FromRole="AspNetUsers" ToRole="StallRequest" />
           <NavigationProperty Name="StallCategories" Relationship="Self.FK_StallType_AspNetUsers" FromRole="AspNetUsers" ToRole="StallCategory" />
+          <NavigationProperty Name="VolunteerCategories" Relationship="Self.FK_VolunteerCategories_ToAspNetUsers" FromRole="AspNetUsers" ToRole="VolunteerCategories" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="AmbassadorCategories" Relationship="Model.FK_AmbassadorCategories_ToAspNetUsers" FromRole="AspNetUser" ToRole="AmbassadorCategory" />
-          <NavigationProperty Name="VolunteerCategories" Relationship="Model.FK_VolunteerCategories_ToAspNetUsers" FromRole="AspNetUser" ToRole="VolunteerCategory" />
         </EntityType>
         <EntityType Name="Competition">
           <Key>
@@ -952,16 +1058,16 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CNIC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="Institute" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InstituteId" Type="Int32" />
           <Property Name="RequestStatusId" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompetitionId" Type="Int32" />
           <NavigationProperty Name="Competition" Relationship="Self.FK_CompetitionRegistration_Competition" FromRole="CompetitionRegistration" ToRole="Competition" />
+          <NavigationProperty Name="Institute" Relationship="Self.FK_CompetitionRegistration_Institutes" FromRole="CompetitionRegistration" ToRole="Institutes" />
           <NavigationProperty Name="RequestStatu" Relationship="Self.FK_CompetitionRegistration_RequestStatus" FromRole="CompetitionRegistration" ToRole="RequestStatus" />
         </EntityType>
         <EntityType Name="ContactU">
@@ -1013,6 +1119,17 @@
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Guests_AspNetUsers" FromRole="Guests" ToRole="AspNetUsers" />
         </EntityType>
+        <EntityType Name="Institute">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Institute1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ambassadors" Relationship="Self.FK_Ambassadors_Institutes" FromRole="Institutes" ToRole="Ambassadors" />
+          <NavigationProperty Name="CompetitionRegistrations" Relationship="Self.FK_CompetitionRegistration_Institutes" FromRole="Institutes" ToRole="CompetitionRegistration" />
+          <NavigationProperty Name="TalentGalas" Relationship="Self.FK_TalentGala_ToInstitutes" FromRole="Institutes" ToRole="TalentGala" />
+          <NavigationProperty Name="Volunteers" Relationship="Self.FK_Volunteers_Institutes" FromRole="Institutes" ToRole="Volunteers" />
+        </EntityType>
         <EntityType Name="ProudPartner">
           <Key>
             <PropertyRef Name="Id" />
@@ -1031,11 +1148,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ambassadors" Relationship="Self.FK_Ambassadors_RequestStatus" FromRole="RequestStatus" ToRole="Ambassadors" />
           <NavigationProperty Name="CompetitionRegistrations" Relationship="Self.FK_CompetitionRegistration_RequestStatus" FromRole="RequestStatus" ToRole="CompetitionRegistration" />
           <NavigationProperty Name="StallRequests" Relationship="Self.FK_StallRequest_RequestStatus" FromRole="RequestStatus" ToRole="StallRequest" />
-          <NavigationProperty Name="Ambassadors" Relationship="Model.FK_Ambassadors_RequestStatus" FromRole="RequestStatu" ToRole="Ambassador" />
-          <NavigationProperty Name="Volunteers" Relationship="Model.FK_Volunteers_RequestStatus" FromRole="RequestStatu" ToRole="Volunteer" />
-          <NavigationProperty Name="TalentGalas" Relationship="Model.FK_TalentGala_ToRequestStatus" FromRole="RequestStatu" ToRole="TalentGala" />
+          <NavigationProperty Name="TalentGalas" Relationship="Self.FK_TalentGala_ToRequestStatus" FromRole="RequestStatus" ToRole="TalentGala" />
+          <NavigationProperty Name="Volunteers" Relationship="Self.FK_Volunteers_RequestStatus" FromRole="RequestStatus" ToRole="Volunteers" />
         </EntityType>
         <EntityType Name="SeasonGallery">
           <Key>
@@ -1045,9 +1162,9 @@
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_SeasonGallery_AspNetUsers" FromRole="SeasonGallery" ToRole="AspNetUsers" />
           <Property Name="SeasonId" Type="Int32" />
-          <NavigationProperty Name="Season" Relationship="Model.FK_SeasonGallery_Seasons" FromRole="SeasonGallery" ToRole="Season" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_SeasonGallery_AspNetUsers" FromRole="SeasonGallery" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Season" Relationship="Self.FK_SeasonGallery_Seasons" FromRole="SeasonGallery" ToRole="Seasons" />
         </EntityType>
         <EntityType Name="Season">
           <Key>
@@ -1061,7 +1178,7 @@
           <Property Name="From" Type="DateTime" Precision="0" />
           <Property Name="To" Type="DateTime" Precision="0" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Seasons_AspNetUsers" FromRole="Seasons" ToRole="AspNetUsers" />
-          <NavigationProperty Name="SeasonGalleries" Relationship="Model.FK_SeasonGallery_Seasons" FromRole="Season" ToRole="SeasonGallery" />
+          <NavigationProperty Name="SeasonGalleries" Relationship="Self.FK_SeasonGallery_Seasons" FromRole="Seasons" ToRole="SeasonGallery" />
         </EntityType>
         <EntityType Name="SEELahoreTeam">
           <Key>
@@ -1073,9 +1190,9 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_SEELahoreTeam_AspNetUsers" FromRole="SEELahoreTeam" ToRole="AspNetUsers" />
           <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_SEELahoreTeam_AspNetUsers" FromRole="SEELahoreTeam" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="StallCategory">
           <Key>
@@ -1111,6 +1228,107 @@
           <NavigationProperty Name="RequestStatu" Relationship="Self.FK_StallRequest_RequestStatus" FromRole="StallRequest" ToRole="RequestStatus" />
           <NavigationProperty Name="StallCategory" Relationship="Self.FK_StallRequest_StallCategory" FromRole="StallRequest" ToRole="StallCategory" />
         </EntityType>
+        <EntityType Name="TalentGala">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InstituteId" Type="Int32" />
+          <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CGPA_Numbers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalNumbers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CNIC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo_" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CurrentSemester_Year" Type="Int32" />
+          <Property Name="RequestStatusId" Type="Int32" />
+          <NavigationProperty Name="Institute" Relationship="Self.FK_TalentGala_ToInstitutes" FromRole="TalentGala" ToRole="Institutes" />
+          <NavigationProperty Name="RequestStatu" Relationship="Self.FK_TalentGala_ToRequestStatus" FromRole="TalentGala" ToRole="RequestStatus" />
+        </EntityType>
+        <EntityType Name="VolunteerCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_VolunteerCategories_ToAspNetUsers" FromRole="VolunteerCategories" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Volunteers" Relationship="Self.FK_Volunteers_ToVolunteerCategories" FromRole="VolunteerCategories" ToRole="Volunteers" />
+        </EntityType>
+        <EntityType Name="Volunteer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FacebookId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CNIC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="InstituteId" Type="Int32" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CityOfResidence" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PreviousExperiance" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VolunteerCategoryId" Type="Int32" />
+          <Property Name="Hostelite" Type="Boolean" />
+          <NavigationProperty Name="Institute" Relationship="Self.FK_Volunteers_Institutes" FromRole="Volunteers" ToRole="Institutes" />
+          <NavigationProperty Name="RequestStatu" Relationship="Self.FK_Volunteers_RequestStatus" FromRole="Volunteers" ToRole="RequestStatus" />
+          <NavigationProperty Name="VolunteerCategory" Relationship="Self.FK_Volunteers_ToVolunteerCategories" FromRole="Volunteers" ToRole="VolunteerCategories" />
+        </EntityType>
+        <Association Name="FK_AmbassadorCategories_ToAspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="AmbassadorCategories" Type="Self.AmbassadorCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AmbassadorCategories">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ambassadors_ToAmbassadorCategories">
+          <End Role="AmbassadorCategories" Type="Self.AmbassadorCategory" Multiplicity="0..1" />
+          <End Role="Ambassadors" Type="Self.Ambassador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AmbassadorCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambassadors">
+              <PropertyRef Name="AmbassadorCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ambassadors_Institutes">
+          <End Role="Institutes" Type="Self.Institute" Multiplicity="0..1" />
+          <End Role="Ambassadors" Type="Self.Ambassador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institutes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambassadors">
+              <PropertyRef Name="InstituteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ambassadors_RequestStatus">
+          <End Role="RequestStatus" Type="Self.RequestStatu" Multiplicity="0..1" />
+          <End Role="Ambassadors" Type="Self.Ambassador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ambassadors">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Announcement_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
           <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
@@ -1271,6 +1489,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VolunteerCategories_ToAspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="VolunteerCategories" Type="Self.VolunteerCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VolunteerCategories">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CompetitionCoordinator_Competition">
           <End Role="Competition" Type="Self.Competition" Multiplicity="0..1" />
           <End Role="CompetitionCoordinator" Type="Self.CompetitionCoordinator" Multiplicity="*" />
@@ -1292,6 +1522,18 @@
             </Principal>
             <Dependent Role="CompetitionRegistration">
               <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionRegistration_Institutes">
+          <End Role="Institutes" Type="Self.Institute" Multiplicity="0..1" />
+          <End Role="CompetitionRegistration" Type="Self.CompetitionRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institutes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompetitionRegistration">
+              <PropertyRef Name="InstituteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1319,6 +1561,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TalentGala_ToInstitutes">
+          <End Role="Institutes" Type="Self.Institute" Multiplicity="0..1" />
+          <End Role="TalentGala" Type="Self.TalentGala" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institutes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentGala">
+              <PropertyRef Name="InstituteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Volunteers_Institutes">
+          <End Role="Institutes" Type="Self.Institute" Multiplicity="0..1" />
+          <End Role="Volunteers" Type="Self.Volunteer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institutes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Volunteers">
+              <PropertyRef Name="InstituteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StallRequest_RequestStatus">
           <End Role="RequestStatus" Type="Self.RequestStatu" Multiplicity="0..1" />
           <End Role="StallRequest" Type="Self.StallRequest" Multiplicity="*" />
@@ -1328,6 +1594,42 @@
             </Principal>
             <Dependent Role="StallRequest">
               <PropertyRef Name="RequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TalentGala_ToRequestStatus">
+          <End Role="RequestStatus" Type="Self.RequestStatu" Multiplicity="0..1" />
+          <End Role="TalentGala" Type="Self.TalentGala" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TalentGala">
+              <PropertyRef Name="RequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Volunteers_RequestStatus">
+          <End Role="RequestStatus" Type="Self.RequestStatu" Multiplicity="0..1" />
+          <End Role="Volunteers" Type="Self.Volunteer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Volunteers">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeasonGallery_Seasons">
+          <End Role="Seasons" Type="Self.Season" Multiplicity="0..1" />
+          <End Role="SeasonGallery" Type="Self.SeasonGallery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeasonGallery">
+              <PropertyRef Name="SeasonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1343,12 +1645,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Volunteers_ToVolunteerCategories">
+          <End Role="VolunteerCategories" Type="Self.VolunteerCategory" Multiplicity="0..1" />
+          <End Role="Volunteers" Type="Self.Volunteer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VolunteerCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Volunteers">
+              <PropertyRef Name="VolunteerCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
         <EntityContainer Name="SEELahoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AmbassadorCategories" EntityType="Self.AmbassadorCategory" />
+          <EntitySet Name="Ambassadors" EntityType="Self.Ambassador" />
           <EntitySet Name="Announcements" EntityType="Self.Announcement" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -1361,6 +1677,7 @@
           <EntitySet Name="EventDates" EntityType="Self.EventDate" />
           <EntitySet Name="EventSegments" EntityType="Self.EventSegment" />
           <EntitySet Name="Guests" EntityType="Self.Guest" />
+          <EntitySet Name="Institutes" EntityType="Self.Institute" />
           <EntitySet Name="ProudPartners" EntityType="Self.ProudPartner" />
           <EntitySet Name="RequestStatus" EntityType="Self.RequestStatu" />
           <EntitySet Name="SeasonGalleries" EntityType="Self.SeasonGallery" />
@@ -1368,6 +1685,25 @@
           <EntitySet Name="SEELahoreTeams" EntityType="Self.SEELahoreTeam" />
           <EntitySet Name="StallCategories" EntityType="Self.StallCategory" />
           <EntitySet Name="StallRequests" EntityType="Self.StallRequest" />
+          <EntitySet Name="TalentGalas" EntityType="Self.TalentGala" />
+          <EntitySet Name="VolunteerCategories" EntityType="Self.VolunteerCategory" />
+          <EntitySet Name="Volunteers" EntityType="Self.Volunteer" />
+          <AssociationSet Name="FK_AmbassadorCategories_ToAspNetUsers" Association="Self.FK_AmbassadorCategories_ToAspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AmbassadorCategories" EntitySet="AmbassadorCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ambassadors_ToAmbassadorCategories" Association="Self.FK_Ambassadors_ToAmbassadorCategories">
+            <End Role="AmbassadorCategories" EntitySet="AmbassadorCategories" />
+            <End Role="Ambassadors" EntitySet="Ambassadors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ambassadors_Institutes" Association="Self.FK_Ambassadors_Institutes">
+            <End Role="Institutes" EntitySet="Institutes" />
+            <End Role="Ambassadors" EntitySet="Ambassadors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ambassadors_RequestStatus" Association="Self.FK_Ambassadors_RequestStatus">
+            <End Role="RequestStatus" EntitySet="RequestStatus" />
+            <End Role="Ambassadors" EntitySet="Ambassadors" />
+          </AssociationSet>
           <AssociationSet Name="FK_Announcement_AspNetUsers" Association="Self.FK_Announcement_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Announcement" EntitySet="Announcements" />
@@ -1420,12 +1756,20 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="StallCategory" EntitySet="StallCategories" />
           </AssociationSet>
+          <AssociationSet Name="FK_VolunteerCategories_ToAspNetUsers" Association="Self.FK_VolunteerCategories_ToAspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="VolunteerCategories" EntitySet="VolunteerCategories" />
+          </AssociationSet>
           <AssociationSet Name="FK_CompetitionCoordinator_Competition" Association="Self.FK_CompetitionCoordinator_Competition">
             <End Role="Competition" EntitySet="Competitions" />
             <End Role="CompetitionCoordinator" EntitySet="CompetitionCoordinators" />
           </AssociationSet>
           <AssociationSet Name="FK_CompetitionRegistration_Competition" Association="Self.FK_CompetitionRegistration_Competition">
             <End Role="Competition" EntitySet="Competitions" />
+            <End Role="CompetitionRegistration" EntitySet="CompetitionRegistrations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionRegistration_Institutes" Association="Self.FK_CompetitionRegistration_Institutes">
+            <End Role="Institutes" EntitySet="Institutes" />
             <End Role="CompetitionRegistration" EntitySet="CompetitionRegistrations" />
           </AssociationSet>
           <AssociationSet Name="FK_CompetitionRegistration_RequestStatus" Association="Self.FK_CompetitionRegistration_RequestStatus">
@@ -1436,236 +1780,43 @@
             <End Role="EventDates" EntitySet="EventDates" />
             <End Role="EventSegments" EntitySet="EventSegments" />
           </AssociationSet>
+          <AssociationSet Name="FK_TalentGala_ToInstitutes" Association="Self.FK_TalentGala_ToInstitutes">
+            <End Role="Institutes" EntitySet="Institutes" />
+            <End Role="TalentGala" EntitySet="TalentGalas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Volunteers_Institutes" Association="Self.FK_Volunteers_Institutes">
+            <End Role="Institutes" EntitySet="Institutes" />
+            <End Role="Volunteers" EntitySet="Volunteers" />
+          </AssociationSet>
           <AssociationSet Name="FK_StallRequest_RequestStatus" Association="Self.FK_StallRequest_RequestStatus">
             <End Role="RequestStatus" EntitySet="RequestStatus" />
             <End Role="StallRequest" EntitySet="StallRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TalentGala_ToRequestStatus" Association="Self.FK_TalentGala_ToRequestStatus">
+            <End Role="RequestStatus" EntitySet="RequestStatus" />
+            <End Role="TalentGala" EntitySet="TalentGalas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Volunteers_RequestStatus" Association="Self.FK_Volunteers_RequestStatus">
+            <End Role="RequestStatus" EntitySet="RequestStatus" />
+            <End Role="Volunteers" EntitySet="Volunteers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeasonGallery_Seasons" Association="Self.FK_SeasonGallery_Seasons">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="SeasonGallery" EntitySet="SeasonGalleries" />
           </AssociationSet>
           <AssociationSet Name="FK_StallRequest_StallCategory" Association="Self.FK_StallRequest_StallCategory">
             <End Role="StallCategory" EntitySet="StallCategories" />
             <End Role="StallRequest" EntitySet="StallRequests" />
           </AssociationSet>
+          <AssociationSet Name="FK_Volunteers_ToVolunteerCategories" Association="Self.FK_Volunteers_ToVolunteerCategories">
+            <End Role="VolunteerCategories" EntitySet="VolunteerCategories" />
+            <End Role="Volunteers" EntitySet="Volunteers" />
+          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_SeasonGallery_Seasons" Association="Model.FK_SeasonGallery_Seasons">
-            <End Role="Season" EntitySet="Seasons" />
-            <End Role="SeasonGallery" EntitySet="SeasonGalleries" />
-          </AssociationSet>
-          <EntitySet Name="AmbassadorCategories" EntityType="Model.AmbassadorCategory" />
-          <EntitySet Name="Ambassadors" EntityType="Model.Ambassador" />
-          <EntitySet Name="VolunteerCategories" EntityType="Model.VolunteerCategory" />
-          <EntitySet Name="Volunteers" EntityType="Model.Volunteer" />
-          <AssociationSet Name="FK_AmbassadorCategories_ToAspNetUsers" Association="Model.FK_AmbassadorCategories_ToAspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AmbassadorCategory" EntitySet="AmbassadorCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ambassadors_ToAmbassadorCategories" Association="Model.FK_Ambassadors_ToAmbassadorCategories">
-            <End Role="AmbassadorCategory" EntitySet="AmbassadorCategories" />
-            <End Role="Ambassador" EntitySet="Ambassadors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ambassadors_RequestStatus" Association="Model.FK_Ambassadors_RequestStatus">
-            <End Role="RequestStatu" EntitySet="RequestStatus" />
-            <End Role="Ambassador" EntitySet="Ambassadors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VolunteerCategories_ToAspNetUsers" Association="Model.FK_VolunteerCategories_ToAspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="VolunteerCategory" EntitySet="VolunteerCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Volunteers_RequestStatus" Association="Model.FK_Volunteers_RequestStatus">
-            <End Role="RequestStatu" EntitySet="RequestStatus" />
-            <End Role="Volunteer" EntitySet="Volunteers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Volunteers_ToVolunteerCategories" Association="Model.FK_Volunteers_ToVolunteerCategories">
-            <End Role="VolunteerCategory" EntitySet="VolunteerCategories" />
-            <End Role="Volunteer" EntitySet="Volunteers" />
-          </AssociationSet>
-          <EntitySet Name="TalentGalas" EntityType="Model.TalentGala" />
-          <AssociationSet Name="FK_TalentGala_ToRequestStatus" Association="Model.FK_TalentGala_ToRequestStatus">
-            <End Role="RequestStatu" EntitySet="RequestStatus" />
-            <End Role="TalentGala" EntitySet="TalentGalas" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_SeasonGallery_Seasons">
-          <End Type="Model.Season" Role="Season" Multiplicity="0..1" />
-          <End Type="Model.SeasonGallery" Role="SeasonGallery" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Season">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SeasonGallery">
-              <PropertyRef Name="SeasonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="AmbassadorCategory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_AmbassadorCategories_ToAspNetUsers" FromRole="AmbassadorCategory" ToRole="AspNetUser" />
-          <NavigationProperty Name="Ambassadors" Relationship="Model.FK_Ambassadors_ToAmbassadorCategories" FromRole="AmbassadorCategory" ToRole="Ambassador" />
-        </EntityType>
-        <EntityType Name="Ambassador">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FacebookId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CNIC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="Institute" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StatusId" Type="Int32" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CityOfResidence" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PreviousExperiance" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AmbassadorCategoryId" Type="Int32" />
-          <Property Name="Hostelite" Type="Boolean" />
-          <NavigationProperty Name="AmbassadorCategory" Relationship="Model.FK_Ambassadors_ToAmbassadorCategories" FromRole="Ambassador" ToRole="AmbassadorCategory" />
-          <NavigationProperty Name="RequestStatu" Relationship="Model.FK_Ambassadors_RequestStatus" FromRole="Ambassador" ToRole="RequestStatu" />
-        </EntityType>
-        <EntityType Name="VolunteerCategory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_VolunteerCategories_ToAspNetUsers" FromRole="VolunteerCategory" ToRole="AspNetUser" />
-          <NavigationProperty Name="Volunteers" Relationship="Model.FK_Volunteers_ToVolunteerCategories" FromRole="VolunteerCategory" ToRole="Volunteer" />
-        </EntityType>
-        <EntityType Name="Volunteer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FacebookId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CNIC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="Institute" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StatusId" Type="Int32" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CityOfResidence" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PreviousExperiance" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="VolunteerCategoryId" Type="Int32" />
-          <Property Name="Hostelite" Type="Boolean" />
-          <NavigationProperty Name="RequestStatu" Relationship="Model.FK_Volunteers_RequestStatus" FromRole="Volunteer" ToRole="RequestStatu" />
-          <NavigationProperty Name="VolunteerCategory" Relationship="Model.FK_Volunteers_ToVolunteerCategories" FromRole="Volunteer" ToRole="VolunteerCategory" />
-        </EntityType>
-        <Association Name="FK_AmbassadorCategories_ToAspNetUsers">
-          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
-          <End Type="Model.AmbassadorCategory" Role="AmbassadorCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AmbassadorCategory">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ambassadors_ToAmbassadorCategories">
-          <End Type="Model.AmbassadorCategory" Role="AmbassadorCategory" Multiplicity="0..1" />
-          <End Type="Model.Ambassador" Role="Ambassador" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AmbassadorCategory">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Ambassador">
-              <PropertyRef Name="AmbassadorCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ambassadors_RequestStatus">
-          <End Type="Model.RequestStatu" Role="RequestStatu" Multiplicity="0..1" />
-          <End Type="Model.Ambassador" Role="Ambassador" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RequestStatu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Ambassador">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VolunteerCategories_ToAspNetUsers">
-          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
-          <End Type="Model.VolunteerCategory" Role="VolunteerCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VolunteerCategory">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Volunteers_RequestStatus">
-          <End Type="Model.RequestStatu" Role="RequestStatu" Multiplicity="0..1" />
-          <End Type="Model.Volunteer" Role="Volunteer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RequestStatu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Volunteer">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Volunteers_ToVolunteerCategories">
-          <End Type="Model.VolunteerCategory" Role="VolunteerCategory" Multiplicity="0..1" />
-          <End Type="Model.Volunteer" Role="Volunteer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VolunteerCategory">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Volunteer">
-              <PropertyRef Name="VolunteerCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TalentGala">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Institute" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Degree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CGPA_Numbers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TotalNumbers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CNIC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNo_" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-          <Property Name="CurrentSemester_Year" Type="Int32" />
-          <Property Name="RequestStatusId" Type="Int32" />
-          <NavigationProperty Name="RequestStatu" Relationship="Model.FK_TalentGala_ToRequestStatus" FromRole="TalentGala" ToRole="RequestStatu" />
-        </EntityType>
-        <Association Name="FK_TalentGala_ToRequestStatus">
-          <End Type="Model.RequestStatu" Role="RequestStatu" Multiplicity="0..1" />
-          <End Type="Model.TalentGala" Role="TalentGala" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RequestStatu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TalentGala">
-              <PropertyRef Name="RequestStatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1679,6 +1830,37 @@
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AmbassadorCategories">
+            <EntityTypeMapping TypeName="Model.AmbassadorCategory">
+              <MappingFragment StoreEntitySet="AmbassadorCategories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ambassadors">
+            <EntityTypeMapping TypeName="Model.Ambassador">
+              <MappingFragment StoreEntitySet="Ambassadors">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="InstituteId" ColumnName="InstituteId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityOfResidence" ColumnName="CityOfResidence" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="PreviousExperiance" ColumnName="PreviousExperiance" />
+                <ScalarProperty Name="AmbassadorCategoryId" ColumnName="AmbassadorCategoryId" />
+                <ScalarProperty Name="Hostelite" ColumnName="Hostelite" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1775,10 +1957,9 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-                <ScalarProperty Name="Institute" ColumnName="Institute" />
+                <ScalarProperty Name="InstituteId" ColumnName="InstituteId" />
                 <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -1836,6 +2017,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Institutes">
+            <EntityTypeMapping TypeName="Model.Institute">
+              <MappingFragment StoreEntitySet="Institutes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Institute1" ColumnName="Institute" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ProudPartners">
             <EntityTypeMapping TypeName="Model.ProudPartner">
               <MappingFragment StoreEntitySet="ProudPartners">
@@ -1859,11 +2048,11 @@
           <EntitySetMapping Name="SeasonGalleries">
             <EntityTypeMapping TypeName="Model.SeasonGallery">
               <MappingFragment StoreEntitySet="SeasonGallery">
-                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1883,14 +2072,14 @@
           <EntitySetMapping Name="SEELahoreTeams">
             <EntityTypeMapping TypeName="Model.SEELahoreTeam">
               <MappingFragment StoreEntitySet="SEELahoreTeam">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1925,6 +2114,55 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TalentGalas">
+            <EntityTypeMapping TypeName="Model.TalentGala">
+              <MappingFragment StoreEntitySet="TalentGala">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="InstituteId" ColumnName="InstituteId" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="CGPA_Numbers" ColumnName="CGPA/Numbers" />
+                <ScalarProperty Name="TotalNumbers" ColumnName="TotalNumbers" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="ContactNo_" ColumnName="ContactNo." />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CurrentSemester_Year" ColumnName="CurrentSemester/Year" />
+                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VolunteerCategories">
+            <EntityTypeMapping TypeName="Model.VolunteerCategory">
+              <MappingFragment StoreEntitySet="VolunteerCategories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Volunteers">
+            <EntityTypeMapping TypeName="Model.Volunteer">
+              <MappingFragment StoreEntitySet="Volunteers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="InstituteId" ColumnName="InstituteId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityOfResidence" ColumnName="CityOfResidence" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="PreviousExperiance" ColumnName="PreviousExperiance" />
+                <ScalarProperty Name="VolunteerCategoryId" ColumnName="VolunteerCategoryId" />
+                <ScalarProperty Name="Hostelite" ColumnName="Hostelite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -1933,86 +2171,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="AmbassadorCategories">
-            <EntityTypeMapping TypeName="Model.AmbassadorCategory">
-              <MappingFragment StoreEntitySet="AmbassadorCategories">
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Ambassadors">
-            <EntityTypeMapping TypeName="Model.Ambassador">
-              <MappingFragment StoreEntitySet="Ambassadors">
-                <ScalarProperty Name="Hostelite" ColumnName="Hostelite" />
-                <ScalarProperty Name="AmbassadorCategoryId" ColumnName="AmbassadorCategoryId" />
-                <ScalarProperty Name="PreviousExperiance" ColumnName="PreviousExperiance" />
-                <ScalarProperty Name="Degree" ColumnName="Degree" />
-                <ScalarProperty Name="CityOfResidence" ColumnName="CityOfResidence" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Institute" ColumnName="Institute" />
-                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
-                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VolunteerCategories">
-            <EntityTypeMapping TypeName="Model.VolunteerCategory">
-              <MappingFragment StoreEntitySet="VolunteerCategories">
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Volunteers">
-            <EntityTypeMapping TypeName="Model.Volunteer">
-              <MappingFragment StoreEntitySet="Volunteers">
-                <ScalarProperty Name="Hostelite" ColumnName="Hostelite" />
-                <ScalarProperty Name="VolunteerCategoryId" ColumnName="VolunteerCategoryId" />
-                <ScalarProperty Name="PreviousExperiance" ColumnName="PreviousExperiance" />
-                <ScalarProperty Name="Degree" ColumnName="Degree" />
-                <ScalarProperty Name="CityOfResidence" ColumnName="CityOfResidence" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Institute" ColumnName="Institute" />
-                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
-                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TalentGalas">
-            <EntityTypeMapping TypeName="Model.TalentGala">
-              <MappingFragment StoreEntitySet="TalentGala">
-                <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
-                <ScalarProperty Name="CurrentSemester_Year" ColumnName="CurrentSemester/Year" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ContactNo_" ColumnName="ContactNo." />
-                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-                <ScalarProperty Name="TotalNumbers" ColumnName="TotalNumbers" />
-                <ScalarProperty Name="CGPA_Numbers" ColumnName="CGPA/Numbers" />
-                <ScalarProperty Name="Degree" ColumnName="Degree" />
-                <ScalarProperty Name="Institute" ColumnName="Institute" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

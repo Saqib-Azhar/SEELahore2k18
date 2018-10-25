@@ -4,27 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d21a66a5d00c4f49900a1c52dc379e00" Name="Diagram1">
+      <Diagram DiagramId="b57304037303409db80d51a2dd0f657f" Name="Diagram1">
         <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Announcement" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="0.75" PointY="23.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="3" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Competition" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.CompetitionCoordinator" Width="1.5" PointX="7.5" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.CompetitionRegistration" Width="1.5" PointX="7.5" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AmbassadorCategory" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Ambassador" Width="1.5" PointX="7.5" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Announcement" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="0.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="3" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Competition" Width="1.5" PointX="5.25" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CompetitionCoordinator" Width="1.5" PointX="7.5" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CompetitionRegistration" Width="1.5" PointX="7.5" PointY="23.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.ContactU" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.EventDate" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.EventSegment" Width="1.5" PointX="8.25" PointY="25.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Guest" Width="1.5" PointX="5.25" PointY="26.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ProudPartner" Width="1.5" PointX="5.25" PointY="29.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.RequestStatu" Width="1.5" PointX="5.25" PointY="22.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.SeasonGallery" Width="1.5" PointX="5.25" PointY="32.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Season" Width="1.5" PointX="5.25" PointY="35.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.SEELahoreTeam" Width="1.5" PointX="5.25" PointY="38.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.StallCategory" Width="1.5" PointX="5.25" PointY="41.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.StallRequest" Width="1.5" PointX="7.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EventDate" Width="1.5" PointX="6" PointY="53.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EventSegment" Width="1.5" PointX="8.25" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Guest" Width="1.5" PointX="5.25" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Institute" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProudPartner" Width="1.5" PointX="5.25" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RequestStatu" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SeasonGallery" Width="1.5" PointX="7.5" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Season" Width="1.5" PointX="5.25" PointY="42.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SEELahoreTeam" Width="1.5" PointX="5.25" PointY="46.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.StallCategory" Width="1.5" PointX="5.25" PointY="49.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.StallRequest" Width="1.5" PointX="7.5" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TalentGala" Width="1.5" PointX="7.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.VolunteerCategory" Width="1.5" PointX="5.25" PointY="58" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Volunteer" Width="1.5" PointX="7.5" PointY="56.875" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_AmbassadorCategories_ToAspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Ambassadors_ToAmbassadorCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Ambassadors_Institutes" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Ambassadors_RequestStatus" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Announcement_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
@@ -38,26 +48,21 @@
         <AssociationConnector Association="Model.FK_SEELahoreTeam_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_StallRequest_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_StallType_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_VolunteerCategories_ToAspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_CompetitionCoordinator_Competition" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_CompetitionRegistration_Competition" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CompetitionRegistration_Institutes" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_CompetitionRegistration_RequestStatus" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_EventSegments_EventDates" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TalentGala_ToInstitutes" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Volunteers_Institutes" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_StallRequest_RequestStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TalentGala_ToRequestStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Volunteers_RequestStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SeasonGallery_Seasons" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_StallRequest_StallCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Volunteers_ToVolunteerCategories" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_SeasonGallery_Seasons" />
-        <EntityTypeShape EntityType="Model.AmbassadorCategory" Width="1.5" PointX="8.25" PointY="36" />
-        <EntityTypeShape EntityType="Model.Ambassador" Width="1.5" PointX="10.5" PointY="21.875" />
-        <EntityTypeShape EntityType="Model.VolunteerCategory" Width="1.5" PointX="11.25" PointY="19" />
-        <EntityTypeShape EntityType="Model.Volunteer" Width="1.5" PointX="13.5" PointY="21.875" />
-        <AssociationConnector Association="Model.FK_AmbassadorCategories_ToAspNetUsers" />
-        <AssociationConnector Association="Model.FK_Ambassadors_ToAmbassadorCategories" />
-        <AssociationConnector Association="Model.FK_Ambassadors_RequestStatus" />
-        <AssociationConnector Association="Model.FK_VolunteerCategories_ToAspNetUsers" />
-        <AssociationConnector Association="Model.FK_Volunteers_RequestStatus" />
-        <AssociationConnector Association="Model.FK_Volunteers_ToVolunteerCategories" />
-        <EntityTypeShape EntityType="Model.TalentGala" Width="1.5" PointX="7.5" PointY="12.25" />
-        <AssociationConnector Association="Model.FK_TalentGala_ToRequestStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
