@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CompetitionCoordinator
+    using System.ComponentModel;    public partial class CompetitionCoordinator
     {
         public int Id { get; set; }
         public string CoordinatorName { get; set; }
@@ -20,7 +20,7 @@ namespace SEELahore2k18.Models
         public string Contact { get; set; }
         public string Email { get; set; }
         public Nullable<int> CompetitionId { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        [DisplayName("Created At")] public Nullable<System.DateTime> CreatedAt { get; set; }
         public string CreatedBy { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }

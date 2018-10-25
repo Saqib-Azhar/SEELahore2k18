@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VolunteerCategory
+    using System.ComponentModel;    public partial class VolunteerCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public VolunteerCategory()
@@ -22,7 +22,9 @@ namespace SEELahore2k18.Models
     
         public int Id { get; set; }
         public string Category { get; set; }
+        [DisplayName("Created By")]
         public string CreatedBy { get; set; }
+        [DisplayName("Created At")]
         public string CreatedAt { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }

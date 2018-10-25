@@ -12,11 +12,11 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Guest
+    using System.ComponentModel;    public partial class Guest
     {
         public int Id { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        [DisplayName("Created At")] public Nullable<System.DateTime> CreatedAt { get; set; }
         public string GuestName { get; set; }
         public string GuestDescription { get; set; }
         public string Image { get; set; }
