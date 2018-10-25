@@ -47,6 +47,7 @@ namespace SEELahore2k18.Controllers
             return View(stallRequest);
         }
 
+        [AllowAnonymous]
         // GET: StallRequests/Create
         public ActionResult Create()
         {
@@ -60,6 +61,8 @@ namespace SEELahore2k18.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
+
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,StallName,StallDetails,Logo,RequestStatusId,CategoryId,CreatedBy,CreatedAt,OwnerName,ContactNo,Email,Address,City,Profession,Institute")] StallRequest stallRequest, HttpPostedFileBase Logo)
         {
