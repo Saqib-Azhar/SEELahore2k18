@@ -15,13 +15,18 @@ namespace SEELahore2k18.Models
     using System.ComponentModel;    public partial class StallRequest
     {
         public int Id { get; set; }
+        [DisplayName("Stall Name")]
         public string StallName { get; set; }
+        [DisplayName("Stall Details")]
         public string StallDetails { get; set; }
         public string Logo { get; set; }
+        [DisplayName("Request Status")]
         public Nullable<int> RequestStatusId { get; set; }
+        [DisplayName("Category")]
         public Nullable<int> CategoryId { get; set; }
+        [DisplayName("Created By")] 
         public string CreatedBy { get; set; }
-        [DisplayName("Created At")] public Nullable<System.DateTime> CreatedAt { get; set; }
+        [DisplayName("Owner Name")] public Nullable<System.DateTime> CreatedAt { get; set; }
         public string OwnerName { get; set; }
         [DisplayName("Contact No.")] public string ContactNo { get; set; }
         public string Email { get; set; }

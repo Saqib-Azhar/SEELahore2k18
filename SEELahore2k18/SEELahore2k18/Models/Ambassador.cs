@@ -29,6 +29,7 @@ namespace SEELahore2k18.Models
         [DisplayName("City Of Residence")] public string CityOfResidence { get; set; }
         public string Degree { get; set; }
         [DisplayName("Previous Experiance")] public string PreviousExperiance { get; set; }
+        [DisplayName("Ambassador Category")]
         public Nullable<int> AmbassadorCategoryId { get; set; }
         public Nullable<bool> Hostelite { get; set; }
     

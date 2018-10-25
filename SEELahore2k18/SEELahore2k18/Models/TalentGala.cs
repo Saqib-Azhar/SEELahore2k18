@@ -18,12 +18,16 @@ namespace SEELahore2k18.Models
         public string Name { get; set; }
         [DisplayName("Institute")] public Nullable<int> InstituteId { get; set; }
         public string Degree { get; set; }
+        [DisplayName("CGPA/Numbers")]
         public string CGPA_Numbers { get; set; }
+        [DisplayName("Total Numbers")]
         public string TotalNumbers { get; set; }
         public string CNIC { get; set; }
+        [DisplayName("Contact No.")]
         public string ContactNo_ { get; set; }
         public string Email { get; set; }
         [DisplayName("Created At")] public Nullable<System.DateTime> CreatedAt { get; set; }
+        [DisplayName("Current Semester/Year")]
         public Nullable<int> CurrentSemester_Year { get; set; }
         public Nullable<int> RequestStatusId { get; set; }
     
