@@ -8,8 +8,6 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
 }
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from mvcsoftonline.com/html/ict/index-four.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:25:04 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,8 +15,8 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/FrontEndDesign/images/logo/logo.png">
-    <link rel="shortcut icon" type="image/png" href="/FrontEndDesign/images/logo/logo.png">
+    <link rel="icon" type="image/png" href="/FrontEndDesign/images/logo/logo18.png">
+    <link rel="shortcut icon" type="image/png" href="/FrontEndDesign/images/logo/logo18.png">
     <title>SEE Lahore</title>
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/FrontEndDesign/css/bootstrap.min.css">
@@ -42,9 +40,9 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
     <!-- Banner Start -->
     <header class="main-header">
         <!-- Navigation Start -->
-        <div class="main-nav nav-bottom" id="down">
-            <nav class="navbar navbar-default" id="navbar-main">
-                <div class="container" @*style="width:1350px!important"*@>
+        <div class="main-nav nav-transparent">
+            <nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
+                <div class="container">
                     <div class="navbar-header page-scroll">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                             <span class="sr-only">Toggle navigation</span>
@@ -52,19 +50,19 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand page-scroll" @*style="margin-left:-40px!important"*@ href="#page-top"><img class="main-logo" src="/FrontEndDesign/images/logo/logo.png" style="height:60px;width:72px" alt=""> </a>
+                        <a class="navbar-brand page-scroll" @*style="margin-left:-40px!important"*@ href="#page-top"><img class="main-logo" src="/FrontEndDesign/images/logo/logo18.png" style="height:75px;width:92px;margin-top:-15px" alt=""> </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse navbar-ex1-collapse" @*style="margin-left:15px!important"*@>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav navbar-right" @*style="margin-left:-90px!important"*@>
                             <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                             <li> <a class="page-scroll" href="#page-top">Home</a> </li>
                             <li> <a class="page-scroll" href="#about">About</a> </li>
                             @*<li> <a class="page-scroll" href="#speakers">Speakers</a> </li>
-                            <li> <a class="page-scroll" href="#schedules">Schedules</a> </li>
-                            <li> <a class="page-scroll" href="#venue">Venue</a> </li>
-                            <li> <a class="page-scroll" href="#blog">Team SEE Lahore</a> </li>
-                            <li> <a class="page-scroll" href="#sponsors">Sponsors</a> </li>*@
+                                <li> <a class="page-scroll" href="#schedules">Schedules</a> </li>
+                                <li> <a class="page-scroll" href="#venue">Venue</a> </li>
+                                <li> <a class="page-scroll" href="#blog">Team SEE Lahore</a> </li>
+                                <li> <a class="page-scroll" href="#sponsors">Sponsors</a> </li>*@
                             <li> <a class="page-scroll" href="/Volunteers/Create">Volunteer</a> </li>
                             <li> <a class="page-scroll" href="/Ambassadors/Create">Ambassador</a> </li>
                             <li> <a class="page-scroll" href="/TalentGalas/Create">Talent gala</a> </li>
@@ -86,9 +84,9 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                 <div class="row">
                     <div class="col-md-12">
                         <div class="header-banner header-banner-content">
-                            <h1>SEE <span>Lahore 2018</span>  <a href="#down" class="page-scroll" style="">@*<span class="fa fa-arrow-down"></span></a>*@</h1>
-                            <h3>28 - 29 November 2018</h3>
-                            <h4>Expo Center Lahore</h4>
+                            <h1 style="margin-bottom:8px!important">SEE <span>Lahore 2018</span></h1>
+                            <h3 style="margin-bottom:8px!important">28 - 29 November 2018</h3>
+                            <h4 style="margin-bottom:8px!important">Expo Center Lahore</h4>
                             <div class='countdown' data-date="2018-11-28"></div>
                         </div>
                     </div>
@@ -104,88 +102,90 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
             <div class="row">
                 <div class="col-md-12">
                     <div class="about-col">
-                        <h3>Few words about <span>SEE Lahore</span></h3>
-                        <p>They say desperate times call for desperate measures and what does not kill you makes you stronger.
-The millennium 2000 started out with much fan fare but somewhere along the way that joy and excitement lost its place to darkness and hopelessness. Since the beginning of this new millennium, Pakistani nation has been sorely tested. Youth and elders of this country have almost given up on the idea of Pakistan.
-But when the tides of gloom and despondency are high somebody needs to step up and light the beacons of hope. To this end, Study Aid Foundation for Excellence (SAFE) has been arranging a series of mega events called ‘Talent Expos’ in all major metropolitans of Pakistan. For instance at Lahore International Expo Centre, SAFE arranged SEE Lahore (Students Education Expo) Season 1and 2 in 2016 and Season 3 in 2017. These mega events were a huge success and were attended by more than Two Lac Lahorites and received exdia coverage.</p>
+                        <h3 style="margin-top:30px!important">Few words about <span>SEE Lahore</span></h3>
+                        <p>
+                            They say desperate times call for desperate measures and what does not kill you makes you stronger.
+                            The millennium 2000 started out with much fan fare but somewhere along the way that joy and excitement lost its place to darkness and hopelessness. Since the beginning of this new millennium, Pakistani nation has been sorely tested. Youth and elders of this country have almost given up on the idea of Pakistan.
+                            But when the tides of gloom and despondency are high somebody needs to step up and light the beacons of hope. To this end, Study Aid Foundation for Excellence (SAFE) has been arranging a series of mega events called ‘Talent Expos’ in all major metropolitans of Pakistan. For instance at Lahore International Expo Centre, SAFE arranged SEE Lahore (Students Education Expo) Season 1and 2 in 2016 and Season 3 in 2017. These mega events were a huge success and were attended by more than Two Lac Lahorites and received exdia coverage.
+                        </p>
                     </div>
                 </div>
                 @*<div class="col-md-6">
-                    <div class="about-col">
-                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingOne">
-                                    <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            how can i be a freelancer?
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                    <div class="panel-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                        <div class="about-col">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                how can i be a freelancer?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingTwo">
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            What Is web design?
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                    <div class="panel-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                What Is web design?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingThree">
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            what is web development?
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                    <div class="panel-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                what is web development?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingFour">
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                            what is domain and hosting?
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                    <div class="panel-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingFour">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                what is domain and hosting?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingFive">
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                            what is web server?
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                                    <div class="panel-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingFive">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                                what is web server?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
             </div>
         </div>
     </section>
@@ -208,10 +208,10 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                                     <div class="pic" style="width:223px;height:223px">
                                         <img src="/UploadedImages/@item.Image" alt="" style="width:223px;height:223px">
                                         @*<ul class="social">
-                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        </ul>*@
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                            </ul>*@
                                     </div>
                                 </div>
                                 <div class="speaker-info">
@@ -224,77 +224,77 @@ But when the tides of gloom and despondency are high somebody needs to step up a
 
                 }
 
-               
 
-                
+
+
             </div>
         </div>
     </section>
     <!-- Organizer Start -->
     @*<section class="organizer-area" id="organizer">
-        <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
-        <img class="right-img" src="/FrontEndDesign/images/right-img.png" alt="">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="organizer-col">
-                        <h3>Organized <br><span>By</span></h3>
-                        <h2>S.E.T Team</h2>
-                        <h4>please feel free to contact us</h4>
-                        <p><i class="fa fa-phone" aria-hidden="true"></i> +0123 123 456 789</p>
-                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i> organized@gmail.com</p>
+            <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
+            <img class="right-img" src="/FrontEndDesign/images/right-img.png" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="organizer-col">
+                            <h3>Organized <br><span>By</span></h3>
+                            <h2>S.E.T Team</h2>
+                            <h4>please feel free to contact us</h4>
+                            <p><i class="fa fa-phone" aria-hidden="true"></i> +0123 123 456 789</p>
+                            <p><i class="fa fa-envelope-o" aria-hidden="true"></i> organized@gmail.com</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="organizer-col">
-                        <img src="/FrontEndDesign/images/organizer.jpg" alt="">
+                    <div class="col-md-6">
+                        <div class="organizer-col">
+                            <img src="/FrontEndDesign/images/organizer.jpg" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>*@
+        </section>*@
     <!-- Ticket Start -->
     @*<section class="ticket-area parallax">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="ticket-col">
-                        <h2>last date of collecting ticket</h2>
-                        <h3>November 28<sub>th</sub>, 2018</h3>
-                        <p>Consectetur adipisicing elit. A doloribus molestiae, veniam facere laboriosam autem nam voluptate, in beatae at eaque earum nostrum iste rerum.</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="ticket-col">
+                            <h2>last date of collecting ticket</h2>
+                            <h3>November 28<sub>th</sub>, 2018</h3>
+                            <p>Consectetur adipisicing elit. A doloribus molestiae, veniam facere laboriosam autem nam voluptate, in beatae at eaque earum nostrum iste rerum.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="ticket-col">
-                        <h2>Get a ticket now</h2>
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Full Name">
+                    <div class="col-md-8">
+                        <div class="ticket-col">
+                            <h2>Get a ticket now</h2>
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Full Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="email" class="form-control" placeholder="Your Email Address">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Number">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="my-select">
+                                            <option>Select Gender</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-default my-btn btn-color" type="submit">Submit</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="Your Email Address">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Number">
-                                </div>
-                                <div class="col-md-6">
-                                    <select class="my-select">
-                                        <option>Select Gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn btn-default my-btn btn-color" type="submit">Submit</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>*@
+        </section>*@
     <!-- Schedules Start -->
     <section class="schedule-area" id="schedules">
         <img class="left-img" src="/FrontEndDesign/images/left-img.png" alt="">
@@ -319,7 +319,7 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             @{ foreach (var item in EventSegments)
                                 {
 
@@ -356,13 +356,13 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                         </div>
                         <div class="info-box">
                             <i class="flaticon-mail"></i>
-                            <p>info@seelahore.com<br>contact@seelahore.com</p>
+                            <p>info@seelahore.com</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="venue-col">
-                        <img src="/FrontEndDesign/images/venue/ExpoCenterLahore.jpg"style="width: 555px;height: 275px;" alt="">
+                        <img src="/FrontEndDesign/images/venue/ExpoCenterLahore.jpg" style="width: 550px;height: 255px;" alt="">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -404,8 +404,8 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                         foreach (var item in SEELahoreTeams)
                         {
                             <div class="col-md-4 col-sm-6 col-xs-6 fw-600">
-                                <div class="blog-col wow fadeInLeft animated" data-wow-duration=".5s" data-wow-delay="0s">
-                                    <div class="blog-img">
+                                <div class="blog-col wow fadeInLeft animated" data-wow-duration=".5s" data-wow-delay="0s" style="height:450px">
+                                    <div class="blog-img" style="height:275px">
                                         <img src="/UploadedImages/@item.Photo" style="height:275px;width:275px" alt="">
                                         <div class="blog-date">
                                             <h3>@item.Designation</h3>
@@ -420,8 +420,8 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                             </div>
                         }
                     }
-                    
-                   
+
+
                 </div>
             </div>
         </div>
@@ -489,7 +489,7 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                         {
                             <div class="col-md-2 col-sm-3 col-xs-3">
                                 <div class="sponsor-col">
-                                    <a href="#"><img src="/UploadedImages/@item.Logo" alt="@item.PartnerName" title="@item.PartnerName"></a>
+                                    <a href="#"><img src="/UploadedImages/@item.Logo" style="width:auto;height:85px" alt="@item.PartnerName" title="@item.PartnerName"></a>
                                 </div>
                             </div>
                         }
@@ -500,7 +500,7 @@ But when the tides of gloom and despondency are high somebody needs to step up a
             </div>
         </section>
                         }
-    
+
     <!-- Google map -->
     @*<div id="map" class="theme-color" style="height: 400px; width: 100%;"></div>*@
     <!-- Contact Start -->
@@ -511,22 +511,23 @@ But when the tides of gloom and despondency are high somebody needs to step up a
             <div class="row">
                 <div class="">
                     <div class="col-md-4 col-sm-6">
-                        <div class="contact-col contact-infobox">
+                        <div class="contact-col contact-infobox" style="height:231px;">
                             <i class="fa fa-envelope-o" aria-hidden="true"></i>
                             <p>info@seelahore.com</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="contact-col contact-infobox">
+                        <div class="contact-col contact-infobox" style="height:231px;">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <p>+923339443155</p>
                             <p>+923334694614</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="contact-col contact-infobox">
+                        <div class="contact-col contact-infobox" style="height:231px;">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            <p>International Expo Center Lahore Pakistan</p>
+                            <p>International Expo Center</p>
+                            <p>Lahore Pakistan</p>
                         </div>
                     </div>
                 </div>
@@ -587,14 +588,14 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                             <i class="fa fa-twitter" aria-hidden="true"></i>
                         </a>
                         @*<a href="#set-4" class="hi-icon">
-                            <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        </a>*@
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>*@
                         <a href="https://www.instagram.com/lhrjamiat/?fbclid=IwAR0YcDjwSfzs-JAOinlhjK-Z7ANl1n_2alFfs22Ufa-ATAhhBPhISJcoL3I" class="hi-icon">
                             <i class="fa fa-dribbble" aria-hidden="true"></i>
                         </a>
                         @*<a href="#set-4" class="hi-icon">
-                            <i class="fa fa-google-plus" aria-hidden="true"></i>
-                        </a>*@
+                                <i class="fa fa-google-plus" aria-hidden="true"></i>
+                            </a>*@
                     </div>
                 </div>
             </div>
@@ -641,11 +642,10 @@ But when the tides of gloom and despondency are high somebody needs to step up a
 
     <!-- Map API Key -->
     @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPyH6cdvHbPfyzC-ygZydj_KOBc6MoDhg&amp;callback=initMap"
-            type="text/javascript"></script>*@
+        type="text/javascript"></script>*@
     <script src="/FrontEndDesign/js/map.js"></script>
     <!-- Main Custom JS -->
     <script src="/FrontEndDesign/js/custom.js"></script>
 </body>
 
-<!-- Mirrored from mvcsoftonline.com/html/ict/index-four.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:26:51 GMT -->
 </html>

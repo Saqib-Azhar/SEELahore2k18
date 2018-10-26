@@ -182,7 +182,7 @@
 		padding: 10px 15px;
 	}
 	.header-banner {
-		padding-top: 200px;
+		padding-top: 0px;
 	}
 }
 @media only screen and (max-width:380px) {
