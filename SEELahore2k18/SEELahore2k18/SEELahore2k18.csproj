@@ -403,6 +403,7 @@
     <Content Include="FrontEndDesign\images\icon\4.png" />
     <Content Include="FrontEndDesign\images\left-img.png" />
     <Content Include="FrontEndDesign\images\logo\logo.png" />
+    <Content Include="FrontEndDesign\images\logo\logo18.png" />
     <Content Include="FrontEndDesign\images\organizer.jpg" />
     <Content Include="FrontEndDesign\images\preloder.gif" />
     <Content Include="FrontEndDesign\images\right-img.png" />

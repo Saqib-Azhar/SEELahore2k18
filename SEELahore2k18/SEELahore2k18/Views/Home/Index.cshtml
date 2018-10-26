@@ -17,8 +17,8 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/FrontEndDesign/images/logo/logo.png">
-    <link rel="shortcut icon" type="image/png" href="/FrontEndDesign/images/logo/logo.png">
+    <link rel="icon" type="image/png" href="/FrontEndDesign/images/logo/logo18.png">
+    <link rel="shortcut icon" type="image/png" href="/FrontEndDesign/images/logo/logo18.png">
     <title>SEE Lahore</title>
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/FrontEndDesign/css/bootstrap.min.css">
@@ -52,7 +52,7 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand page-scroll" @*style="margin-left:-40px!important"*@ href="#page-top"><img class="main-logo" src="/FrontEndDesign/images/logo/logo.png" style="height:60px;width:72px" alt=""> </a>
+                        <a class="navbar-brand page-scroll" @*style="margin-left:-40px!important"*@ href="#page-top"><img class="main-logo" src="/FrontEndDesign/images/logo/logo18.png" style="height:75px;width:92px;margin-top:-15px" alt=""> </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex1-collapse" @*style="margin-left:15px!important"*@>
@@ -356,13 +356,13 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                         </div>
                         <div class="info-box">
                             <i class="flaticon-mail"></i>
-                            <p>info@seelahore.com<br>contact@seelahore.com</p>
+                            <p>info@seelahore.com</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="venue-col">
-                        <img src="/FrontEndDesign/images/venue/ExpoCenterLahore.jpg"style="width: 555px;height: 275px;" alt="">
+                        <img src="/FrontEndDesign/images/venue/ExpoCenterLahore.jpg"style="width: 550px;height: 255px;" alt="">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -404,8 +404,8 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                         foreach (var item in SEELahoreTeams)
                         {
                             <div class="col-md-4 col-sm-6 col-xs-6 fw-600">
-                                <div class="blog-col wow fadeInLeft animated" data-wow-duration=".5s" data-wow-delay="0s">
-                                    <div class="blog-img">
+                                <div class="blog-col wow fadeInLeft animated" data-wow-duration=".5s" data-wow-delay="0s" style="height:450px">
+                                    <div class="blog-img" style="height:275px">
                                         <img src="/UploadedImages/@item.Photo" style="height:275px;width:275px" alt="">
                                         <div class="blog-date">
                                             <h3>@item.Designation</h3>
@@ -489,7 +489,7 @@ But when the tides of gloom and despondency are high somebody needs to step up a
                         {
                             <div class="col-md-2 col-sm-3 col-xs-3">
                                 <div class="sponsor-col">
-                                    <a href="#"><img src="/UploadedImages/@item.Logo" alt="@item.PartnerName" title="@item.PartnerName"></a>
+                                    <a href="#"><img src="/UploadedImages/@item.Logo" style="width:auto;height:85px" alt="@item.PartnerName" title="@item.PartnerName"></a>
                                 </div>
                             </div>
                         }
@@ -511,22 +511,23 @@ But when the tides of gloom and despondency are high somebody needs to step up a
             <div class="row">
                 <div class="">
                     <div class="col-md-4 col-sm-6">
-                        <div class="contact-col contact-infobox">
+                        <div class="contact-col contact-infobox" style="height:231px;">
                             <i class="fa fa-envelope-o" aria-hidden="true"></i>
                             <p>info@seelahore.com</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="contact-col contact-infobox">
+                        <div class="contact-col contact-infobox" style="height:231px;">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <p>+923339443155</p>
                             <p>+923334694614</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="contact-col contact-infobox">
+                        <div class="contact-col contact-infobox" style="height:231px;">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            <p>International Expo Center Lahore Pakistan</p>
+                            <p>International Expo Center</p>
+                            <p>Lahore Pakistan</p>
                         </div>
                     </div>
                 </div>
