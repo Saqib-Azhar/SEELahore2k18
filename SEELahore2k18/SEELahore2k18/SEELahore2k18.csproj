@@ -217,6 +217,7 @@
     <Compile Include="Controllers\EventSegmentsController.cs" />
     <Compile Include="Controllers\GuestsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstitutesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProudPartnersController.cs" />
     <Compile Include="Controllers\RequestStatusController.cs" />
@@ -798,6 +799,11 @@
     <Content Include="Views\TalentGalas\Edit.cshtml" />
     <Content Include="Views\TalentGalas\Index.cshtml" />
     <Content Include="Views\Home\SubmissionResponce.cshtml" />
+    <Content Include="Views\Institutes\Create.cshtml" />
+    <Content Include="Views\Institutes\Delete.cshtml" />
+    <Content Include="Views\Institutes\Details.cshtml" />
+    <Content Include="Views\Institutes\Edit.cshtml" />
+    <Content Include="Views\Institutes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
