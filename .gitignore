@@ -242,3 +242,5 @@ ModelManifest.xml
 .fake/
 *.rar
 /SEELahore2k18/SEELahore2k18/Properties/PublishProfiles/SEELahoreWebDep.pubxml
+/SEELahore2k18/SEELahore2k18/Properties/PublishProfiles
+/SEELahore2k18/SEELahore2k18/UploadedImages.zip
