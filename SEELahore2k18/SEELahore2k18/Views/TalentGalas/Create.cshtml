@@ -10,6 +10,10 @@
     
     <div class="form-horizontal">
         <h4>Register for Talent Gala</h4>
+        <p>
+            You are eligible to apply for Talent Gala if the percentage of your last exam is 80% (or above) or your CGPA is 3.5 (or above). 
+            You are required to bring the original transcript of result card on the event day to get the award.
+        </p> 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -61,7 +65,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Contact No.", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Contact No", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ContactNo_, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ContactNo_, "", new { @class = "text-danger" })
