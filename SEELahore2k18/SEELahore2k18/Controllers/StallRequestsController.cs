@@ -22,13 +22,13 @@ namespace SEELahore2k18.Controllers
         {
             if (type != 0)
             {
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
                 var stallRequests = db.StallRequests.Where(s => s.RequestStatusId == type).Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
                 return View(stallRequests.ToList());
             }
             else
             {
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
                 var stallRequests = db.StallRequests.Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
                 return View(stallRequests.ToList());
             }
@@ -53,9 +53,22 @@ namespace SEELahore2k18.Controllers
         // GET: StallRequests/Create
         public ActionResult Create()
         {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            var dateRange = db.RegistrationDeadLines.FirstOrDefault(s => s.RegistrationType == controllerName);
+            var comparisonto = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To)));
+            var comparisonfrom = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
+
+            if (comparisonto != -1)
+            {
+                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended" });
+            }
+            else if (comparisonfrom != 1)
+            {
+                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations will be open soon!" });
+            }
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status");
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType");
             return View();
         }
@@ -71,6 +84,16 @@ namespace SEELahore2k18.Controllers
         {
             if (ModelState.IsValid)
             {
+                var obj = db.StallRequests.FirstOrDefault(s => s.Email == stallRequest.Email);
+                if (obj != null)
+                {
+                    ViewBag.ErrorMessage = "Email Already Exists!";
+                    ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
+                    ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                    ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
+                    ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
+                    return View(stallRequest);
+                }
                 if (Logo != null && Logo.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(Logo.FileName);
@@ -85,11 +108,11 @@ namespace SEELahore2k18.Controllers
                 db.SaveChanges();
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Your stall proposal is successfully registerd with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore,See Lahore 2018", url = controllerName + "/" + actionName });
             }
 
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
             ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
             return View(stallRequest);
@@ -108,7 +131,7 @@ namespace SEELahore2k18.Controllers
                 return HttpNotFound();
             }
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
             ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
             return View(stallRequest);
@@ -137,7 +160,7 @@ namespace SEELahore2k18.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
             ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
             return View(stallRequest);

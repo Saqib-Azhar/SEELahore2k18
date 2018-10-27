@@ -63,6 +63,7 @@
         <AssociationConnector Association="Model.FK_StallRequest_StallCategory" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Volunteers_ToVolunteerCategories" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.RegistrationDeadLine" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

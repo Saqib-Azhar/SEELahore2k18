@@ -220,6 +220,7 @@
     <Compile Include="Controllers\InstitutesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProudPartnersController.cs" />
+    <Compile Include="Controllers\RegistrationDeadLinesController.cs" />
     <Compile Include="Controllers\RequestStatusController.cs" />
     <Compile Include="Controllers\SeasonGalleriesController.cs" />
     <Compile Include="Controllers\SeasonsController.cs" />
@@ -285,6 +286,9 @@
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProudPartner.cs">
+      <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RegistrationDeadLine.cs">
       <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequestStatu.cs">
@@ -405,6 +409,7 @@
     <Content Include="FrontEndDesign\images\left-img.png" />
     <Content Include="FrontEndDesign\images\logo\logo.png" />
     <Content Include="FrontEndDesign\images\logo\logo18.png" />
+    <Content Include="FrontEndDesign\images\logo\see_logo.png" />
     <Content Include="FrontEndDesign\images\organizer.jpg" />
     <Content Include="FrontEndDesign\images\preloder.gif" />
     <Content Include="FrontEndDesign\images\right-img.png" />
@@ -804,6 +809,12 @@
     <Content Include="Views\Institutes\Details.cshtml" />
     <Content Include="Views\Institutes\Edit.cshtml" />
     <Content Include="Views\Institutes\Index.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Create.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Delete.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Details.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Edit.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Index.cshtml" />
+    <Content Include="Views\Home\RegistrationDeadline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

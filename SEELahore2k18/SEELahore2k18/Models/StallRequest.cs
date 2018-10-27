@@ -11,24 +11,32 @@ namespace SEELahore2k18.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    using System.ComponentModel;    public partial class StallRequest
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class StallRequest
     {
         public int Id { get; set; }
         [DisplayName("Stall Name")]
         public string StallName { get; set; }
-        [DisplayName("Stall Details")]
         public string StallDetails { get; set; }
         public string Logo { get; set; }
-        [DisplayName("Request Status")]
         public Nullable<int> RequestStatusId { get; set; }
-        [DisplayName("Category")]
         public Nullable<int> CategoryId { get; set; }
-        [DisplayName("Created By")] 
         public string CreatedBy { get; set; }
-        [DisplayName("Owner Name")] public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public string OwnerName { get; set; }
-        [DisplayName("Contact No.")] public string ContactNo { get; set; }
+
+        [Required(ErrorMessage = "You must provide a phone number")]
+        [Display(Name = "Phone")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0]{1})\)?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+
+        public string ContactNo { get; set; }
+
+
+        [Required(ErrorMessage = "The email address is required")]
+        [EmailAddress(ErrorMessage = "The email address is not valid")]
         public string Email { get; set; }
         public string Address { get; set; }
         public string City { get; set; }

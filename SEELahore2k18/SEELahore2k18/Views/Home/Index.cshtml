@@ -15,8 +15,8 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/FrontEndDesign/images/logo/logo18.png">
-    <link rel="shortcut icon" type="image/png" href="/FrontEndDesign/images/logo/logo18.png">
+    <link rel="icon" type="image/png" href="/FrontEndDesign/images/logo/see_logo.png">
+    <link rel="shortcut icon" type="image/png" href="/FrontEndDesign/images/logo/see_logo.png">
     <title>SEE Lahore</title>
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/FrontEndDesign/css/bootstrap.min.css">
@@ -30,7 +30,48 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
         <script src="/FrontEndDesign/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="/FrontEndDesign/https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+    <style>
+        .dropbtn {
+            background-color: none;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: none;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: none;
+        }
+    </style>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
     <!-- Preloader -->
@@ -50,19 +91,25 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand page-scroll" @*style="margin-left:-40px!important"*@ href="#page-top"><img class="main-logo" src="/FrontEndDesign/images/logo/logo18.png" style="height:75px;width:92px;margin-top:-15px" alt=""> </a>
+                        <a class="navbar-brand page-scroll" @*style="margin-left:-40px!important"*@ href="#page-top"><img class="main-logo" src="/FrontEndDesign/images/logo/see_logo.png" style="height:75px;width:92px;margin-top:-15px" alt=""> </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav navbar-right" @*style="margin-left:-90px!important"*@>
                             <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                             <li> <a class="page-scroll" href="#page-top">Home</a> </li>
-                            <li> <a class="page-scroll" href="#about">About</a> </li>
-                            @*<li> <a class="page-scroll" href="#speakers">Speakers</a> </li>
-                                <li> <a class="page-scroll" href="#schedules">Schedules</a> </li>
-                                <li> <a class="page-scroll" href="#venue">Venue</a> </li>
-                                <li> <a class="page-scroll" href="#blog">Team SEE Lahore</a> </li>
-                                <li> <a class="page-scroll" href="#sponsors">Sponsors</a> </li>*@
+                            <li class="dropdown">
+                                    <a class="dropbtn">Explore</a>
+                                    <div class="dropdown-content">
+                                        <a class="page-scroll" href="#speakers">Speakers</a>  
+                                        <a class="page-scroll" href="#schedules">Schedules</a>  
+                                        <a class="page-scroll" href="#venue">Venue</a>  
+                                        <a class="page-scroll" href="#blog">Team SEE Lahore</a>  
+                                        <a class="page-scroll" href="#sponsors">Sponsors</a> 
+                                    </div>
+                                
+                            </li>
+
                             <li> <a class="page-scroll" href="/Volunteers/Create">Volunteer</a> </li>
                             <li> <a class="page-scroll" href="/Ambassadors/Create">Ambassador</a> </li>
                             <li> <a class="page-scroll" href="/TalentGalas/Create">Talent gala</a> </li>
@@ -84,9 +131,9 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                 <div class="row">
                     <div class="col-md-12">
                         <div class="header-banner header-banner-content">
-                            <h1 style="margin-bottom:8px!important">SEE <span>Lahore 2018</span></h1>
-                            <h3 style="margin-bottom:8px!important">28 - 29 November 2018</h3>
-                            <h4 style="margin-bottom:8px!important">Expo Center Lahore</h4>
+                            <h1 style="margin-bottom:8px">SEE <span>Lahore 2018</span></h1>
+                            <h3 style="margin-bottom:8px">28 - 29 November 2018</h3>
+                            <h4 style="margin-bottom:8px">Expo Center Lahore</h4>
                             <div class='countdown' data-date="2018-11-28"></div>
                         </div>
                     </div>
@@ -109,7 +156,7 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                             But when the tides of gloom and despondency are high somebody needs to step up and light the beacons of hope. To this end, Study Aid Foundation for Excellence (SAFE) has been arranging a series of mega events called ‘Talent Expos’ in all major metropolitans of Pakistan. For instance at Lahore International Expo Centre, SAFE arranged SEE Lahore (Students Education Expo) Season 1and 2 in 2016 and Season 3 in 2017. These mega events were a huge success and were attended by more than Two Lac Lahorites and received exdia coverage.
                         </p>
                     </div>
-                </div>
+                   </div>
                 @*<div class="col-md-6">
                         <div class="about-col">
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -228,6 +275,7 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
 
 
             </div>
+           
         </div>
     </section>
     <!-- Organizer Start -->
@@ -412,7 +460,7 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                                         </div>
                                     </div>
                                     <div class="blog-content">
-                                        <h4><a href="blog-single.html">@item.Name</a></h4>
+                                        <h4>@item.Name</h4>
                                         <p>@item.ContactNo <br /> @item.Email</p>
                                         @*<a class="btn btn-default my-btn btn-color" href="blog-single.html" role="button">Read more</a>*@
                                     </div>

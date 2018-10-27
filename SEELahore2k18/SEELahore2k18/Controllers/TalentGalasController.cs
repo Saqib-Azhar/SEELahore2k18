@@ -18,7 +18,7 @@ namespace SEELahore2k18.Controllers
         // GET: TalentGalas
         public ActionResult Index()
         {
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             var talentGalas = db.TalentGalas.Include(t => t.RequestStatu);
             return View(talentGalas.ToList());
         }
@@ -42,7 +42,20 @@ namespace SEELahore2k18.Controllers
         // GET: TalentGalas/Create
         public ActionResult Create()
         {
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            var dateRange = db.RegistrationDeadLines.FirstOrDefault(s => s.RegistrationType == controllerName);
+            var comparisonto = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To)));
+            var comparisonfrom = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
+
+            if (comparisonto != -1)
+            {
+                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended" });
+            }
+            else if (comparisonfrom != 1)
+            {
+                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations will be open soon!" });
+            }
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status");
             return View();
         }
@@ -53,20 +66,30 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Institute,Degree,CGPA_Numbers,TotalNumbers,CNIC,ContactNo_,Email,CreatedAt,CurrentSemester_Year,RequestStatusId")] TalentGala talentGala)
+        public ActionResult Create([Bind(Include = "Id,Name,InstituteId,Degree,CGPA_Numbers,TotalNumbers,CNIC,ContactNo_,Email,CreatedAt,CurrentSemester_Year,RequestStatusId")] TalentGala talentGala)
         {
             if (ModelState.IsValid)
             {
+                var obj = db.TalentGalas.FirstOrDefault(s => s.Email == talentGala.Email);
+                if (obj != null)
+                {
+                    ViewBag.ErrorMessage = "Email Already Exists!";
+                    ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                    ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
+                    ModelState.AddModelError("Error: ", "Email Alread");
+                    return View(talentGala);
+                }
+                //var institute = Request.Form["InstituteId"]; talentGala.InstituteId =Convert.ToInt32(institute);
                 talentGala.RequestStatusId = 1;
                 talentGala.CreatedAt = DateTime.Now;
                 db.TalentGalas.Add(talentGala);
                 db.SaveChanges();
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "You are successfully registerd for Talent Gala with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore,See Lahore 2018", url = controllerName + "/" + actionName });
             }
 
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
             return View(talentGala);
         }
@@ -83,7 +106,7 @@ namespace SEELahore2k18.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
             return View(talentGala);
         }
@@ -93,7 +116,7 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Institute,Degree,CGPA_Numbers,TotalNumbers,CNIC,ContactNo_,Email,CreatedAt,CurrentSemester_Year,RequestStatusId")] TalentGala talentGala)
+        public ActionResult Edit([Bind(Include = "Id,Name,InstituteId,Degree,CGPA_Numbers,TotalNumbers,CNIC,ContactNo_,Email,CreatedAt,CurrentSemester_Year,RequestStatusId")] TalentGala talentGala)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +124,7 @@ namespace SEELahore2k18.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
             return View(talentGala);
         }

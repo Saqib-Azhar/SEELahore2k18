@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>StallRequest</h4>
+        <h4>Stall Request</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -84,7 +84,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "03121234567" } })
                 @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -92,7 +92,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "user@email.com" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -122,9 +122,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Institute, "InstitutesList", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Institute, "InstituteId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("InstitutesList", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("InstituteId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Institute, "", new { @class = "text-danger" })
             </div>
         </div>

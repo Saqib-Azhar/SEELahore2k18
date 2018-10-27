@@ -43,5 +43,11 @@ namespace SEELahore2k18.Controllers
             var a = url.Split('/');
             return RedirectToAction(a[1], a[0]);
         }
+
+        public ActionResult RegistrationDeadline(string status)
+        {
+            ViewBag.Message = status;
+            return View();
+        }
     }
 }

@@ -12,15 +12,15 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel;    public partial class ContactU
+    public partial class ContactU
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        [DisplayName("Contact No.")] public string ContactNo { get; set; }
+        public string ContactNo { get; set; }
         public string Email { get; set; }
         public string Subject { get; set; }
         public string Description { get; set; }
-        [DisplayName("Created At")] public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public Nullable<bool> Opened { get; set; }
     }
 }

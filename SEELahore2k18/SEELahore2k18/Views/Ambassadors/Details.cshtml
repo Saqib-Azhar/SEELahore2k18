@@ -4,127 +4,147 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Ambassador</h4>
+
+<div  style="border:double">
+    <h4 style="padding:10px">Ambassador</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <div class="row" style="padding:20px">
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Name)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.ContactNo)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ContactNo)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.FacebookId)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.FacebookId)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.EmailId)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.EmailId)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.CNIC)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CNIC)
-        </dd>
+        </dd></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Institute)
+        <div class="col-md-6"><dt>
+            @Html.DisplayNameFor(model => model.Institute.Institute1)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Institute)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.Address)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Address)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.CityOfResidence)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CityOfResidence)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.Degree)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Degree)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.PreviousExperiance)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.PreviousExperiance)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.Hostelite)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Hostelite)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.AmbassadorCategory.Category)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.AmbassadorCategory.Category)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.RequestStatu.Status)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.RequestStatu.Status)
-        </dd>
+        </dd></div>
 
-    </dl>
+        <div class="col-md-6">
+            <dt>
+                @Html.DisplayNameFor(model => model.Why)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Why)
+            </dd>
+        </div>
+        <div class="col-md-6">
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpectationsFromSEE)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ExpectationsFromSEE)
+            </dd>
+        </div>
+
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p style="text-align:center">
+        @Html.ActionLink("Back to List", "Index", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-sm btn-info" })
+        @Html.ActionLink("Approve", "UpdateStatus", new { id = Model.Id, status = 2 }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
+        @Html.ActionLink("Decline", "UpdateStatus", new { id = Model.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+    </p>

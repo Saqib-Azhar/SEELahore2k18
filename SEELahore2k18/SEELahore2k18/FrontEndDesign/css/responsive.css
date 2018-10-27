@@ -148,7 +148,18 @@
 		width: 100%;
 	}
 	.header-banner h1 {
-		font-size: 40px;
+		font-size: 25px;
+        margin-top:20px
+	}
+	.header-banner h3 {
+		font-size: 18px;
+	}
+	.header-banner h4 {
+		font-size: 16px;
+	}
+	.countdown {
+		font-size: 16px;
+        line-height:15px
 	}
 }
 @media only screen and (max-width:400px) {
@@ -208,7 +219,7 @@
 		padding-top: 150px;
 	}
 	.header-banner h1 {
-		font-size: 30px;
+		font-size: 20px;
 	}
 	.header-banner h4 {
 		font-size: 14px;

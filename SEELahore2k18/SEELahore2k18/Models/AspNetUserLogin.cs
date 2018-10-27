@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel;    public partial class AspNetUserLogin
+    public partial class AspNetUserLogin
     {
         public string LoginProvider { get; set; }
         public string ProviderKey { get; set; }

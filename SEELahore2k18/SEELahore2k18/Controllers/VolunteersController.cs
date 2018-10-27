@@ -20,13 +20,13 @@ namespace SEELahore2k18.Controllers
         {
             if (type != 0)
             {
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
                 var volunteers = db.Volunteers.Where(s=>s.StatusId == type).Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
                 return View(volunteers.ToList());
             }
             else
             {
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
                 var volunteers = db.Volunteers.Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
                 return View(volunteers.ToList());
             }
@@ -50,10 +50,26 @@ namespace SEELahore2k18.Controllers
         // GET: Volunteers/Create
         public ActionResult Create()
         {
+
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            var dateRange = db.RegistrationDeadLines.FirstOrDefault(s => s.RegistrationType == controllerName);
+            var comparisonto =  (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To))); 
+            var comparisonfrom =  (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
+
+            if (comparisonto != -1)
+            {
+                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended!" });
+            }
+            else if (comparisonfrom != 1)
+            {
+                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations will be open soon!" });
+            }
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status");
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category");
+
             return View();
+            
         }
         [AllowAnonymous]
         // POST: Volunteers/Create
@@ -61,20 +77,29 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,Institute,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,VolunteerCategoryId,Hostelite")] Volunteer volunteer)
+        public ActionResult Create([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,InstituteId,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,VolunteerCategoryId,Hostelite,Why,ExpectationsFromSEE")] Volunteer volunteer)
         {
             if (ModelState.IsValid)
             {
+                var obj = db.Volunteers.FirstOrDefault(s => s.EmailId == volunteer.EmailId);
+                if(obj != null)
+                {
+                    ViewBag.ErrorMessage = "Email Already Exists!";
+                    ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
+                    ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                    ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
+                    return View(volunteer);
+                }
                 volunteer.CreatedAt = DateTime.Now;
                 db.Volunteers.Add(volunteer);
                 db.SaveChanges();
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "You are successfully registerd for volunteer with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore,See Lahore 2018", url = controllerName + "/" + actionName });
             }
 
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
             return View(volunteer);
         }
@@ -92,7 +117,7 @@ namespace SEELahore2k18.Controllers
                 return HttpNotFound();
             }
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
             return View(volunteer);
         }
@@ -102,7 +127,7 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,Institute,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,VolunteerCategoryId,Hostelite")] Volunteer volunteer)
+        public ActionResult Edit([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,InstituteId,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,VolunteerCategoryId,Hostelite")] Volunteer volunteer)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +137,7 @@ namespace SEELahore2k18.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
             return View(volunteer);
         }

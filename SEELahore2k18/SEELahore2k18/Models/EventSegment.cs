@@ -12,7 +12,7 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel;    public partial class EventSegment
+    public partial class EventSegment
     {
         public int Id { get; set; }
         public Nullable<System.TimeSpan> From { get; set; }
@@ -22,7 +22,7 @@ namespace SEELahore2k18.Models
         public string Image { get; set; }
         public Nullable<int> EventDayId { get; set; }
         public string CreatedBy { get; set; }
-        [DisplayName("Created At")] public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual EventDate EventDate { get; set; }

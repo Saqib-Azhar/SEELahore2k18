@@ -4,103 +4,98 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>CompetitionRegistration</h4>
+
+<div  style="border:double">
+    <h4 style="padding:10px">Competition Registration</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <div class="row" style="padding:20px">
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Name)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.ContactNo)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ContactNo)
-        </dd>
+        </dd></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Designation)
-        </dt>
+ 
 
-        <dd>
-            @Html.DisplayFor(model => model.Designation)
-        </dd>
-
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.EmailId)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.EmailId)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.CNIC)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CNIC)
-        </dd>
+        </dd></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Institute)
+        <div class="col-md-6"><dt>
+            @Html.DisplayNameFor(model => model.Institute.Institute1)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Institute)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.Address)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Address)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.City)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.City)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.Competition.CompetitionName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Competition.CompetitionName)
-        </dd>
+        </dd></div>
 
-        <dt>
+        <div class="col-md-6"><dt>
             @Html.DisplayNameFor(model => model.RequestStatu.Status)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.RequestStatu.Status)
-        </dd>
+        </dd></div>
 
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p style="text-align:center">
+        @Html.ActionLink("Back to List", "Index", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-sm btn-info" })
+        @Html.ActionLink("Approve", "UpdateStatus", new { id = Model.Id, status = 2 }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
+        @Html.ActionLink("Decline", "UpdateStatus", new { id = Model.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+    </p>
