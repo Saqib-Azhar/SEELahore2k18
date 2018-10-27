@@ -654,6 +654,7 @@
     <Content Include="Models\SEELahoreDBModel.edmx.diagram">
       <DependentUpon>SEELahoreDBModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\SEE27Oct.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
