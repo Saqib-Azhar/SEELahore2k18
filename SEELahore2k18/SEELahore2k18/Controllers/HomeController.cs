@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.IO;
+using System.Data.Entity.Validation;
 
 namespace SEELahore2k18.Controllers
 {
@@ -49,5 +51,75 @@ namespace SEELahore2k18.Controllers
             ViewBag.Message = status;
             return View();
         }
+
+
+
+        public static void infoMessage(string _message)
+        {
+            StreamWriter sw = null;
+            try
+            {
+                sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\ErrorLogs.txt", true);
+                sw.WriteLine(DateTime.Now.ToString() + ": " + _message);
+                sw.Flush();
+                sw.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static void writeErrorLog(Exception ex)
+        {
+            StreamWriter sw = null;
+            try
+            {
+                sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\LogFile.txt", true);
+                sw.WriteLine(DateTime.Now.ToString() + " " + ex.Source.ToString().Trim() + " " + ex.Message.ToString().Trim()+"\n\n");
+                sw.Flush();
+                sw.Close();
+            }
+            catch (Exception exp)
+            {
+
+                throw exp;
+            }
+        }
+
+
+        public static void EntityinfoMessage(string _message)
+        {
+            StreamWriter sw = null;
+            try
+            {
+                sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\EntityErrorLogs.txt", true);
+                sw.WriteLine(DateTime.Now.ToString() + ": " + _message);
+                sw.Flush();
+                sw.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public static void EntitywriteErrorLog(DbEntityValidationException ex)
+        {
+            StreamWriter sw = null;
+            try
+            {
+                sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\EntityLogFile.txt", true);
+                sw.WriteLine(DateTime.Now.ToString() + " " + ex.Source.ToString().Trim() + " " + ex.Message.ToString().Trim() + "\n\n");
+                sw.Flush();
+                sw.Close();
+            }
+            catch (Exception exp)
+            {
+
+                throw exp;
+            }
+        }
+
     }
 }

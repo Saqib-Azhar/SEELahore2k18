@@ -4,8 +4,9 @@
     ViewBag.Title = "Create";
 }
 
-@ViewBag.ErrorMessage
+<h3 style="color:red">@ViewBag.ErrorMessage</h3>
 
+<br />
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -122,7 +123,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.Label("Hostelite", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
@@ -130,7 +131,7 @@
                     @Html.ValidationMessageFor(model => model.Hostelite, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.Label("Why do you want to be a Volunteer in SEE Lahore? (MAX 100 WORDS)", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -143,7 +144,11 @@
         <div class="form-group">
             @Html.Label("Would you join us for subsidised tour of our team after the event?", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpectationsFromSEE, new { htmlAttributes = new { @class = "form-control", @style = "height:150px" } })
+                @*@Html.EditorFor(model => model.ExpectationsFromSEE, new { htmlAttributes = new { @class = "form-control", @style = "height:150px" } })*@
+                <select class = "form-control" name="ExpectationsFromSEE" id="ExpectationsFromSEE">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
                 @Html.ValidationMessageFor(model => model.ExpectationsFromSEE, "", new { @class = "text-danger" })
             </div>
         </div>

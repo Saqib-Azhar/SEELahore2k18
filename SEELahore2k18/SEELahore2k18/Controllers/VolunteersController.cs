@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.Data.Entity.Validation;
 
 namespace SEELahore2k18.Controllers
 {
@@ -21,13 +22,13 @@ namespace SEELahore2k18.Controllers
             if (type != 0)
             {
             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                var volunteers = db.Volunteers.Where(s=>s.StatusId == type).Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
+                var volunteers = db.Volunteers.Where(s=>s.StatusId == type).Include(v => v.RequestStatu).OrderByDescending(s => s.Id).Include(v => v.VolunteerCategory);
                 return View(volunteers.ToList());
             }
             else
             {
             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                var volunteers = db.Volunteers.Include(v => v.RequestStatu).Include(v => v.VolunteerCategory);
+                var volunteers = db.Volunteers.Include(v => v.RequestStatu).OrderByDescending(s => s.Id).Include(v => v.VolunteerCategory);
                 return View(volunteers.ToList());
             }
         }
@@ -79,29 +80,67 @@ namespace SEELahore2k18.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,InstituteId,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,VolunteerCategoryId,Hostelite,Why,ExpectationsFromSEE")] Volunteer volunteer)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var obj = db.Volunteers.FirstOrDefault(s => s.EmailId == volunteer.EmailId);
-                if(obj != null)
+                if (ModelState.IsValid)
                 {
-                    ViewBag.ErrorMessage = "Email Already Exists!";
-                    ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
-                    ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                    ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
-                    return View(volunteer);
+                    var obj = db.Volunteers.FirstOrDefault(s => s.EmailId == volunteer.EmailId || s.ContactNo == volunteer.ContactNo);
+                    if (obj != null)
+                    {
+                        ViewBag.ErrorMessage = "Email Or Phone No. Already Exists!";
+                        ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
+                        ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                        ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
+                        return View(volunteer);
+                    }
+                    try
+                    {
+                        volunteer.ExpectationsFromSEE = Request.Form["ExpectationsFromSEE"];
+                        volunteer.CreatedAt = DateTime.Now;
+                        volunteer.StatusId = 1;
+                        db.Volunteers.Add(volunteer);
+                        db.SaveChanges();
+                        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                        string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                        return RedirectToAction("SubmissionResponce", "Home", new { status = "You are successfully registerd for volunteer with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore,See Lahore 2018", url = controllerName + "/" + actionName });
+
+
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        string message = "";
+                        foreach (var validationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                message = message + validationError.PropertyName + "  " + validationError.ErrorMessage + "\n\n";
+                            }
+                        }
+
+                        HomeController.EntityinfoMessage(volunteer.Name + ": " + message);
+                        HomeController.EntitywriteErrorLog(ex);
+                        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                        string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                        return RedirectToAction("SubmissionResponce", "Home", new { status = "Due to Server overload something went wrong! please try again. Sorry for Inconvenience", url = controllerName + "/" + actionName });
+
+                    }
                 }
-                volunteer.CreatedAt = DateTime.Now;
-                db.Volunteers.Add(volunteer);
-                db.SaveChanges();
+                ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
+                ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
+                return View(volunteer);
+            }
+            catch (Exception ex)
+            {
+
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                return RedirectToAction("SubmissionResponce", "Home", new { status = "You are successfully registerd for volunteer with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore,See Lahore 2018", url = controllerName + "/" + actionName });
-            }
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Due to Server overload something went wrong! please try again. Sorry for Inconvenience", url = controllerName + "/" + actionName });
 
-            ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", volunteer.StatusId);
-            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-            ViewBag.VolunteerCategoryId = new SelectList(db.VolunteerCategories, "Id", "Category", volunteer.VolunteerCategoryId);
-            return View(volunteer);
+            }
+            
         }
 
         // GET: Volunteers/Edit/5

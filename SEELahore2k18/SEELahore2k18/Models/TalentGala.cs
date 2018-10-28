@@ -22,6 +22,9 @@ namespace SEELahore2k18.Models
         public string Degree { get; set; }
         public string CGPA_Numbers { get; set; }
         public string TotalNumbers { get; set; }
+
+        [MaxLength(13)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "CNIC must be 13 Digits Numeric")]
         public string CNIC { get; set; }
 
         [Required(ErrorMessage = "You must provide a phone number")]

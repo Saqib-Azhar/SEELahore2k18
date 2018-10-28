@@ -31,6 +31,8 @@ namespace SEELahore2k18.Models
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "The email address is not valid")]
         public string EmailId { get; set; }
+        [MaxLength(13)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "CNIC must be 13 Digits Numeric")]
         public string CNIC { get; set; }
         public Nullable<int> InstituteId { get; set; }
         public Nullable<int> StatusId { get; set; }

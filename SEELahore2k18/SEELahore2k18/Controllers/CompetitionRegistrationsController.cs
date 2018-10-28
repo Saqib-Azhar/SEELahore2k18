@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.Data.Entity.Validation;
 
 namespace SEELahore2k18.Controllers
 {
@@ -21,13 +22,13 @@ namespace SEELahore2k18.Controllers
             if (type != 0)
             {
             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                var competitionRegistrations = db.CompetitionRegistrations.Where(s => s.RequestStatusId == type).Include(c => c.Competition).Include(c => c.RequestStatu);
+                var competitionRegistrations = db.CompetitionRegistrations.OrderByDescending(s => s.Id).Where(s => s.RequestStatusId == type).Include(c => c.Competition).Include(c => c.RequestStatu);
                 return View(competitionRegistrations.ToList());
             }
             else
             {
             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                var competitionRegistrations = db.CompetitionRegistrations.Include(c => c.Competition).Include(c => c.RequestStatu);
+                var competitionRegistrations = db.CompetitionRegistrations.OrderByDescending(s => s.Id).Include(c => c.Competition).Include(c => c.RequestStatu);
                 return View(competitionRegistrations.ToList());
             }
         }
@@ -50,28 +51,40 @@ namespace SEELahore2k18.Controllers
         // GET: CompetitionRegistrations/Create
         public ActionResult Create(int? val = 0)
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            var dateRange = db.RegistrationDeadLines.FirstOrDefault(s => s.RegistrationType == controllerName);
-            var comparisonto = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To)));
-            var comparisonfrom = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
+            try
+            {
+                string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                var dateRange = db.RegistrationDeadLines.FirstOrDefault(s => s.RegistrationType == controllerName);
+                var comparisonto = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To)));
+                var comparisonfrom = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
 
-            if (comparisonto != -1)
-            {
-                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended" });
-            }
-            else if (comparisonfrom != 1)
-            {
-                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations will be open soon!" });
-            }
-            if (val == 1)
-            {
-                ViewBag.isTalentGala = 1;
-            }
-            else
-            {
-                ViewBag.isTalentGala = 0;
+                if (comparisonto != -1)
+                {
+                    return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended" });
+                }
+                else if (comparisonfrom != 1)
+                {
+                    return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations will be open soon!" });
+                }
+                if (val == 1)
+                {
+                    ViewBag.isTalentGala = 1;
+                }
+                else
+                {
+                    ViewBag.isTalentGala = 0;
+
+                }
 
             }
+            catch (Exception ex)
+            {
+
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+
+            }
+           
             ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName");
             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status");
@@ -85,23 +98,58 @@ namespace SEELahore2k18.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,ContactNo,Designation,EmailId,CNIC,InstituteId,RequestStatusId,CreatedAt,Address,City,CompetitionId")] CompetitionRegistration competitionRegistration)
         {
-            if (ModelState.IsValid)
+            try
             {
-                //var instValue = Request.Form["InstituteId"];
-                //competitionRegistration.InstituteId = Convert.ToInt32(instValue);
-                competitionRegistration.RequestStatusId = 1;
-                competitionRegistration.CreatedAt = DateTime.Now;
-                db.CompetitionRegistrations.Add(competitionRegistration);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        competitionRegistration.RequestStatusId = 1;
+                        competitionRegistration.CreatedAt = DateTime.Now;
+                        db.CompetitionRegistrations.Add(competitionRegistration);
+                        db.SaveChanges();
+                        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                        string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                        return RedirectToAction("SubmissionResponce", "Home", new { status = "You are successfully registerd for Competition with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore, See Lahore 2018", url = controllerName + "/" + actionName });
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        string message = "";
+                        foreach (var validationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                message = message + validationError.PropertyName + "  " + validationError.ErrorMessage + "\n\n";
+                            }
+                        }
+
+                        HomeController.EntityinfoMessage(competitionRegistration.Name + ": " + message);
+                        HomeController.EntitywriteErrorLog(ex);
+                        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                        string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                        return RedirectToAction("SubmissionResponce", "Home", new { status = "Due to Server overload something went wrong! please try again. Sorry for Inconvenience", url = controllerName + "/" + actionName });
+
+                    }
+                }
+
+
+                ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName", competitionRegistration.CompetitionId);
+                ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", competitionRegistration.RequestStatusId);
+                return View(competitionRegistration);
+
+            }
+            catch (Exception ex)
+            {
+
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                return RedirectToAction("SubmissionResponce", "Home", new { status = "You are successfully registerd for Competition with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore, See Lahore 2018", url = controllerName + "/" + actionName });
-            }
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Due to Server overload something went wrong! please try again. Sorry for Inconvenience", url = controllerName + "/" + actionName });
 
-            ViewBag.CompetitionId = new SelectList(db.Competitions, "Id", "CompetitionName", competitionRegistration.CompetitionId);
-            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-            ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", competitionRegistration.RequestStatusId);
-            return View(competitionRegistration);
+
+            }
         }
 
         // GET: CompetitionRegistrations/Edit/5

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SEELahore2k18.Models;
 using System.IO;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity.Validation;
 
 namespace SEELahore2k18.Controllers
 {
@@ -23,13 +24,13 @@ namespace SEELahore2k18.Controllers
             if (type != 0)
             {
             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                var stallRequests = db.StallRequests.Where(s => s.RequestStatusId == type).Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
+                var stallRequests = db.StallRequests.Where(s => s.RequestStatusId == type).OrderByDescending(s => s.Id).Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
                 return View(stallRequests.ToList());
             }
             else
             {
             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                var stallRequests = db.StallRequests.Include(s => s.AspNetUser).Include(s => s.RequestStatu).Include(s => s.StallCategory);
+                var stallRequests = db.StallRequests.Include(s => s.AspNetUser).OrderByDescending(s => s.Id).Include(s => s.RequestStatu).Include(s => s.StallCategory);
                 return View(stallRequests.ToList());
             }
         }
@@ -53,19 +54,32 @@ namespace SEELahore2k18.Controllers
         // GET: StallRequests/Create
         public ActionResult Create()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            var dateRange = db.RegistrationDeadLines.FirstOrDefault(s => s.RegistrationType == controllerName);
-            var comparisonto = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To)));
-            var comparisonfrom = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
 
-            if (comparisonto != -1)
+
+            try
             {
-                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended" });
+                string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                var dateRange = db.RegistrationDeadLines.FirstOrDefault(s => s.RegistrationType == controllerName);
+                var comparisonto = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To)));
+                var comparisonfrom = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
+
+                if (comparisonto != -1)
+                {
+                    return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended" });
+                }
+                else if (comparisonfrom != 1)
+                {
+                    return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations will be open soon!" });
+                }
             }
-            else if (comparisonfrom != 1)
+            catch (Exception ex)
             {
-                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations will be open soon!" });
+
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+
             }
+
             ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email");
             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status");
             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
@@ -82,40 +96,77 @@ namespace SEELahore2k18.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,StallName,StallDetails,Logo,RequestStatusId,CategoryId,CreatedBy,CreatedAt,OwnerName,ContactNo,Email,Address,City,Profession,Institute")] StallRequest stallRequest, HttpPostedFileBase Logo)
         {
-            if (ModelState.IsValid)
+
+            try
             {
-                var obj = db.StallRequests.FirstOrDefault(s => s.Email == stallRequest.Email);
-                if (obj != null)
+
+                if (ModelState.IsValid)
                 {
-                    ViewBag.ErrorMessage = "Email Already Exists!";
-                    ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
-                    ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                    ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
-                    ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
-                    return View(stallRequest);
+                    var obj = db.StallRequests.FirstOrDefault(s => s.Email == stallRequest.Email);
+                    if (obj != null)
+                    {
+                        ViewBag.ErrorMessage = "Email Already Exists!";
+                        ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
+                        ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                        ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
+                        ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
+                        return View(stallRequest);
+                    }
+                    if (Logo != null && Logo.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(Logo.FileName);
+                        var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
+                        Logo.SaveAs(path);
+                        stallRequest.Logo = fileName;
+                    }
+                    try
+                    {
+                        stallRequest.RequestStatusId = 1;
+                        stallRequest.CreatedAt = DateTime.Now;
+                        stallRequest.CreatedBy = User.Identity.GetUserId();
+                        db.StallRequests.Add(stallRequest);
+                        db.SaveChanges();
+                        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                        string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                        return RedirectToAction("SubmissionResponce", "Home", new { status = "Your stall proposal is successfully registerd with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore,See Lahore 2018", url = controllerName + "/" + actionName });
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        string message = "";
+                        foreach (var validationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                message = message + validationError.PropertyName + "  " + validationError.ErrorMessage + "\n\n";
+                            }
+                        }
+
+                        HomeController.EntityinfoMessage(stallRequest.OwnerName + ": " + message);
+                        HomeController.EntitywriteErrorLog(ex);
+                        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                        string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                        return RedirectToAction("SubmissionResponce", "Home", new { status = "Due to Server overload something went wrong! please try again. Sorry for Inconvenience", url = controllerName + "/" + actionName });
+
+                    }
                 }
-                if (Logo != null && Logo.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(Logo.FileName);
-                    var path = Path.Combine(Server.MapPath("~/UploadedImages/"), fileName);
-                    Logo.SaveAs(path);
-                    stallRequest.Logo = fileName;
-                }
-                stallRequest.RequestStatusId = 1;
-                stallRequest.CreatedAt = DateTime.Now;
-                stallRequest.CreatedBy = User.Identity.GetUserId();
-                db.StallRequests.Add(stallRequest);
-                db.SaveChanges();
+                ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
+                ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
+                ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
+                return View(stallRequest);
+
+            }
+            catch (Exception ex)
+            {
+
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                return RedirectToAction("SubmissionResponce", "Home", new { status = "Your stall proposal is successfully registerd with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore,See Lahore 2018", url = controllerName + "/" + actionName });
-            }
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Due to Server overload something went wrong! please try again. Sorry for Inconvenience", url = controllerName + "/" + actionName });
 
-            ViewBag.CreatedBy = new SelectList(db.AspNetUsers, "Id", "Email", stallRequest.CreatedBy);
-            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-            ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", stallRequest.RequestStatusId);
-            ViewBag.CategoryId = new SelectList(db.StallCategories, "Id", "StallType", stallRequest.CategoryId);
-            return View(stallRequest);
+            }
+            
         }
 
         // GET: StallRequests/Edit/5
