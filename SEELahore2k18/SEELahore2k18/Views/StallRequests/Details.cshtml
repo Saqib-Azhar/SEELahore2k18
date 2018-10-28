@@ -126,6 +126,9 @@
 </div>
     <p style="text-align:center">
         @Html.ActionLink("Back to List", "Index", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-sm btn-info" })
-        @Html.ActionLink("Approve", "UpdateStatus", new { id = Model.Id, status = 2 }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
-        @Html.ActionLink("Decline", "UpdateStatus", new { id = Model.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+        @*@Html.ActionLink("Approve", "UpdateStatus", new { id = Model.Id, status = 2 }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
+        @Html.ActionLink("Decline", "UpdateStatus", new { id = Model.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })*@
+
+        <a href="/StallRequests/UpdateStatus?id=@Model.Id&status=2" class="btn btn-sm btn-primary">Approve</a>
+        <a href="/StallRequests/UpdateStatus?id=@Model.Id&status=3" class="btn btn-sm btn-danger">Decline</a>
     </p>

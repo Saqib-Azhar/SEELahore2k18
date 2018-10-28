@@ -21,13 +21,13 @@ namespace SEELahore2k18.Controllers
         {
             if (type != 0)
             {
-            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
-                var ambassadors = db.Ambassadors.Where(s=>s.StatusId == type).Include(a => a.AmbassadorCategory).OrderByDescending(s=>s.Id).Include(a => a.RequestStatu);
+                ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                var ambassadors = db.Ambassadors.Where(s => s.StatusId == type).Include(a => a.AmbassadorCategory).OrderByDescending(s => s.Id).Include(a => a.RequestStatu);
                 return View(ambassadors.ToList());
             }
             else
             {
-            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
                 var ambassadors = db.Ambassadors.Include(a => a.AmbassadorCategory).OrderByDescending(s => s.Id).Include(a => a.RequestStatu);
                 return View(ambassadors.ToList());
             }
@@ -36,17 +36,43 @@ namespace SEELahore2k18.Controllers
 
         public ActionResult UpdateStatus(int? id, int? Status)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                try
+                {
+                    Ambassador volunteer = db.Ambassadors.Find(id);
+                    if (volunteer == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    volunteer.StatusId = Status;
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    string message = "";
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            message = message + validationError.PropertyName + "  " + validationError.ErrorMessage + "\n\n";
+                        }
+                    }
+
+                    HomeController.EntityinfoMessage("Ambassodor status: " + message);
+                    HomeController.EntitywriteErrorLog(ex);
+
+                }
             }
-            Ambassador volunteer = db.Ambassadors.Find(id);
-            if (volunteer == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
             }
-            volunteer.StatusId = Status;
-            db.SaveChanges();
 
             return RedirectToAction("Index");
         }

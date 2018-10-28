@@ -12,6 +12,9 @@
 <table class="table table-striped" style="text-align:center;border:double" border="1">
     <tr>
         <th>
+            @Html.DisplayName("Id")
+        </th>
+        <th>
             @Html.DisplayName("Name")
         </th>
         @*<th>
@@ -59,6 +62,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         @*<td>
@@ -101,9 +107,11 @@
             @Html.DisplayFor(modelItem => item.VolunteerCategory.Category)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
-            @Html.ActionLink("Approve", "UpdateStatus", new { id = item.Id, status = 2 }, htmlAttributes: new { @class = "btn btn-sm btn-primary" }) <br />
-            @Html.ActionLink("Decline", "UpdateStatus", new { id = item.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary" }) <br />
+            <a href="/Volunteers/UpdateStatus?id=@item.Id&status=2" class="btn btn-sm btn-primary">Approve</a>
+            <a href="/Volunteers/UpdateStatus?id=@item.Id&status=3" class="btn btn-sm btn-danger">Decline</a>
+            @*@Html.ActionLink("Approve", "UpdateStatus", new { id = item.Id, status = 2 }, htmlAttributes: new { @class = "btn btn-sm btn-primary" }) <br />
+            @Html.ActionLink("Decline", "UpdateStatus", new { id = item.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })*@
         </td>
     </tr>
 }
