@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Create";
 }
-@ViewBag.ErrorMessage
+<h3 style="color:red">@ViewBag.ErrorMessage</h3>
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -11,7 +11,7 @@
     <div class="form-horizontal">
         <h4>Register for Talent Gala</h4>
         <p>
-            You are eligible to apply for Talent Gala if the percentage of your last exam is 80% (or above) or your CGPA is 3.5 (or above). 
+            You are eligible to apply for Talent Gala if the percentage of your last exam is 80% (or above) or your CGPA is 3.0 (or above). 
             You are required to bring the original transcript of result card on the event day to get the award.
         </p> 
         <hr />
@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.Label("CGPA/Numbers", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CGPA_Numbers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CGPA_Numbers, new { htmlAttributes = new { @class = "form-control", @min = "3" } })
                 @Html.ValidationMessageFor(model => model.CGPA_Numbers, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +51,7 @@
         <div class="form-group">
             @Html.Label("Total CGPA/Numbers", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TotalNumbers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TotalNumbers, new { htmlAttributes = new { @class = "form-control", @min = "4" } })
                 @Html.ValidationMessageFor(model => model.TotalNumbers, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -91,7 +91,7 @@
         <div class="form-group">
             @Html.Label("Current Semester/Year", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CurrentSemester_Year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CurrentSemester_Year, new { htmlAttributes = new { @class = "form-control"} })
                 @Html.ValidationMessageFor(model => model.CurrentSemester_Year, "", new { @class = "text-danger" })
             </div>
         </div>
