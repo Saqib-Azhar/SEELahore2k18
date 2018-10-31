@@ -85,10 +85,10 @@ namespace SEELahore2k18.Controllers
                     var obj = db.TalentGalas.FirstOrDefault(s => s.Email == talentGala.Email || s.ContactNo_ == talentGala.ContactNo_);
                     if (obj != null)
                     {
-                        ViewBag.ErrorMessage = "Email Already Exists!";
+                        ViewBag.ErrorMessage = "Email or Phone Number Already Exists!";
                         ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
                         ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
-                        ModelState.AddModelError("Error: ", "Email Already Exists!");
+                        //ModelState.AddModelError("Error: ", "Email Already Exists!");
                         return View(talentGala);
                     }
                     if (Convert.ToDecimal(talentGala.TotalNumbers) == 4)
@@ -98,16 +98,24 @@ namespace SEELahore2k18.Controllers
                             ViewBag.ErrorMessage = "Your CGPA should be 3.0 atleast.";
                             ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
                             ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
-                            ModelState.AddModelError("Error: ", "Your CGPA should be 3.0 atleast.");
+                            //ModelState.AddModelError("Error: ", "Your CGPA should be 3.0 atleast.");
                             return View(talentGala);
                         }
                     }
-                    else if (((Convert.ToDecimal(talentGala.CGPA_Numbers)/Convert.ToDecimal(talentGala.TotalNumbers))*100) < 80)
+                    else if (Convert.ToDecimal(talentGala.CGPA_Numbers) > Convert.ToDecimal(talentGala.TotalNumbers))
+                    {
+                        ViewBag.ErrorMessage = "Total numbers should be greater then obtained marks";
+                        ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                        ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
+                        //ModelState.AddModelError("Error: ", "Percentage of your marks should be 80% atleast.");
+                        return View(talentGala);
+                    }
+                    else if (((Convert.ToDecimal(talentGala.CGPA_Numbers) / Convert.ToDecimal(talentGala.TotalNumbers)) * 100) < 80)
                     {
                         ViewBag.ErrorMessage = "Percentage of your marks should be 80% atleast.";
                         ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
                         ViewBag.RequestStatusId = new SelectList(db.RequestStatus, "Id", "Status", talentGala.RequestStatusId);
-                        ModelState.AddModelError("Error: ", "Percentage of your marks should be 80% atleast.");
+                        //ModelState.AddModelError("Error: ", "Percentage of your marks should be 80% atleast.");
                         return View(talentGala);
                     }
 

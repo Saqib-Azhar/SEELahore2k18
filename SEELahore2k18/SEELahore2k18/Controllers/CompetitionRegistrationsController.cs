@@ -58,6 +58,7 @@ namespace SEELahore2k18.Controllers
                 var comparisonto = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To)));
                 var comparisonfrom = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
 
+                ViewBag.CompetitionList = db.Competitions.ToList();
                 if (comparisonto != -1)
                 {
                     return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended" });
