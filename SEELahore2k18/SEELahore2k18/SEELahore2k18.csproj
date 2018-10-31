@@ -213,6 +213,7 @@
     <Compile Include="Controllers\CompetitionRegistrationsController.cs" />
     <Compile Include="Controllers\CompetitionsController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EventDatesController.cs" />
     <Compile Include="Controllers\EventSegmentsController.cs" />
     <Compile Include="Controllers\GuestsController.cs" />
@@ -831,6 +832,7 @@
   <ItemGroup>
     <Folder Include="docs\" />
     <Folder Include="examples\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
