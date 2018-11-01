@@ -20,38 +20,59 @@ namespace SEELahore2k18.Controllers
 
         private SEELahoreEntities db = new SEELahoreEntities();
 
-        public ActionResult SendEmail(string subject, string body, string To, string Name)
+
+        public void SubmitEmailForm(FormCollection fc)
+        {
+            var EmailSubject = fc["EmailSubject"];
+            var EmailBody = fc["EmailBody"];
+            var EmailTo = fc["EmailTo"];
+            var EmailName = fc["EmailName"];
+            SendEmail(EmailSubject, EmailBody, EmailTo, EmailName);
+        }
+
+
+
+        public JsonResult SendEmail(string EmailSubject, string EmailBody, string EmailTo, string EmailName)
         {
 
-            var fromAddress = new MailAddress(SenderEmailId, "Contact Message By: " + Name);
-            var toAddress = new MailAddress(SenderEmailId, "Print My Box");
-            string fromPassword = SenderEmailPassword;
-            //string subject = "PrintMyBox Contact Us form Submission by: " + Name;
-            //string body = "Name: " + Name + "<br>Phone: " + Phone + "<br>" + "Email: " + Email + "<br>" + "Message: " + Message + "<br>Time: " + DateTime.Now;
+            try
+            {
+                var fromAddress = new MailAddress(SenderEmailId, "See Lahore 2k18:" + EmailName);
+                var toAddress = new MailAddress(EmailTo, EmailName);
+                string fromPassword = SenderEmailPassword;
 
-            var smtp = new SmtpClient
-            {
-                Host = SenderEmailHost,
-                Port = SenderEmailPort,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
-                Timeout = 20000
-            };
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                IsBodyHtml = true,
-                Subject = subject,
-                Body = body,
+                var smtp = new SmtpClient
+                {
+                    Host = SenderEmailHost,
+                    Port = SenderEmailPort,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    Timeout = 500000,
+                    UseDefaultCredentials = false
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    IsBodyHtml = true,
+                    Subject = EmailSubject,
+                    Body = EmailBody,
 
-            })
-            {
-                //message.Bcc.Add("support@printmybox.com");
-                smtp.Send(message);
+                })
+                {
+                    //message.Bcc.Add("support@printmybox.com");
+                    smtp.Send(message);
+                }
+                return Json("Email sent successfuly!", JsonRequestBehavior.AllowGet);
+
+
             }
+            catch (Exception ex)
+            {
 
-
-            return View();
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+                return Json("Something went wrong! Please try again", JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
