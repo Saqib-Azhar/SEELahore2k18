@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SEELahore2k18.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SEELahore2k18.Controllers
 {
@@ -68,26 +69,39 @@ namespace SEELahore2k18.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(model);
-            }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToAction("AdminPanel", "Home");
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                if (!ModelState.IsValid)
+                {
                     return View(model);
+                }
+
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, change to shouldLockout: true
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToAction("AdminPanel", "Home");
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+
             }
         }
 
@@ -149,10 +163,20 @@ namespace SEELahore2k18.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            try
+            {
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                var context = new ApplicationDbContext();
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                userManager.AddToRole(user.Id, "Admin");
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -168,6 +192,12 @@ namespace SEELahore2k18.Controllers
                 AddErrors(result);
             }
 
+            }
+            catch (Exception ex)
+            {
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+            }
             // If we got this far, something failed, redisplay form
             return View(model);
         }
