@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    int totalCount = Model.Count();
 }
 
 <h2>Ambassadors Requests</h2>
@@ -61,9 +62,10 @@
 
 @foreach (var item in Model)
 {
+    totalCount--;
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Id)
+            @totalCount
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -115,6 +117,7 @@
             @Html.ActionLink("Decline", "UpdateStatus", new { id = item.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })*@
         </td>
     </tr>
+   
 }
 
 </table>
