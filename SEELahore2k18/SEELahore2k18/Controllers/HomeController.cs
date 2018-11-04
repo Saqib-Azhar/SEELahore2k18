@@ -16,6 +16,7 @@ namespace SEELahore2k18.Controllers
         private static List<Guest> GuestsList = new List<Guest>();
         private static List<EventSegment> EventSegmentsList = new List<EventSegment>();
         private static List<ProudPartner> ProudPartnersList = new List<ProudPartner>();
+        private static List<Season> SeasonsList = new List<Season>();
         private static int? AmbassadorsCountList;
         private static int? VolunteersCountList;
 
@@ -29,6 +30,8 @@ namespace SEELahore2k18.Controllers
                 EventSegmentsList = db.EventSegments.ToList();
             if (ProudPartnersList == null || ProudPartnersList.Count == 0)
                 ProudPartnersList = db.ProudPartners.ToList();
+            if (SeasonsList == null || SeasonsList.Count == 0)
+                SeasonsList = db.Seasons.ToList();
             if (AmbassadorsCountList == null || AmbassadorsCountList == 0)
                 AmbassadorsCountList = db.Ambassadors.Where(s => s.StatusId == 2).Count();
             if (VolunteersCountList == null || VolunteersCountList == 0)
@@ -40,6 +43,8 @@ namespace SEELahore2k18.Controllers
             ViewBag.ProudPartners = ProudPartnersList;
             ViewBag.AmbassadorsCount = AmbassadorsCountList;
             ViewBag.VolunteersCount = VolunteersCountList;
+            ViewBag.Seasons = SeasonsList;
+            ViewBag.Announcements = db.Announcements.ToList();
             return View();
         }
 

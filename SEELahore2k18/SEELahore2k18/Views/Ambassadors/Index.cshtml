@@ -6,10 +6,13 @@
 }
 
 
-<h2>Ambassadors Requests</h2>
+<h2>Ambassadors Requests <button class="btn btn-success pull-right">Bulk Email</button></h2>
 
 <table class="table table-striped" style="text-align:center;border:double" border="1">
     <tr>
+        <th>
+            <input type="checkbox" id="SelectAll" name="selectAll"/>
+        </th>
         <th>
             Sr. No.
         </th>
@@ -25,7 +28,9 @@
         <th>
             @Html.DisplayName("City")
         </th>
-
+        <th>
+            @Html.DisplayName("Phone")
+        </th>
         <th>
             @Html.DisplayName("Request Status")
         </th>
@@ -39,6 +44,8 @@
 {
     totalCount--;
     <tr>
+        <td>
+            <input type="checkbox" id="Select_@item.Id" name="selectedItem" /></td>
         <td>
             @totalCount
             
@@ -105,7 +112,9 @@ Congratulations you have been selected for Ambassadorship of SEE lahore 2k18.
         <td>
             @Html.DisplayFor(modelItem => item.CityOfResidence)
         </td>
-      
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactNo)
+        </td>      
         <td>
             @Html.DisplayFor(modelItem => item.RequestStatu.Status)
         </td>
