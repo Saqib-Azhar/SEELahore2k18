@@ -12,15 +12,34 @@ namespace SEELahore2k18.Controllers
     public class HomeController : Controller
     {
         private SEELahoreEntities db = new SEELahoreEntities();
+        private static List<SEELahoreTeam> SEELahoreTeamsList = new List<SEELahoreTeam>();
+        private static List<Guest> GuestsList = new List<Guest>();
+        private static List<EventSegment> EventSegmentsList = new List<EventSegment>();
+        private static List<ProudPartner> ProudPartnersList = new List<ProudPartner>();
+        private static int? AmbassadorsCountList;
+        private static int? VolunteersCountList;
+
         public ActionResult Index()
         {
-            ViewBag.Guests = db.Guests.ToList();
-            ViewBag.SEELahoreTeams = db.SEELahoreTeams.ToList();
-            ViewBag.EventSegments = db.EventSegments.ToList();
-            ViewBag.Announcements = db.Announcements.ToList();
-            ViewBag.ProudPartners = db.ProudPartners.ToList();
-            ViewBag.AmbassadorsCount = db.Ambassadors.Where(s => s.StatusId == 2).Count();
-            ViewBag.VolunteersCount = db.Volunteers.Where(s=>s.StatusId == 2).Count();
+            if (GuestsList == null || GuestsList.Count == 0)
+                GuestsList = db.Guests.ToList();
+            if (SEELahoreTeamsList == null || SEELahoreTeamsList.Count == 0)
+                SEELahoreTeamsList = db.SEELahoreTeams.ToList();
+            if (EventSegmentsList == null || EventSegmentsList.Count == 0)
+                EventSegmentsList = db.EventSegments.ToList();
+            if (ProudPartnersList == null || ProudPartnersList.Count == 0)
+                ProudPartnersList = db.ProudPartners.ToList();
+            if (AmbassadorsCountList == null || AmbassadorsCountList == 0)
+                AmbassadorsCountList = db.Ambassadors.Where(s => s.StatusId == 2).Count();
+            if (VolunteersCountList == null || VolunteersCountList == 0)
+                VolunteersCountList = db.Volunteers.Where(s => s.StatusId == 2).Count();
+
+            ViewBag.Guests = GuestsList;
+            ViewBag.SEELahoreTeams = SEELahoreTeamsList;
+            ViewBag.EventSegments = EventSegmentsList;
+            ViewBag.ProudPartners = ProudPartnersList;
+            ViewBag.AmbassadorsCount = AmbassadorsCountList;
+            ViewBag.VolunteersCount = VolunteersCountList;
             return View();
         }
 
@@ -60,7 +79,7 @@ namespace SEELahore2k18.Controllers
             try
             {
                 sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\ErrorLogs.txt", true);
-                sw.WriteLine(DateTime.Now.ToString() + ": " + _message);
+                sw.WriteLine(DateTime.Now.ToString() + ": " + _message + "\n\n\n\n");
                 sw.Flush();
                 sw.Close();
             }
@@ -76,7 +95,7 @@ namespace SEELahore2k18.Controllers
             try
             {
                 sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\LogFile.txt", true);
-                sw.WriteLine(DateTime.Now.ToString() + " | " + ex.Source.ToString().Trim() + " | " + ex.StackTrace.ToString().Trim() + " | " + ex.Message.ToString().Trim()+"\n\n");
+                sw.WriteLine(DateTime.Now.ToString() + " | " + ex.Source.ToString().Trim() + " | " + ex.StackTrace.ToString().Trim() + " | " + ex.Message.ToString().Trim()+ "\n\n\n\n");
                 sw.Flush();
                 sw.Close();
             }
@@ -94,7 +113,7 @@ namespace SEELahore2k18.Controllers
             try
             {
                 sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\EntityErrorLogs.txt", true);
-                sw.WriteLine(DateTime.Now.ToString() + ": " + _message);
+                sw.WriteLine(DateTime.Now.ToString() + ": " + _message + "\n\n\n\n");
                 sw.Flush();
                 sw.Close();
             }
@@ -110,7 +129,7 @@ namespace SEELahore2k18.Controllers
             try
             {
                 sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\EntityLogFile.txt", true);
-                sw.WriteLine(DateTime.Now.ToString() + " | " + ex.Source.ToString().Trim() + " | " + ex.StackTrace.ToString().Trim() + " | " + ex.Message.ToString().Trim() + "\n\n");
+                sw.WriteLine(DateTime.Now.ToString() + " | " + ex.Source.ToString().Trim() + " | " + ex.StackTrace.ToString().Trim() + " | " + ex.Message.ToString().Trim() + "\n\n\n\n");
                 sw.Flush();
                 sw.Close();
             }

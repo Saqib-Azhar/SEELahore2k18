@@ -1,10 +1,10 @@
 ﻿@{ 
     Layout = null;
     var Guests = ViewBag.Guests as IEnumerable<SEELahore2k18.Models.Guest>;
-    var SEELahoreTeams = ViewBag.SEELahoreTeams as IEnumerable<SEELahore2k18.Models.SEELahoreTeam>; 
-    var ProudPartners = ViewBag.ProudPartners as IEnumerable<SEELahore2k18.Models.ProudPartner>; 
-var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.EventSegment>;
-    var Announcements = ViewBag.Announcements as IEnumerable<SEELahore2k18.Models.Announcement>;
+    var SEELahoreTeams = ViewBag.SEELahoreTeams as IEnumerable<SEELahore2k18.Models.SEELahoreTeam>;
+    var ProudPartners = ViewBag.ProudPartners as IEnumerable<SEELahore2k18.Models.ProudPartner>;
+    var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.EventSegment>;
+    //var Announcements = ViewBag.Announcements as IEnumerable<SEELahore2k18.Models.Announcement>;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -107,7 +107,7 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                                         <a class="page-scroll" href="#venue">Venue</a>  
                                         <a class="page-scroll" href="#blog">Team SEE Lahore</a>  
                                         <a class="page-scroll" href="#sponsors">Sponsors</a> 
-                                        <a class="page-scroll" href="/SeasonGalleries/Seasons">SEE Lahore Seasons</a> 
+                                        <a class="page-scroll" href="#about">SEE Lahore Seasons</a> 
                                     </div>
                                 
                             </li>
@@ -161,18 +161,19 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                    </div>
                 @*<div class="col-md-6">
                         <div class="about-col">
+                            <h3 style="margin-top:30px!important">Last Seasons of <span>SEE Lahore</span></h3>
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                 <div class="panel panel-default">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <h4 class="panel-title">
-                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                how can i be a freelancer?
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Season 1
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                            <p><a href="/SeasonGalleries/Gallery?seasonId=2">Held in Feb 2016 Season one was a fantastic blah blah</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -180,13 +181,13 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                                     <div class="panel-heading" role="tab" id="headingTwo">
                                         <h4 class="panel-title">
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                What Is web design?
+                                                Season 2
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                         <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                            <p><a href="/SeasonGalleries/Gallery?seasonId=3">Held in Feb 2016 Season one was a fantastic blah blah</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -194,44 +195,17 @@ var EventSegments = ViewBag.EventSegments as IEnumerable<SEELahore2k18.Models.Ev
                                     <div class="panel-heading" role="tab" id="headingThree">
                                         <h4 class="panel-title">
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                what is web development?
+                                                Season 3
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                         <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
+                                            <p><a href="/SeasonGalleries/Gallery?seasonId=1">Held in Feb 2016 Season one was a fantastic blah blah</a></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="headingFour">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                                what is domain and hosting?
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                        <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="headingFive">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                                what is web server?
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                                        <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero.</p>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>*@

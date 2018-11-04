@@ -18,7 +18,7 @@ namespace SEELahore2k18.Controllers
         // GET: ContactUs
         public ActionResult Index()
         {
-            return View(db.ContactUs.ToList());
+            return View(db.ContactUs.OrderByDescending(s=>s.Id).ToList());
         }
 
         // GET: ContactUs/Details/5

@@ -342,6 +342,7 @@
     <Content Include="App_Data\aspnet-SEELahore2k18-20181021014623_log.ldf">
       <DependentUpon>aspnet-SEELahore2k18-20181021014623.mdf</DependentUpon>
     </Content>
+    <Content Include="assets\ajax-loader.gif" />
     <Content Include="assets\css\material-dashboard.css" />
     <Content Include="assets\css\material-dashboard.min.css" />
     <Content Include="assets\demo\demo.css" />
@@ -656,6 +657,7 @@
       <DependentUpon>SEELahoreDBModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\SEE27Oct.pubxml" />
+    <None Include="Properties\PublishProfiles\SEEPublished4Nov.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -668,7 +670,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -817,6 +821,8 @@
     <Content Include="Views\RegistrationDeadLines\Edit.cshtml" />
     <Content Include="Views\RegistrationDeadLines\Index.cshtml" />
     <Content Include="Views\Home\RegistrationDeadline.cshtml" />
+    <Content Include="Views\SeasonGalleries\Seasons.cshtml" />
+    <Content Include="Views\SeasonGalleries\Gallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

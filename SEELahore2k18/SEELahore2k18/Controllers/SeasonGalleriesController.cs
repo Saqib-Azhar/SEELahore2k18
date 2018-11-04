@@ -97,7 +97,7 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreatedBy,CreatedAt,Image,SeasonId")] SeasonGallery seasonGallery ,HttpPostedFileBase Image)
+        public ActionResult Edit([Bind(Include = "Id,CreatedBy,CreatedAt,Image,SeasonId")] SeasonGallery seasonGallery, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
@@ -144,6 +144,21 @@ namespace SEELahore2k18.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [AllowAnonymous]
+        public ActionResult Seasons()
+        {
+            var seasonsList = db.Seasons.ToList();
+            return View(seasonsList);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Gallery(int? seasonId)
+        {
+            var seasonGalleries = db.SeasonGalleries.Where(s=>s.SeasonId == seasonId).Include(s => s.AspNetUser).Include(s => s.Season);
+            return View(seasonGalleries.ToList());
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -17,6 +17,7 @@ namespace SEELahore2k18.Controllers
         private static string SenderEmailPassword = WebConfigurationManager.AppSettings["DefaultEmailPassword"];
         private static int SenderEmailPort = Convert.ToInt32(WebConfigurationManager.AppSettings["DefaultEmailPort"]);
         private static string SenderEmailHost = WebConfigurationManager.AppSettings["DefaultEmailHost"];
+        //private static string SenderEmailSSL = WebConfigurationManager.AppSettings["DefaultEmailSSL"];
 
         private SEELahoreEntities db = new SEELahoreEntities();
 
@@ -31,37 +32,27 @@ namespace SEELahore2k18.Controllers
         }
 
 
-
+        [HttpPost]
         public JsonResult SendEmail(string EmailSubject, string EmailBody, string EmailTo, string EmailName)
         {
 
             try
-            {
-                var fromAddress = new MailAddress(SenderEmailId, "See Lahore 2k18:" + EmailName);
-                var toAddress = new MailAddress(EmailTo, EmailName);
-                string fromPassword = SenderEmailPassword;
+            {                
+                System.Net.Mail.MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient(SenderEmailHost);
+                mail.From = new MailAddress(SenderEmailId,"SEE Lahore 2k18");
+                mail.To.Add(EmailTo);
+                mail.Subject = EmailSubject;
+                mail.Body = EmailBody;
+                mail.IsBodyHtml = true;
+                SmtpServer.Port = SenderEmailPort;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(SenderEmailId, SenderEmailPassword);
+                SmtpServer.EnableSsl = false;
 
-                var smtp = new SmtpClient
-                {
-                    Host = SenderEmailHost,
-                    Port = SenderEmailPort,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
-                    Timeout = 500000,
-                    UseDefaultCredentials = false
-                };
-                using (var message = new MailMessage(fromAddress, toAddress)
-                {
-                    IsBodyHtml = true,
-                    Subject = EmailSubject,
-                    Body = EmailBody,
+                SmtpServer.Send(mail);
 
-                })
-                {
-                    //message.Bcc.Add("support@printmybox.com");
-                    smtp.Send(message);
-                }
+
+
                 return Json("Email sent successfuly!", JsonRequestBehavior.AllowGet);
 
 
@@ -74,5 +65,39 @@ namespace SEELahore2k18.Controllers
                 return Json("Something went wrong! Please try again", JsonRequestBehavior.AllowGet);
             }
         }
+
+        //[HttpPost]
+        public ActionResult CheckEmail(int? a=0)
+        {
+
+            try
+            {
+                var body = string.Format("test");
+                var _email = "alert@seelahore.com";
+                System.Net.Mail.MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("mail.seelahore.com");
+                mail.From = new MailAddress(_email);
+                mail.To.Add(_email);
+                mail.Subject = "testing email see";
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+                SmtpServer.Port = 25;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(_email, "Seelahore@123");
+                SmtpServer.EnableSsl = false;
+
+                SmtpServer.Send(mail);
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }
