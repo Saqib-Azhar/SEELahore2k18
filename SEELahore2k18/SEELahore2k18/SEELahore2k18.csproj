@@ -213,6 +213,7 @@
     <Compile Include="Controllers\CompetitionRegistrationsController.cs" />
     <Compile Include="Controllers\CompetitionsController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EventDatesController.cs" />
     <Compile Include="Controllers\EventSegmentsController.cs" />
     <Compile Include="Controllers\GuestsController.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Controllers\InstitutesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProudPartnersController.cs" />
+    <Compile Include="Controllers\RegistrationDeadLinesController.cs" />
     <Compile Include="Controllers\RequestStatusController.cs" />
     <Compile Include="Controllers\SeasonGalleriesController.cs" />
     <Compile Include="Controllers\SeasonsController.cs" />
@@ -287,6 +289,9 @@
     <Compile Include="Models\ProudPartner.cs">
       <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegistrationDeadLine.cs">
+      <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RequestStatu.cs">
       <DependentUpon>SEELahoreDBModel.tt</DependentUpon>
     </Compile>
@@ -337,6 +342,7 @@
     <Content Include="App_Data\aspnet-SEELahore2k18-20181021014623_log.ldf">
       <DependentUpon>aspnet-SEELahore2k18-20181021014623.mdf</DependentUpon>
     </Content>
+    <Content Include="assets\ajax-loader.gif" />
     <Content Include="assets\css\material-dashboard.css" />
     <Content Include="assets\css\material-dashboard.min.css" />
     <Content Include="assets\demo\demo.css" />
@@ -405,6 +411,7 @@
     <Content Include="FrontEndDesign\images\left-img.png" />
     <Content Include="FrontEndDesign\images\logo\logo.png" />
     <Content Include="FrontEndDesign\images\logo\logo18.png" />
+    <Content Include="FrontEndDesign\images\logo\see_logo.png" />
     <Content Include="FrontEndDesign\images\organizer.jpg" />
     <Content Include="FrontEndDesign\images\preloder.gif" />
     <Content Include="FrontEndDesign\images\right-img.png" />
@@ -649,6 +656,8 @@
     <Content Include="Models\SEELahoreDBModel.edmx.diagram">
       <DependentUpon>SEELahoreDBModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\SEE27Oct.pubxml" />
+    <None Include="Properties\PublishProfiles\SEEPublished4Nov.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -661,7 +670,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -804,6 +815,14 @@
     <Content Include="Views\Institutes\Details.cshtml" />
     <Content Include="Views\Institutes\Edit.cshtml" />
     <Content Include="Views\Institutes\Index.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Create.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Delete.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Details.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Edit.cshtml" />
+    <Content Include="Views\RegistrationDeadLines\Index.cshtml" />
+    <Content Include="Views\Home\RegistrationDeadline.cshtml" />
+    <Content Include="Views\SeasonGalleries\Seasons.cshtml" />
+    <Content Include="Views\SeasonGalleries\Gallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -819,6 +838,7 @@
   <ItemGroup>
     <Folder Include="docs\" />
     <Folder Include="examples\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -43,6 +43,8 @@
           <Property Name="PreviousExperiance" Type="nvarchar(max)" />
           <Property Name="AmbassadorCategoryId" Type="int" />
           <Property Name="Hostelite" Type="bit" />
+          <Property Name="Why" Type="nvarchar(max)" />
+          <Property Name="ExpectationsFromSEE" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Announcement">
           <Key>
@@ -213,6 +215,15 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Logo" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="RegistrationDeadLines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationType" Type="nvarchar(max)" />
+          <Property Name="From" Type="datetime" />
+          <Property Name="To" Type="datetime" />
+        </EntityType>
         <EntityType Name="RequestStatus">
           <Key>
             <PropertyRef Name="Id" />
@@ -329,6 +340,8 @@
           <Property Name="PreviousExperiance" Type="nvarchar(max)" />
           <Property Name="VolunteerCategoryId" Type="int" />
           <Property Name="Hostelite" Type="bit" />
+          <Property Name="Why" Type="nvarchar(max)" />
+          <Property Name="ExpectationsFromSEE" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_AmbassadorCategories_ToAspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
@@ -753,6 +766,7 @@
           <EntitySet Name="Guests" EntityType="Self.Guests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Institutes" EntityType="Self.Institutes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProudPartners" EntityType="Self.ProudPartners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistrationDeadLines" EntityType="Self.RegistrationDeadLines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestStatus" EntityType="Self.RequestStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeasonGallery" EntityType="Self.SeasonGallery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seasons" EntityType="Self.Seasons" Schema="dbo" store:Type="Tables" />
@@ -895,8 +909,7 @@
             <End Role="Volunteers" EntitySet="Volunteers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -943,6 +956,8 @@
           <NavigationProperty Name="AmbassadorCategory" Relationship="Self.FK_Ambassadors_ToAmbassadorCategories" FromRole="Ambassadors" ToRole="AmbassadorCategories" />
           <NavigationProperty Name="Institute" Relationship="Self.FK_Ambassadors_Institutes" FromRole="Ambassadors" ToRole="Institutes" />
           <NavigationProperty Name="RequestStatu" Relationship="Self.FK_Ambassadors_RequestStatus" FromRole="Ambassadors" ToRole="RequestStatus" />
+          <Property Name="Why" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectationsFromSEE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Announcement">
           <Key>
@@ -1280,6 +1295,8 @@
           <NavigationProperty Name="Institute" Relationship="Self.FK_Volunteers_Institutes" FromRole="Volunteers" ToRole="Institutes" />
           <NavigationProperty Name="RequestStatu" Relationship="Self.FK_Volunteers_RequestStatus" FromRole="Volunteers" ToRole="RequestStatus" />
           <NavigationProperty Name="VolunteerCategory" Relationship="Self.FK_Volunteers_ToVolunteerCategories" FromRole="Volunteers" ToRole="VolunteerCategories" />
+          <Property Name="Why" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectationsFromSEE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_AmbassadorCategories_ToAspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
@@ -1816,7 +1833,17 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="RegistrationDeadLines" EntityType="Model.RegistrationDeadLine" />
         </EntityContainer>
+        <EntityType Name="RegistrationDeadLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="From" Type="DateTime" Precision="3" />
+          <Property Name="To" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1846,6 +1873,8 @@
           <EntitySetMapping Name="Ambassadors">
             <EntityTypeMapping TypeName="Model.Ambassador">
               <MappingFragment StoreEntitySet="Ambassadors">
+                <ScalarProperty Name="ExpectationsFromSEE" ColumnName="ExpectationsFromSEE" />
+                <ScalarProperty Name="Why" ColumnName="Why" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
@@ -2145,6 +2174,8 @@
           <EntitySetMapping Name="Volunteers">
             <EntityTypeMapping TypeName="Model.Volunteer">
               <MappingFragment StoreEntitySet="Volunteers">
+                <ScalarProperty Name="ExpectationsFromSEE" ColumnName="ExpectationsFromSEE" />
+                <ScalarProperty Name="Why" ColumnName="Why" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
@@ -2171,6 +2202,16 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="RegistrationDeadLines">
+            <EntityTypeMapping TypeName="Model.RegistrationDeadLine">
+              <MappingFragment StoreEntitySet="RegistrationDeadLines">
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="RegistrationType" ColumnName="RegistrationType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

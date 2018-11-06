@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SEELahore2k18.Models;
+using System.Data.Entity.Validation;
 
 namespace SEELahore2k18.Controllers
 {
@@ -20,14 +21,14 @@ namespace SEELahore2k18.Controllers
         {
             if (type != 0)
             {
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
-                var ambassadors = db.Ambassadors.Where(s=>s.StatusId == type).Include(a => a.AmbassadorCategory).Include(a => a.RequestStatu);
+                ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                var ambassadors = db.Ambassadors.Where(s => s.StatusId == type).Include(a => a.AmbassadorCategory).OrderByDescending(s => s.Id).Include(a => a.RequestStatu);
                 return View(ambassadors.ToList());
             }
             else
             {
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
-                var ambassadors = db.Ambassadors.Include(a => a.AmbassadorCategory).Include(a => a.RequestStatu);
+                ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+                var ambassadors = db.Ambassadors.Include(a => a.AmbassadorCategory).OrderByDescending(s => s.Id).Include(a => a.RequestStatu);
                 return View(ambassadors.ToList());
             }
         }
@@ -35,17 +36,43 @@ namespace SEELahore2k18.Controllers
 
         public ActionResult UpdateStatus(int? id, int? Status)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                try
+                {
+                    Ambassador volunteer = db.Ambassadors.Find(id);
+                    if (volunteer == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    volunteer.StatusId = Status;
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    string message = "";
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            message = message + validationError.PropertyName + "  " + validationError.ErrorMessage + "\n\n";
+                        }
+                    }
+
+                    HomeController.EntityinfoMessage("Ambassodor status: " + message);
+                    HomeController.EntitywriteErrorLog(ex);
+
+                }
             }
-            Ambassador volunteer = db.Ambassadors.Find(id);
-            if (volunteer == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
             }
-            volunteer.StatusId = Status;
-            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -67,10 +94,24 @@ namespace SEELahore2k18.Controllers
         // GET: Ambassadors/Create
         public ActionResult Create()
         {
+
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            var dateRange = db.RegistrationDeadLines.FirstOrDefault(s => s.RegistrationType == controllerName);
+            var comparisonto = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.To)));
+            var comparisonfrom = (DateTime.Compare(Convert.ToDateTime(DateTime.Now), Convert.ToDateTime(dateRange.From)));
+
+            if (comparisonto != -1)
+            {
+                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations Ended" });
+            }
+            else if (comparisonfrom != 1)
+            {
+                return RedirectToAction("RegistrationDeadline", "Home", new { status = "Registrations will be open soon!" });
+            }
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category");
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status");
-            var instituteslist = db.Institutes.ToList();
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            var InstituteId = db.Institutes.ToList();
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             return View();
         }
 
@@ -80,22 +121,71 @@ namespace SEELahore2k18.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Create([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,Institute,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,AmbassadorCategoryId,Hostelite")] Ambassador ambassador)
+        public ActionResult Create([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,InstituteId,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,AmbassadorCategoryId,Hostelite,Why,ExpectationsFromSEE")] Ambassador ambassador)
         {
-            if (ModelState.IsValid)
+            try
             {
-                ambassador.CreatedAt = DateTime.Now;
-                db.Ambassadors.Add(ambassador);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    var obj = db.Ambassadors.FirstOrDefault(s => s.EmailId == ambassador.EmailId || s.ContactNo == ambassador.ContactNo);
+                    if (obj != null)
+                    {
+                        ViewBag.ErrorMessage = "Email Or Phone No. Already Exists!";
+                        ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+
+                        ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);
+                        ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", ambassador.StatusId);
+                        return View(ambassador);
+                    }
+                    try
+                    {
+                        ambassador.ExpectationsFromSEE = Request.Form["ExpectationsFromSEE"];
+                        ambassador.CreatedAt = DateTime.Now;
+                        ambassador.StatusId = 1;
+                        db.Ambassadors.Add(ambassador);
+                        db.SaveChanges();
+                        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                        string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                        return RedirectToAction("SubmissionResponce", "Home", new { status = "You are successfully registerd for Ambassador with your crdentials,Team SEE Lahore will soon respond you through Email.Stay Connected for Bigest Event of Lahore, See Lahore 2018", url = controllerName + "/" + actionName });
+
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        string message = "";
+                        foreach (var validationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                message = message + validationError.PropertyName + "  " + validationError.ErrorMessage + "\n\n";
+                            }
+                        }
+
+                        HomeController.EntityinfoMessage(ambassador.Name + ": " + message);
+                        HomeController.EntitywriteErrorLog(ex);
+                        string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                        string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                        return RedirectToAction("SubmissionResponce", "Home", new { status = "Due to Server overload something went wrong! please try again. Sorry for Inconvenience", url = controllerName + "/" + actionName });
+
+                    }
+                }
+
+
+                ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
+
+                ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);
+                ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", ambassador.StatusId);
+                return View(ambassador);
+            }
+            catch (Exception ex)
+            {
+
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                return RedirectToAction("SubmissionResponce", "Home", new { status = "Submitted Successfully!", url = controllerName + "/" + actionName });
-            }
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+                HomeController.infoMessage(ex.Message);
+                HomeController.writeErrorLog(ex);
+                return RedirectToAction("SubmissionResponce", "Home", new { status = "Due to Server overload something went wrong! please try again. Sorry for Inconvenience", url = controllerName + "/" + actionName });
 
-            ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);
-            ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", ambassador.StatusId);
-            return View(ambassador);
+            }
         }
 
         
@@ -112,7 +202,7 @@ namespace SEELahore2k18.Controllers
                 return HttpNotFound();
             }
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", ambassador.StatusId);
             return View(ambassador);
         }
@@ -122,7 +212,7 @@ namespace SEELahore2k18.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,Institute,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,AmbassadorCategoryId,Hostelite")] Ambassador ambassador)
+        public ActionResult Edit([Bind(Include = "Id,Name,ContactNo,FacebookId,EmailId,CNIC,InstituteId,StatusId,CreatedAt,Address,CityOfResidence,Degree,PreviousExperiance,AmbassadorCategoryId,Hostelite")] Ambassador ambassador)
         {
             if (ModelState.IsValid)
             {
@@ -132,7 +222,7 @@ namespace SEELahore2k18.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.AmbassadorCategoryId = new SelectList(db.AmbassadorCategories, "Id", "Category", ambassador.AmbassadorCategoryId);
-            ViewBag.InstitutesList = new SelectList(db.Institutes, "Id", "Institute1");
+            ViewBag.InstituteId = new SelectList(db.Institutes, "Id", "Institute1");
             ViewBag.StatusId = new SelectList(db.RequestStatus, "Id", "Status", ambassador.StatusId);
             return View(ambassador);
         }

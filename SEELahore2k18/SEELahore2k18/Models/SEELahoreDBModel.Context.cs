@@ -13,7 +13,7 @@ namespace SEELahore2k18.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    using System.ComponentModel;    public partial class SEELahoreEntities : DbContext
+    public partial class SEELahoreEntities : DbContext
     {
         public SEELahoreEntities()
             : base("name=SEELahoreEntities")
@@ -51,5 +51,6 @@ namespace SEELahore2k18.Models
         public virtual DbSet<TalentGala> TalentGalas { get; set; }
         public virtual DbSet<VolunteerCategory> VolunteerCategories { get; set; }
         public virtual DbSet<Volunteer> Volunteers { get; set; }
+        public virtual DbSet<RegistrationDeadLine> RegistrationDeadLines { get; set; }
     }
 }

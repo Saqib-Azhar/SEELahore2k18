@@ -2,61 +2,111 @@
 
 @{
     ViewBag.Title = "Index";
+    int totalCount = Model.Count();
 }
 
-<h2>Index</h2>
+<h2>Competition Registrations</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
-</p>*@
 <table class="table table-striped" style="text-align:center;border:double" border="1">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Sr. No.
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ContactNo)
+            @Html.DisplayName("Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Designation)
+            @Html.DisplayName("Contact No")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EmailId)
+            @Html.DisplayName("Email Id")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CNIC)
+            @Html.DisplayName("CNIC")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Institute)
+            @Html.DisplayName("Institute")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
+            @Html.DisplayName("Created At")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayName("Address")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.City)
+            @Html.DisplayName("City")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Competition.CompetitionName)
+            @Html.DisplayName("Competition Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RequestStatu.Status)
+            @Html.DisplayName("Request Status")
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
+
+    totalCount--;
     <tr>
+        <td>
+            @totalCount
+
+            <div id="emailModel_@totalCount" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Send Email</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="EmailName" class="pull-left">Name: </label><input type="text" value="@item.Name" id="EmailName_@item.Id" class="form-control" />
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="EmailPhone" class="pull-left">Phone No: </label><input type="text" value="@item.ContactNo" id="EmailPhone_@item.Id" class="form-control" disabled />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="EmailName" class="pull-left">Email: </label> <input type="text" value="@item.EmailId" id="EmailTo_@item.Id" class="form-control" disabled />
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="EmailName" class="pull-left">Subject: </label> <input type="text" value="SEE Lahore" id="EmailSubject_@item.Id" class="form-control" />
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="EmailName" class="pull-left">Message: </label>
+                                    <textarea id="EmailBody_@item.Id" class="form-control" style="height:115px!important">Dear @item.Name!
+Congratulations your participation request for competition in SEE lahore 2k18 is accepted.
+                                    </textarea>
+                                </div>
+                            </div><br />
+
+                        </div>
+                        <div class="modal-footer">
+                            <img src="/assets/ajax-loader.gif" id="loading-indicator_@item.Id" style="display:none" />
+                            <button type="button" class="btn emailFormButton btn-info" onclick="SendSMS(@item.Id)">SMS</button>    
+                            <button type="button" class="btn emailFormButton btn-success" onclick="SendEmail(@item.Id)">Email</button>
+                            <button type="button" class="btn emailFormButton btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ContactNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Designation)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EmailId)
@@ -65,7 +115,7 @@
             @Html.DisplayFor(modelItem => item.CNIC)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Institute)
+            @Html.DisplayFor(modelItem => item.Institute.Institute1)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -83,11 +133,49 @@
             @Html.DisplayFor(modelItem => item.RequestStatu.Status)
         </td>
         <td>
-            @Html.ActionLink("Approve", "UpdateStatus", new { id=item.Id, status = 2 }, htmlAttributes: new { @class="btn btn-sm btn-primary"}) <br />
-            @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
-            @Html.ActionLink("Decline", "UpdateStatus", new { id=item.Id, status = 3 }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+            @*Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
+                <br />
+                <a href="/StallRequests/CompetitionRegistrations?id=@item.Id&status=2" class="btn btn-sm btn-primary">Approve</a>
+                <a href="/StallRequests/CompetitionRegistrations?id=@item.Id&status=3" class="btn btn-sm btn-danger">Decline</a>*@
+
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary", @style = "width:90px!important; height:30px!important" }) <br />
+            <a href="/Ambassadors/UpdateStatus?id=@item.Id&status=2" class="btn btn-sm btn-primary" style="width:90px!important; height:30px!important">Approve</a><br />
+            <a href="/Ambassadors/UpdateStatus?id=@item.Id&status=3" class="btn btn-sm btn-danger" style="width:90px!important; height:30px!important">Decline</a><br />
+            <button type="button" class="btn emailFormButton btn-info btn-sm" data-toggle="modal" data-target="#emailModel_@totalCount" style="width:90px!important; height:30px!important">Contact</button>
         </td>
     </tr>
 }
 
 </table>
+
+
+
+<script>
+    
+    function SendSMS(id)
+    {
+        alert("SMS service is not integrated yet.");
+    }
+
+    function SendEmail(id)
+    {
+        $('#loading-indicator_' + id).show();
+        $(".emailFormButton").attr("disabled", true);
+        $.ajax({
+            url: "/Email/SendEmail",
+            type: 'POST',
+            data: { EmailSubject: $('#EmailSubject_' + id).val(), EmailBody: $('#EmailBody_' + id).val(), EmailTo: $('#EmailTo_' + id).val(), EmailName: $('#EmailName_' + id).val() },
+            success: function (result) {
+                $('#loading-indicator_' + id).hide();
+                $(".emailFormButton").attr("disabled", false);
+                alert(result);
+            },
+            error: function () {
+                $('#loading-indicator_' + id).hide();
+                $(".emailFormButton").attr("disabled", false);
+                alert("error");
+            }
+        });
+    }
+
+</script>

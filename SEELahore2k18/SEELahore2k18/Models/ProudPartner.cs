@@ -12,11 +12,11 @@ namespace SEELahore2k18.Models
     using System;
     using System.Collections.Generic;
     
-    using System.ComponentModel;    public partial class ProudPartner
+    public partial class ProudPartner
     {
         public int Id { get; set; }
         public string CreatedBy { get; set; }
-        [DisplayName("Created At")] public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public string PartnerName { get; set; }
         public string Description { get; set; }
         public string Logo { get; set; }

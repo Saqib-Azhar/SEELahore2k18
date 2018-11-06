@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\sazhar\Desktop\SEELahore\SEELahore2k18\SEELahore2k18\Models\SEELahoreDBModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\saqib\Source\Repos\SEELahore2k18\SEELahore2k18\SEELahore2k18\Models\SEELahoreDBModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

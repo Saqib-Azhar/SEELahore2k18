@@ -11,27 +11,40 @@ namespace SEELahore2k18.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
-
-    using System.ComponentModel;    using System.ComponentModel;    public partial class Ambassador
+    public partial class Ambassador
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        [DisplayName("Contact No.")] public string ContactNo { get; set; }
+
+        [Required(ErrorMessage = "You must provide a phone number")]
+        [Display(Name = "Phone")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0]{1})\)?([0-9]{3})\)?([0-9]{3})?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+
+        public string ContactNo { get; set; }
         public string FacebookId { get; set; }
+
+        [DisplayName("Email")]
+        [Required(ErrorMessage = "The email address is required")]
+        [EmailAddress(ErrorMessage = "The email address is not valid")]
         public string EmailId { get; set; }
+        [MaxLength(13)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "CNIC must be 13 Digits Numeric")]
         public string CNIC { get; set; }
-        [DisplayName("Institute")]
         public Nullable<int> InstituteId { get; set; }
-        [DisplayName("Status")] public Nullable<int> StatusId { get; set; }
-        [DisplayName("Created At")] public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<int> StatusId { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
         public string Address { get; set; }
-        [DisplayName("City Of Residence")] public string CityOfResidence { get; set; }
+        public string CityOfResidence { get; set; }
         public string Degree { get; set; }
-        [DisplayName("Previous Experiance")] public string PreviousExperiance { get; set; }
-        [DisplayName("Ambassador Category")]
+        public string PreviousExperiance { get; set; }
         public Nullable<int> AmbassadorCategoryId { get; set; }
         public Nullable<bool> Hostelite { get; set; }
+        public string Why { get; set; }
+        public string ExpectationsFromSEE { get; set; }
     
         public virtual AmbassadorCategory AmbassadorCategory { get; set; }
         public virtual Institute Institute { get; set; }
